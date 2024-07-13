@@ -1,0 +1,27 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
+<form method="post" action="update_cv_profil">
+    {% csrf_token %}
+    <header>
+        <a href="#" id="boutonRetour">
+            <i class="fa fa-arrow-left arrow"></i>
+        </a>
+        Editer votre profil CV
+    </header>
+    <br>
+
+    <textarea name="description" id="description" cols="30" rows="10" class="texta" required>{{ profil.description }}</textarea>
+
+    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace("description");
+    </script>
+
+    <div>
+        <button type="submit"> Mettre à jour </button>
+    </div>
+</form>
+{% endblock %}

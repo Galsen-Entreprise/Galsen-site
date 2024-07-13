@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Commande</title>
+
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/commande.css' %}">
+
+        <!-- Box Icone -->
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+    </head>
+    <body>
+        
+        <section class="corp_du_site">
+
+            <div class="bg"></div>
+    
+            <!-- Le Menu -->
+            <header>
+                <a class="logo">{{ produit.nom_produit }}</a>
+                <div class="toggle"></div>
+                <ul class="navigation">
+                    <li>
+                        <a href="#" class="active">Produit de 
+                            <span class="danger">{{ produit.boutique.nom_boutique }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </header>
+    
+            <!-- Le Menu -->
+            <div class="content">
+                <div class="textBox">
+                    <h2>
+                        {{ produit.nom_produit }} {{ produit.prix }} {{ produit.boutique.devise_money }}
+                    </h2>
+                    <p>
+                        {{ produit.description }}
+                    </p>
+                    
+                    <button class="Learn" type="submit" id="Commande">
+                        <i class="fa fa-shopping-cart"></i> 
+                        Commander
+                    </button>
+                    
+
+                    <i class="danger">10 utilisateurs commandé</i>
+                    
+                </div>
+                <div class="imgBox">
+                    <img src="{{ produit.mediasproduct_set.first.image.url }}" class="fruits">
+                </div>
+            </div>
+    
+            <ul class="thumb">
+                {% for media in produit.mediasproduct_set.all %}
+                    {% if media.image %}
+                        <li data-text="{{ produit.nom_produit }}" class="active"><img src="{{ media.image.url }}" onclick="imgSlider('{{ media.image.url }}')"></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+    
+            <ul class="sci">
+                <li>
+                    <a href="mailto:{{ produit.boutique.user.email }}">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="tel:+{{ produit.boutique.user.indicatif_pays }}{{ produit.boutique.user.number_phone }}">
+                        <i class="fa fa-phone"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://wa.me/+{{ produit.boutique.user.indicatif_pays }}{{ produit.boutique.user.number_phone }}">
+                        <i class="fa fa-whatsapp"></i>
+                    </a>
+                </li>
+
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-snapchat"></i></a></li>
+            </ul>
+
+            <div class="valide-commande" id="valide-commande">
+                <span class="close_views" id="close_views">&times;</span>
+
+                <div class="content-commande">
+                    <header>
+                        <h3>
+                            Confirmer votre Commande!
+                        </h3>
+                    </header>
+
+                    <form class="precise" method="post" action="{% url 'produit_commande' produit_id=produit.pk %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" name="commande" value="a commander ce produit." readonly Style="display: none;">
+                        <p>
+                            <b class="danger">
+                                A noter:
+                            </b>
+                            <i>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur delectus, deserunt dolore harum id qui provident saepe corrupti molestiae animi ea quas eligendi rem soluta consequuntur at voluptatum aliquid?
+                            </i>
+                            &nbsp;
+                        </p>
+
+                        <textarea name="precision" id="" cols="30" rows="10"></textarea>
+    
+                        <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+                        <script>
+                            CKEDITOR.replace("precision");
+                        </script>
+
+                        <div>
+                            <button class="commander" type="submit"> Valider! </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    
+        </section>
+
+        <script src="{% static 'assets/ressources/scripts/commande.js' %}"></script>
+        <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script> 
+        <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+        <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+
+    </body>
+</html>

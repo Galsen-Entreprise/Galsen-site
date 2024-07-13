@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALSEN</title>
+
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slide.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+    
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+
+            <button id="boutonRetour">
+                <i class="fa fa-arrow-left" aria-hidden="true"> Retour </i>
+            </button>
+
+            
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+
+    
+
+    <!-- Contenu -->
+    <main class="middle">
+        <section class="center">
+            <section class="posts">
+                
+                <!-- ======== Image Profile ============= -->
+                    <section class="image_profile">
+                        <div>
+                            {% if entreprise.banner_image and entreprise.banner_image.url %}
+                                <a href="{{ entreprise.banner_image.url }}"  data-lightbox="mygallery" class="banner">
+                                    <img src=" {{ entreprise.banner_image.url }}" alt="">
+                                </a>
+                                {% else %}
+                                <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="banner">
+                                    <img src="{% static 'assets/default/user.png' %}">
+                                </a>
+                            {% endif %}
+                        </div>
+
+                            {% if entreprise.profile_image and entreprise.profile_image.url %}
+                                <a href="{{ entreprise.profile_image.url }}"  data-lightbox="mygallery" class="photo">
+                                        <img src="{{ entreprise.profile_image.url }}" alt="">
+                                    <h2> {{ entreprise.first_name }} {{ entreprise.last_name }} </h2>
+                                </a>
+                            {% else %}
+                                <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="photo">
+                                    <img src="{% static 'assets/default/user.png' %}">
+                                    <h2> {{ entreprise.first_name }} {{ entreprise.last_name }} </h2>
+                                </a>
+                            {% endif %}
+                        
+                    </section>
+
+                    <br>
+                    <div class="Followers_number">
+                        <div class="numbers">
+                            <div class="numbers_Abonnement">
+                                <a href="{% url 'abonnementId' abonnementId=entreprise.id %}"><i class="fa fa-eye">Abonnements:</i> <span>{{ entreprise.following_users.count }}</span> &nbsp; </a>
+                            </div>
+                        
+                            <div class="numbers_Abonne">
+                                <a href="{% url 'abonnerId' abonnerId=entreprise.id %}">&nbsp;|
+                                    <i class="fa fa-thumbs-up primary"> 
+                                        <span>{{ entreprise.followers.count }}</span>&nbsp; Abonnés:
+                                    </i>
+                                </a>
+                            </div>
+                        
+                            <div class="numbers_like">
+                                <a href="#">&nbsp;|
+                                    <i class="fa fa-heart danger"> 
+                                        <span>{{ total_likes_received }}</span>&nbsp; Aimes:
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="temoin">
+                        <hr class="divider">
+                    </div>
+
+                    <!-- ============ A Propos ================= -->
+                    <br>
+                    <section class="list-propos">
+                        <div class="propos-list">
+                            <a href="#">
+                                <i class="fa fa-briefcase"></i>
+                                <span> {{ entreprise.rôle|upper }} </span>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span> {{ entreprise.metier }} </span>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa fa-map-marker"></i>
+                                <span> {{ entreprise.pays }} ({{ entreprise.ville }}) </span>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa fa-home"></i>
+                                <span> {{ entreprise.quartier }} </span>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa fa-flag"></i>
+                                <span> {{ entreprise.langue }} </span>
+                            </a>
+
+                            <a href="mailto:{{ entreprise.email }}">
+                                <i class="fa fa-envelope"></i>
+                                <span> {{ entreprise.email }} </span>
+                            </a>
+
+                            <a href="tel:+{{ entreprise.indicatif_pays }} {{ entreprise.number_phone }}">
+                                <i class="fa fa-phone"></i>
+                                <span>+{{ entreprise.indicatif_pays }} {{ entreprise.number_phone }} </span>
+                            </a>
+
+                            <a href="https://wa.me/+{{ entreprise.indicatif_pays }}{{ entreprise.number_phone }}">
+                                <i class="fa fa-whatsapp"></i>
+                                <span> {{ entreprise.indicatif_pays }} {{ entreprise.number_phone }} </span>
+                            </a>
+
+                            <a href="https://wa.me/{{ entreprise.indicatif_pays }}{{ entreprise.number_whatsapp }}">
+                                <i class="fa fa-telegram"></i>
+                                <span> {{ entreprise.number_telegram }} </span>
+                            </a>
+
+                        </div>
+                    </section>
+
+                    <div class="temoin">
+                        <br>
+                        <hr class="divider">
+                    </div>
+
+
+                    <br>
+                
+                    <center>
+                        <a href="{% url 'a_propos_detail' user_id=entreprise.id %}" class="Profilage"> 
+                            Savoir Plus sur l'entreprise
+                        </a>
+                    </center>
+                
+                <!-- ============ Posts ================= -->
+                {% for post in entreprise.post_set.all %}
+                <section class="actuality">
+                    <section class="profile">
+                        <a href="#" class="user_infos">
+                            <div class="user_Photo">
+                                {% if entreprise.profile_image %}
+                                    <img src="{{ entreprise.profile_image.url }}">
+                                {% else %}
+                                    <img src="{% static 'assets/default/user.png' %}">
+                                {% endif %}
+                            </div>
+                            <div class="user_details">
+                                <div class="name">
+                                    <h3 class="name-user">
+                                        {{ entreprise.first_name }} {{ entreprise.last_name }}
+                                    </h3>
+                                </div>
+                                <div class="user_localhome">
+                                    <span class="fa fa-map-marker"> 
+                                        <b>{{ entreprise.quartier }} - {{ entreprise.ville }} - {{ entreprise.pays }}</b> 
+                                    </span>
+                                </div>
+                                <div class="time_post">
+                                    <span class="primary"> {{ post.date_creation_post }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </section>
+
+                    <section class="content_post">
+                        <div class="content-post">
+                            <div class="title">
+                                List One List
+                            </div>
+                            <div class="description-post">
+                                <p>
+                                    {{ post.contenu_post|safe }}
+                                </p>
+                            </div>
+
+                            <div class="media-carousel" data-post-id="{{ post.id }}">
+                                <button class="prev-btn">&#10094;</button>
+                                <div class="media-wrapper" onclick="openModal(event)">
+                                    {% for media in post.mediaspost_set.all %}
+                                        {% if media.image %}
+                                            <img src="{{ media.image.url }}" alt="Media 1" class="affiche"> 
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if post.video %}
+                                        <video autoplay muted controls loop disablepictureinpicture controlslist="nodownload noplaybackrate" class="affiche" alt="Media 1">
+                                            <source src="{{ post.video.url }}" type="video/mp4">
+                                        </video>
+                                    {% endif %}
+                                    <!-- Ajoutez plus d'images selon vos besoins -->
+                                </div>
+                                <button class="next-btn">&#10095;</button>
+                                <div class="media-indicator"></div>
+                            </div>
+            
+                            
+                            <!-- Modal pour afficher les images en grand -->
+                            <div id="modal" class="modal" onclick="closeModal()">
+                                <span class="close_views">&times;</span>
+                                <img class="modal-content" id="modal-img">
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="infos_followings">
+                        <section class="like">
+                            <a href="{% url 'post_likes' post.pk %}">
+                                <i class="fa fa-thumbs-up primary"></i>
+                                <i class="text"> Aimé par</i> 
+                                <b class="primary"> {{ post.like_post.count}}</b>
+                                <i class="text">membre(s). &nbsp;</i>
+                            </a>
+                        </section>
+            
+                        <section class="shares">
+                            <a href="#">
+                                <i class="fa fa-share-alt primary"></i>
+                                <i class="text">Et partagé par</i> 
+                                <b class="primary">8 000</b>
+                                <i class="text">membres.</i>
+                            </a>
+                        </section>
+                    </div>
+    
+                    <section class="followers">
+                        <a class="like-btn" data-like-url="{% url 'likes' post.pk %}">
+                            <form id="like-form-{{ post.pk }}" method="POST" action="{% url 'likes' post.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="button-like" data-post-id="{{ post.pk }}">
+                                    <span class="like-icon" id="likeIcon{{ post.pk }}">
+                                        {% if user.is_authenticated %}
+                                            {% if request.user in post.like_post.all %}
+                                                <i class="fa fa-thumbs-up primary"></i>
+                                            {% else %}
+                                                <i class="fa fa-thumbs-down"></i>
+                                            {% endif %}
+                                        {% else %}
+                                            <i class="fa fa-thumbs-down"></i>
+                                        {% endif %}
+                                    </span>
+                                    <b class="number-like primary">{{ post.like_post.count }}</b>
+                                </button>
+                            </form>
+                    
+                        </a>
+            
+                        <a href="{% url 'post_comments' post.id %}">
+                            <i class="fa fa-comments">
+                                <span class="primary" style="font-weight: bold;">
+                                    {% if post.nombre_commentaire > 1000 %}
+                                        {{ post.nombre_commentaire|divisibleby:1000|floatformat:"0.1" }}k
+                                    {% else %}
+                                        {{ post.nombre_commentaire }}
+                                    {% endif %}
+                                </span>
+                            </i>
+                        </a>
+            
+                        <a onclick="openPopup('{{ post.id }}')">
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+    
+                    </section>
+
+                    {% for post in entreprise.post_set.all %}
+                        <section class="popup popup-{{ post.id }}">
+                            <div class="content-popup">
+                                <span class="close" onclick="closePopup('{{ post.id }}')">&times;</span>
+                        
+                                <h2>Partager sur:</h2>
+
+                                <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                        
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                        
+                                <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+
+                                <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+
+                        
+                                <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                        
+                            </div>
+                        
+                        </section>
+                    {% endfor %}
+
+                    
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+                </section>
+                {% endfor %}
+
+            </section>
+    
+            {% include 'sidebar/sidebar.html' %}
+        </section>
+    </main>
+
+    
+
+    <script src="{% static 'assets/ressources/scripts/profile.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/header.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

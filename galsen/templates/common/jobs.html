@@ -1,0 +1,83 @@
+{% load static %}
+<section>
+    <form action="" class="search">
+        <div class="form-group">
+            <input type="search" name="job" id="search-input" placeholder="Rechercher une offre"/>
+            <button type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+    
+</section>
+
+<section class="slider pubPolitique">
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner.png' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner3.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner4.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner5.jpg' %}">
+        </a>
+    </div>
+
+    <div class="prev-button" onclick="plusSlideP(-1)">&#10094;</div>
+    <div class="next-button" onclick="plusSlideP(1)">&#10095;</div>
+
+    <div class="lines PageLines">
+        <div class="line_P" onclick="currentSlideP(1)"></div>
+
+        <div class="line_P" onclick="currentSlideP(2)"></div>
+
+        <div class="line_P" onclick="currentSlide(3)"></div>
+
+        <div class="line_P" onclick="currentSlide(4)"></div>
+    </div>
+</section>
+
+<section class="posts professionnals">
+
+    {% for job in jobs %}
+
+        <a href="{% url 'job_detail' job_id=job.id %}" class="users">
+            {% if job.user.bannner_image and job.user.banner_image.url %}
+                        <img src="{{ job.user.banner_image.url}}" class="couverture">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}" class="couverture">
+            {% endif %}
+
+            <div class="user_profile">
+                
+                <ul>
+                    {{ job.user.rôle|upper }}:
+                    <li> {{ job.user.pays }} ({{ job.user.ville }}) <span class="fa fa-map-marker primary"></span></li>
+                    <li>{{ job.user.email }} <span class="fa fa-envelope primary"></span></li>
+                    <li>+{{ job.user.indicatif_pays }} {{ job.user.number_phone }} <span class="fa fa-phone primary"></span></li>
+                    <li>Posté le {{ job.date_creation_post|date:"d F Y à H:i" }} <span class="fa fa-clock-o danger"></span></li>
+                    <br>
+                    <h3> {{ job.title|safe|truncatewords_html:3 }}</h3>
+                    <h4>
+                        {{ job.contenu_job|safe|truncatewords_html:10 }}
+                    </h4>
+                </ul>
+            </div>
+        </a>
+
+    {% endfor %}
+
+</section>

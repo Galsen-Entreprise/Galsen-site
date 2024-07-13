@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Postes</title>
+    
+        <!-- Box Icone -->
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+    
+        <!-- Style -->
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/header.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/profile.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    
+    </head>
+<body>
+
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+           
+            <button id="boutonRetour">
+                <i class="fa fa-arrow-left" aria-hidden="true"> Retour </i>
+            </button>
+
+
+            
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+    <main class="middle">
+
+        <section class="center">
+
+            <section class="image_profile">
+                <div>
+                    {% if post.user.bannner_image and post.user.banner_image.url %}
+                        <a href="{{ post.user.banner_image.url}}"  data-lightbox="mygallery" class="banner">
+                            <img src=" {{ post.user.banner_image.url}}" alt="">
+                        </a>
+                    {% else %}
+                        <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="banner">
+                            <img src="{% static 'assets/default/user.png' %}">
+                        </a>
+                    {% endif %}
+                </div>
+                    {% if post.user.profile_image and post.user.profile_image.url %}
+                        <a href="{{ post.user.profile_image.url}}"  data-lightbox="mygallery" class="photo">
+                            <img src="{{ post.user.profile_image.url}}" alt="">
+                            {% if post.user.rôle == "personnel" %}
+                                <h2> {{ post.user.first_name }} {{ post.user.last_name }} 
+                                    <p class="normal"> Posté le <i class="primary"> {{ post.date_creation_post|date:"d F Y à H:i" }} </i> </p>
+                                </h2>
+                            {% else %}
+                                <h2> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} 
+                                    <p class="normal"> Posté le <i class="primary"> {{ post.date_creation_post|date:"d F Y à H:i" }} </i> </p>
+                                </h2>
+                            {% endif %}
+                        </a>
+                    {% else %}
+                    <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="photo">
+                        <img src="{% static 'assets/default/user.png' %}">
+                        {% if post.user.rôle == "personnel" %}
+                            <h2> {{ post.user.first_name }} {{ post.user.last_name }} </h2>
+                        {% else %}
+                            <h2> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} <span>( {{ post.user.rôle|upper }} )</span> 
+                                <p class="normal"> Posté le <i class="primary"> {{ post.date_creation_post|date:"d F Y à H:i" }} </i> </p>
+                            </h2>
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                
+            </section>
+
+            <div class="temoin">
+                <br>
+                <hr class="divider">
+            </div>
+
+            <section class="list-propos">
+                <div class="propos-list">
+
+                    <a href="#">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span> {{ post.user.metier }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-map-marker"></i>
+                        <span> {{ post.user.pays }} ({{ post.user.ville }}) </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span> {{ post.user.quartier }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span> {{ post.user.email }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-phone"></i>
+                        <span>+{{ post.user.indicatif_pays }} {{ post.user.number_phone }} </span>
+                    </a>
+
+                    <a href="https://wa.me/+{{ post.user.indicatif_pays }}{{ post.user.number_whatsapp }}">
+                        <i class="fa fa-whatsapp"></i>
+                        <span> {{ post.user.number_whatsapp }} </span>
+                    </a>
+
+                    <a href="https://wa.me/{{ post.user.indicatif_pays }}{{ post.user.number_whatsapp }}">
+                        <i class="fa fa-telegram"></i>
+                        <span> {{ post.user.number_telegram }} </span>
+                    </a>
+
+                </div>
+
+                <center>
+                    <a href="{% url 'user_detail' pk=post.user.id %}" class="postuler">
+                        Savoir Plus
+                    </a>
+                </center>
+            </section>
+
+            <div class="temoin">
+                <br>
+                <hr class="divider">
+            </div>
+
+            <section class="post postule-post">
+                {{ post.contenu_post|safe }}
+
+                <div class="post-details" id="imageCarousel">
+                        
+                    {% for media in post.mediaspost_set.all %}
+                        {% if media.image %}
+                            <a href="{{ media.image.url }}" data-lightbox="mygallery" class="img">
+                                <img src="{{ media.image.url }}" class="affiche" alt="Post Image">
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if post.video %}
+                        <video autoplay muted controls loop disablepictureinpicture controlslist="nodownload noplaybackrate" class="img affiche">
+                            <source src="{{ post.video.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                </div>
+
+                <center>
+
+                    <a class="fa fa-share postuler" id="shareButton">
+                        PARTAGER
+                    </a>
+
+                    <section class="popup popup" id="popup">
+                        <div class="content-popup">
+                            <span class="close" id="closePopup">&times;</span>
+                    
+                            <h3>Partager sur:</h3>
+    
+                            <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'job_detail' job_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                    
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'job_detail' job_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                    
+                            <a href="https://t.me/share/url={% url 'job_detail' job_id=post.id %}&text={{ post.contenu_job|truncatewords_html:1 }}" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+    
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'job_detail' job_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+    
+                            <a href="https://www.pinterest.com/pin/create/button/?url={% url 'job_detail' job_id=post.id %}&description={{ post.contenu_job|truncatewords_html:1 }}" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+    
+                    
+                            <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                    
+                        </div>
+                    
+                    </section>
+                </center>
+            </section>
+        </section>
+
+    </main>
+
+
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/share_details.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

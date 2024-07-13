@@ -1,0 +1,93 @@
+{% extends 'auth/layouts/forms.html' %}
+
+{% load static %}
+
+{% block Authentification %}
+<img src="{% static 'assets/logo/school.png' %}">
+
+<div id="wrapper">
+    <div class="form-container">
+        <span class="form-heading"> Profil </span>
+        
+        <form method="POST" action="/profil">
+            {% csrf_token %}
+
+
+            <div class="input-group wrapper">
+                <i class="fa fa-map-marker"></i>
+                <div autocomplete="off">
+                    <div>
+                        <input type="text" class="form-control" id="countryInput" name="pays" placeholder="Votre pays" onchange="updateIndicatif()" autocomplete="off" required />
+
+                      <span class="bar"></span>
+                    </div>
+                    <ul class="list"></ul>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-map"></i>
+                <input id="ville" type="text" class="form-control" name="ville" value="" autocomplete="off" required placeholder="Votre ville">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-home"></i>
+                <input id="quartier" type="text" class="form-control" name="quartier" value="" autocomplete="off" required placeholder="Votre quartier">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-flag"></i>
+                <input id="indicatif" type="number" class="form-control" autocomplete="off" name="indicatif" value="" required placeholder="Votre indicatif pays" oninput="limitLength(this, 3)">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-phone"></i>
+                <input id="phone" type="number" class="form-control" autocomplete="off" name="phone" value="" required placeholder="Votre numéro de téléphone">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <input id="firstname" type="text" class="form-control" autocomplete="off" name="firstname" required placeholder="Prénom du directeur de l'école">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <input id="lastname" type="text" class="form-control" autocomplete="off" name="lastname" required placeholder="Nom du directeur de l'école">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-calendar"></i>
+                <input type="date" name="birthday" id="date" min="1960-01-01" style="font-weight: bold;" required>
+                <span class="bar"></span>
+            </div><br>
+            <h3 class="danger" style="margin-left: 10px;">Date de naissance ^</h3>
+
+
+            <div class="input-group">
+                <button type="submit" name="inscription" value="Valider">
+                    Valider
+                </button>
+            </div>
+
+            
+
+        </form>
+        <script>
+            // Function to limit input length to maxDigits
+            function limitLength(element, maxDigits) {
+                if (element.value.length > maxDigits) {
+                    element.value = element.value.slice(0, maxDigits); // Truncate to maxDigits
+                }
+            }
+        </script>
+
+    </div>
+</div>
+
+{% endblock %}

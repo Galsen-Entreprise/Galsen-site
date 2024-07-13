@@ -1,0 +1,52 @@
+
+{% extends 'auth/layouts/forms.html' %}
+{% load static %}
+
+{% block Authentification %}
+   
+<img src="{% static 'assets/logo/school.png' %}">
+    <div id="wrapper"> 
+        <div class="form-container">
+            <span class="form-heading">nouveau mot de passe </span>
+
+                <h3 class="danger">{{ error }}</h3>
+
+                {% for message in messages %}
+                    <h2 class="danger">{{ message }}</h2>
+                {% endfor %}
+
+                <form  method='POST'>
+                    {% csrf_token %}
+                    <!-- {{form.as_p}} -->
+
+                    <div class="inputfield">
+                        <label><i class="fa fa-unlock"></i>Password</label>
+                        {{ form.password1 }}
+                        <span class="bar"></span>
+                        <!-- {% if form.password1.errors %}
+                            <p class="danger">{{ form.password1.errors|join:", " }}</p>
+                        {% endif %} -->
+                    </div>
+        
+                    <div class="inputfield">
+                        <label><i class="fa fa-lock"></i>Confirm</label>
+                        {{ form.password2 }}
+                        <span class="bar"></span>
+                        <!-- {% if form.password2.errors %}
+                            <p class="danger">{{ form.password2.errors|join:", " }}</p>
+                        {% endif %} -->
+                    </div>
+
+                    <!-- Autres champs du formulaire si nécessaire -->
+
+                    <div class="input-group">
+                        <button type="submit">
+                            Modifier
+                        </button>
+                    </div>
+                </form>
+           
+        </div> 
+        
+    </div>
+{% endblock  %}

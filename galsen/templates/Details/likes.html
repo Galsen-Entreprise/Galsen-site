@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details_like.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+    <title>Utilisateurs qui ont aimé ce post</title>
+</head>
+<body>
+
+    
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
+    <section class="listes">
+        <header>
+            <a href="#" id="boutonRetour">
+                <i class="fa fa-arrow-left arrow"></i>
+            </a>
+            Les utilisateurs qui ont aimé ce post
+        </header>
+
+        <div class="temoin">
+            <br>
+            <hr class="divider">
+        </div>
+
+        
+
+        <section>
+            {% if users_liking_post %}
+                {% for user in users_liking_post %}
+                    <a href="{% url 'user_detail' pk=user.id %}" class="user-card">
+                        <div class="user-card-img">
+                            {% if user.profile_image and user.profile_image.url %}
+                                <img src="{{ user.profile_image.url}}">
+                            {% else %}
+                                <img src="{% static 'assets/default/user.png' %}">
+                            {% endif %}
+                        </div>
+                        <div class="user-card-info">
+                            {% if user.rôle == "personnel" %}
+                                    <h2><i class="fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
+                                {% else %}
+                                    <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
+                                    <p><span class=""><i class="danger">Type:</i>{{ user.rôle|upper }}</span> </p>
+                            {% endif %}
+                            <p><span class="fa fa-envelope primary"> <i class="danger">Email:</i> </span> {{ user.email }} </p>
+                            <p><span class="fa fa-map-marker primary"> <i class="danger">Addresse:</i> </span> {{ user.quartier }}  - {{ user.ville }}  - {{ user.pays }} </p>
+                        </div>
+                    </a>
+                {% endfor %}
+                {% else %}
+                    <center>
+                        <p class="success">
+                            Aucun utilisateur n'a aimé ce post.
+                        </p>
+                    </center>
+            {% endif %}       
+        </section>
+    </section>
+
+    
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+</body>
+</html>

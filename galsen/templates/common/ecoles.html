@@ -1,0 +1,99 @@
+{% load static %}
+<section>
+    <form class="search">
+        <div class="form-group">
+            <input type="search" name="ecole" id="search-input" placeholder="Rechercher une école"/>
+            <button type="submit" class="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+    
+</section>
+
+<section class="slider pubPolitique">
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner.png' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner3.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner4.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner5.jpg' %}">
+        </a>
+    </div>
+
+    <div class="prev-button" onclick="plusSlideP(-1)">&#10094;</div>
+    <div class="next-button" onclick="plusSlideP(1)">&#10095;</div>
+
+    <div class="lines PageLines">
+        <div class="line_P" onclick="currentSlideP(1)"></div>
+
+        <div class="line_P" onclick="currentSlideP(2)"></div>
+
+        <div class="line_P" onclick="currentSlide(3)"></div>
+
+        <div class="line_P" onclick="currentSlide(4)"></div>
+    </div>
+</section>
+
+{% if query %}
+        <section class="posts">
+            <center><p>{{ result_count }} résultat(s) trouvé(s) pour "{{ query }}"</p></center> 
+        </section>
+{% endif %}
+
+<section class="posts professionnals">
+
+    {% for CustomUsers in CustomUsers %}
+        <a href="{% url 'ecole_details' pk=CustomUsers.id %}" class="users">
+            {% if CustomUsers.banner_image and CustomUsers.banner_image.url %}
+                <img src="{{ CustomUsers.banner_image.url }}" class="couverture">
+            {% else %}
+                <img src="{% static 'assets/default/user.png' %}" class="couverture">
+            {% endif %}
+
+            <div class="user_profile">
+                {% if CustomUsers.profile_image and CustomUsers.profile_image.url %}
+                    <img src="{{ CustomUsers.profile_image.url }}">
+                {% else %}
+                    <img src="{% static 'assets/default/user.png' %}">
+                {% endif %}
+
+                <h3 class="name">
+                    {% if CustomUsers.etablissement %}
+                        {{ CustomUsers.etablissement }}
+                    {% endif %} 
+                </h3>
+                <h5 class="primary">
+                    {% if CustomUsers.metier %}
+                        {{ CustomUsers.metier }}
+                    {% endif %}
+                </h5>
+
+                <ul>
+                    <li> {{ CustomUsers.pays }} ({{ CustomUsers.ville }}) <span class="fa fa-map-marker primary"></span></li>
+                    <li>{{ CustomUsers.quartier }} <span class="fa fa-home primary"></span></li>
+                    <li>{{ CustomUsers.email }} <span class="fa fa-envelope primary"></span></li>
+                    <li>+{{ CustomUsers.indicatif_pays }} {{ CustomUsers.number_phone }} <span class="fa fa-phone primary"></span></li>
+                    <br>
+                    <li>Inscrit(e) le {{ CustomUsers.date_joined|date:"d F Y à H:i" }} <span class="fa fa-clock-o danger"></span></li>
+                </ul>
+            </div>
+        </a>
+    {% endfor %}
+
+</section>

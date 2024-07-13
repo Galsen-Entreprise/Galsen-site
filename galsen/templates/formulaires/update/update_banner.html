@@ -1,0 +1,49 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
+<form method="post" action="update_banner" enctype="multipart/form-data" id="mediaForm">
+    {% csrf_token %}
+
+    <header>
+        <a href="#" id="boutonRetour">
+            <i class="fa fa-arrow-left arrow"></i>
+        </a>
+        Mettre à jours votre banniére
+    </header>
+
+
+    <div class="section-disparait">
+        <label for="videoFile" class="button">Choisissez des vidéos :</label>
+
+        <input type="file" id="videoFile" accept="video/*" class="file" name="video">
+        <progress id="videoProgress" value="0" max="100"></progress>
+        <span id="videoProgressText">0%</span>
+        <div id="videoContainer"></div>
+    </div>
+
+    <label for="imageFile" class="button">Choisir une banniére :</label>
+
+    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="banner">
+    <progress id="imageProgress" value="0" max="100"></progress>
+    <span id="imageProgressText">0%</span>
+    <div id="imageContainer">
+        <div class="media-container-item">
+            {% if CustomUser.banner_image and CustomUser.banner_image.url %}
+                <img src="{{ CustomUser.banner_image.url}}" class="enligne">
+            {% else %}
+                <img src="{% static 'assets/default/user.png' %}" class="enligne">
+            {% endif %}
+            <button class="delete-button">X</button>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <button type="submit">
+            Mettre à Jours
+        </button>
+    </div>
+
+</form>
+{% endblock %}

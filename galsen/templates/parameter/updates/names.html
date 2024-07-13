@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALSEN</title>
+
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+    <img src="{% static 'assets/logo/school.png' %}" class="bg">
+    
+    <section class="container">
+        <header>
+            <h1> Canger Votre Nom et Prénom </h1>
+        </header>
+
+        <div class="content">
+            <form method="post">
+                {% csrf_token %}
+                <div class="params">
+                    <h2 class="param-title"><i class="fa fa-user primary"></i> {{ CustomUser.first_name }} {{ CustomUser.last_name }} </h2>
+                    <div class="input-group">
+                        <i class="fa fa-user icone"></i>
+                        {{ form.first_name }}
+                        <span class="bar"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa fa-user icone"></i>
+                        {{ form.last_name }}
+                        <span class="bar"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa fa-lock icone"></i>
+                        {{ form.password }}
+                        <span class="bar"></span>
+                        <i class="fa fa-eye-slash right danger" id="pass-icon" onclick="pass()"></i>
+                    </div>
+                </div>
+
+                <div class="btn_param">
+                    <button type="submit" class="delete">Mettre à jour</button>
+                </div>
+            </form>
+        </div>
+        
+    </section>
+    
+    <script src="{% static 'assets/ressources/scripts/settings.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/formulaires/scripts/edit.js' %}"></script>
+    <script src="{% static 'assets/formulaires/scripts/views.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

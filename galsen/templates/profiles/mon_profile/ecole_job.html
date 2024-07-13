@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALSEN</title>
+
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slide.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+    
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+
+            <button id="boutonRetour">
+                <i class="fa fa-arrow-left" aria-hidden="true"> Retour </i>
+            </button>
+
+            <div id="header-toggle">
+                
+                <div class="conta_menu">
+                    <span class="fa fa-bars"></span>
+                </div>
+
+            </div>
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+
+    <!-- ==================== Sidebar ==================== -->
+    <section class="sidebar" id="nabbar">
+        <div class="logo">
+            {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                <img src="{{ CustomUser.profile_image.url }}" alt="logo">
+            {% else %}
+                    <img src="{% static 'assets/default/user.png' %}"class="nav_img">
+            {% endif %}
+            <h2> {{ CustomUser.first_name }} {{ CustomUser.last_name }} <span class="primary">{{ CustomUser.username }}</span> </h2>
+        </div>
+        <ul class="links">
+        <h4>Menu</h4>
+        <li>
+            <span class="fa fa-file-photo-o"></span>
+            <a href="update_banner"> Photo de couverture </a>
+        </li>
+        <li>
+            <span class="fa fa-image"></span>
+            <a href="update_profile"> Photo de Profil </a>
+        </li>
+        <li>
+            <span class="fa fa-home"></span>
+            <a href="ec_profile"> Vos Posts </a>
+        </li>
+        <li>
+            <span class="fa fa-handshake-o"></span>
+            <a href="ec_job"> Vos Offres </a>
+        </li>
+
+        <hr>
+        <h4> Avancé </h4>
+
+        <li>
+            <span class="fa fa-money"></span>
+            <a href="#"> Porte Monnaie </a>
+        </li>
+
+        <li>
+            <span class="fa fa-dashboard"></span>
+            <a href="#"> Gestion </a>
+        </li>
+        <li>
+            <span class="fa fa-line-chart"></span>
+            <a href="#">Rapport de vos postes</a>
+        </li>
+        <hr>
+        <h4> Votre Compte </h4>
+        <li>
+            <span class="fa fa-bar-chart-o"></span>
+            <a href="#"> Analyser votre compte </a>
+        </li>
+        <li>
+            <span class="fa fa-envelope"></span>
+            <a href="#"> Votre Box </a>
+        </li>
+        <li>
+            <span class="fa fa-cogs"></span>
+            <a href="settings_profil"> Paramétres </a>
+        </li>
+        </ul>
+    </section>
+    <!-- ==================== End Sidebar ==================== -->
+
+    <!-- Contenu -->
+    <main class="middle">
+        <section class="center">
+            <section class="posts">
+                
+                <!-- ======== Image Profile ============= -->
+                <section class="image_profile">
+                    <div>
+                        {% if CustomUser.banner_image and CustomUser.banner_image.url %}
+                            <a href="{{ CustomUser.banner_image.url }}"  data-lightbox="mygallery" class="banner">
+                                <img src=" {{ CustomUser.banner_image.url }}" alt="">
+                            </a>
+                        {% else %}
+                            <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="banner">
+                                <img src="{% static 'assets/default/user.png' %}">
+                            </a>
+                        {% endif %}
+                    </div>
+                        {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                            <a href="{{ CustomUser.profile_image.url }}"  data-lightbox="mygallery" class="photo">
+                                    <img src="{{ CustomUser.profile_image.url }}" alt="">
+                                <h2> {{ CustomUser.first_name }} {{ CustomUser.last_name }} <p class="primary"> {{ CustomUser.username }} </p> </h2>
+                            </a>
+                        {% else %}
+                        <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="photo">
+                            <img src="{% static 'assets/default/user.png' %}">
+                            <h2> {{ CustomUser.first_name }} {{ CustomUser.last_name }} <p class="primary"> {{ CustomUser.username }} </p> </h2>
+                        </a>
+                        {% endif %}
+                    
+                </section>
+
+                <br>
+                <div class="Followers_number">
+                    <div class="numbers">
+                        <div class="numbers_Abonnement">
+                            <a href="{% url 'following_view' %}"><i class="fa fa-eye">Abonnements:</i> <span>{{ CustomUser.following_users.count }}</span> &nbsp; </a>
+                        </div>
+                    
+                        <div class="numbers_Abonne">
+                            <a href="{% url 'abonner' %}">&nbsp;|
+                                <i class="fa fa-thumbs-up primary"> 
+                                    <span>{{ CustomUser.followers.count }}</span>&nbsp; Abonnés:
+                                </i>
+                            </a>
+                        </div>
+                    
+                        <div class="numbers_like">
+                            <a href="#">&nbsp;|
+                                <i class="fa fa-heart danger"> 
+                                    <span>{{ total_likes_received }}</span>&nbsp; Aimes:
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="temoin">
+                    <hr class="divider">
+                </div>
+
+                <!-- ============ A Propos ================= -->
+                <br>
+                <section class="list-propos">
+                    <div class="propos-list">
+                        <a href="#">
+                            <i class="fa fa-briefcase"></i>
+                            <span> {{ CustomUser.rôle|upper }} </span>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-graduation-cap"></i>
+                            <span> {{ CustomUser.metier }} </span>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-map-marker"></i>
+                            <span> {{ CustomUser.pays }} ({{ CustomUser.ville }}) </span>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                            <span> {{ CustomUser.quartier }} </span>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-flag"></i>
+                            <span> {{ CustomUser.langue }} </span>
+                        </a>
+
+                        <a href="mailto:{{ CustomUser.email }}">
+                            <i class="fa fa-envelope"></i>
+                            <span> {{ CustomUser.email }} </span>
+                        </a>
+
+                        <a href="tel:+{{ CustomUser.indicatif_pays }} {{ CustomUser.number_phone }}">
+                            <i class="fa fa-phone"></i>
+                            <span>+{{ CustomUser.indicatif_pays }} {{ CustomUser.number_phone }} </span>
+                        </a>
+
+                        <a href="https://wa.me/+{{ CustomUser.indicatif_pays }}{{ CustomUser.number_phone }}">
+                            <i class="fa fa-whatsapp"></i>
+                            <span> +{{ CustomUser.indicatif_pays }} {{ CustomUser.number_phone }} </span>
+                        </a>
+
+                        <br>
+
+                        <a href="update" class="danger">
+                            <label class="fa fa-edit danger"></label>
+                            <span class="danger"> Modifier votre Statut... </span>
+                        </a>
+
+                    </div>
+                </section>
+
+                <div class="temoin">
+                    <br>
+                    <hr class="divider">
+                </div>
+
+
+                <br>
+
+                <center>
+                    <a href="a_propos" class="Profilage"> 
+                        Savoir Plus sur Votre Ecole
+                    </a>
+                </center>
+
+                <section class="professionnals jobs">
+                    {% for job in CustomUser.job_set.all %}
+            
+                    <a href="{% url 'jobs_detail' job_id=job.id %}" class="users">
+                    {% if job.user.bannner_image and job.user.banner_image.url %}
+                        <img src="{{ job.user.banner_image.url}}" class="couverture">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}" class="couverture">
+                    {% endif %}
+
+                        <div class="user_profile">
+                            <ul>
+                                {{ job.user.rôle|upper }}:
+                                <li> {{ job.user.pays }} ({{ job.user.ville }}) <span class="fa fa-map-marker primary"></span></li>
+                                <li>{{ job.user.email }} <span class="fa fa-envelope primary"></span></li>
+                                <li>+{{ job.user.indicatif_pays }} {{ job.user.number_phone }} <span class="fa fa-phone primary"></span></li>
+                                <li>Posté le {{ job.date_creation_post|date:"d F Y à H:i" }} <span class="fa fa-clock-o danger"></span></li>
+                                <br>
+                                <h3> {{ job.title|safe|truncatewords_html:3 }}</h3>
+                                <h4>
+                                    {{ job.contenu_job|safe|truncatewords_html:10 }}
+                                </h4>
+                            </ul>
+                        </div>
+                        
+                    </a>
+            
+                    {% endfor %}
+            
+                </section>
+
+            </section>
+    
+            {% include 'sidebar/sidebar.html' %}
+        </section>
+    </main>
+
+    
+
+    <script src="{% static 'assets/ressources/scripts/profile.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/header.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

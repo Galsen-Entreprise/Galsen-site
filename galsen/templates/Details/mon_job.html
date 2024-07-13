@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offre d'emplois</title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+           
+            <button id="boutonRetour">
+                <i class="fa fa-arrow-left" aria-hidden="true"> Retour </i>
+            </button>
+
+
+            
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+    <main class="middle">
+
+        <section class="center">
+
+            <section class="image_profile">
+                <div>
+                    {% if job.user.bannner_image and job.user.banner_image.url %}
+                        <a href="{{ job.user.banner_image.url}}"  data-lightbox="mygallery" class="banner">
+                            <img src=" {{ job.user.banner_image.url}}" alt="">
+                        </a>
+                    {% else %}
+                        <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="banner">
+                            <img src="{% static 'assets/default/user.png' %}">
+                        </a>
+                    {% endif %}
+                </div>
+                    {% if job.user.profile_image and job.user.profile_image.url %}
+                        <a href="{{ job.user.profile_image.url}}"  data-lightbox="mygallery" class="photo">
+                                <img src="{{ job.user.profile_image.url}}" alt="">
+                            <h2> {{ job.user.etablissement }} <span>( {{ job.user.rôle|upper }} )</span> 
+                                <p class="normal"> Posté le <i> {{ job.date_creation_post|date:"d F Y à H:i" }} </i> </p>
+                            </h2>
+                        </a>
+                    {% else %}
+                    <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="photo">
+                        <img src="{% static 'assets/default/user.png' %}">
+                        <h2> {{ job.user.etablissement }} <span>( {{ job.user.rôle|upper }} )</span>
+                            <p class="normal"> Posté depuis le <i class="primary"> {{ job.date_creation_post|date:"d F Y à H:i" }} </i> </p> 
+                        </h2>
+                    </a>
+                    {% endif %}
+                
+            </section>
+
+            <div class="temoin">
+                <br>
+                <hr class="divider">
+            </div>
+
+            <section class="list-propos">
+                <div class="propos-list">
+
+                    <a href="#">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span> {{ job.user.metier }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-map-marker"></i>
+                        <span> {{ job.user.pays }} ({{ job.user.ville }}) </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span> {{ job.user.quartier }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span> {{ job.user.email }} </span>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa fa-phone"></i>
+                        <span>+{{ job.user.indicatif_pays }} {{ job.user.number_phone }} </span>
+                    </a>
+
+                    <a href="https://wa.me/+{{ job.user.indicatif_pays }}{{ job.user.number_whatsapp }}">
+                        <i class="fa fa-whatsapp"></i>
+                        <span> {{ job.user.number_whatsapp }} </span>
+                    </a>
+
+                    <a href="https://wa.me/{{ job.user.indicatif_pays }}{{ job.user.number_whatsapp }}">
+                        <i class="fa fa-telegram"></i>
+                        <span> {{ job.user.number_telegram }} </span>
+                    </a>
+
+                </div>
+
+                <center>
+                    <a href="{% url 'update_job' job.id %}" class="fa fa-edit postuler">
+                        Modifier
+                    </a>
+                </center>
+            </section>
+
+            <div class="temoin">
+                <br>
+                <hr class="divider">
+            </div>
+
+            <section class="post postule-job">
+                <h3 class="name"><i>{{ job.title|safe }}</i></h3>
+                <br>
+                <p>
+                    <h5>
+                        {{ job.contenu_job|safe }}
+                    </h5>
+                </p>
+
+                <center>
+                    <a href="{% url 'delete_job' id=job.id %}" class="fa fa-delete postuler danger">
+                        Supprimer
+                    </a>
+
+                    <a class="fa fa-share postuler" id="shareButton">
+                        PARTAGER
+                    </a>
+
+                    <section class="popup popup" id="popup">
+                        <div class="content-popup">
+                            <span class="close" id="closePopup">&times;</span>
+                    
+                            <h3>Partager sur:</h3>
+    
+                            <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                    
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                    
+                            <a href="https://t.me/share/url={% url 'job_detail' job_id=job.id %}&text={{ job.contenu_job|truncatewords_html:1 }}" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+    
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+    
+                            <a href="https://www.pinterest.com/pin/create/button/?url={% url 'job_detail' job_id=job.id %}&description={{ job.contenu_job|truncatewords_html:1 }}" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+    
+                    
+                            <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                    
+                        </div>
+                    
+                    </section>
+                </center>
+            </section>
+        </section>
+
+    </main>
+
+
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/share_details.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

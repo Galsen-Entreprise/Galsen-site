@@ -1,0 +1,45 @@
+{% extends 'auth/layouts/forms.html' %}
+
+{% load static %}
+
+{% block Authentification %}
+
+<img src="{% static 'assets/logo/boutique.jpg' %}">
+
+<div id="wrapper">
+    <div class="form-container">
+        <span class="form-heading"> Votre Boutique </span>
+        
+        <form method="POST" action="/boutique">
+            {% csrf_token %}
+
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <input id="nom_boutique" type="text" class="form-control" name="nom_boutique" required placeholder="Nom de Votre Boutique">
+                <span class="bar"></span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <input id="devise_boutique" type="text" class="form-control" name="devise_boutique" required placeholder="Votre Devise">
+                <span class="bar"></span>
+            </div>
+
+
+            <div class="input-group">
+                <button type="submit" name="inscription" value="Valider">
+                    Valider
+                </button>
+            </div>
+
+        </form>
+
+        <button id="boutonRetour" class="boutonRetour">
+            <i class="fa fa-arrow-left" aria-hidden="true"> Annuler </i>
+        </button>
+
+    </div>
+</div>
+
+{% endblock %}

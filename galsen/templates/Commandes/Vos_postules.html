@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    <title> Vos postulationss </title>
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details_like.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    <title>Vos postulationss</title>
+</head>
+<body>
+    <img src="{% static 'assets/logo/school.png' %}" class="bg">
+    <section class="listes">
+        <header>
+            <a href="#" id="boutonRetour">
+                <i class="fa fa-arrow-left arrow"></i>
+            </a>
+            Vos postulations
+        </header>
+
+        <div class="temoin">
+            <br>
+            <hr class="divider">
+        </div>
+
+        <section>
+            {% if postulations %}
+                {% for postulation in postulations %}
+                    
+                    <a href="#" class="user-card">
+                        <div class="user-card-img">
+                            <img src="{{ postulation.user.profile_image.url }}">
+                        </div>
+                        <div class="user-card-info">
+                            <h2> {{ postulation.title }} </h2>
+                            <p> {{ postulation.date_creation_post }} </p>
+                            <p> {{ postulation.contenu_job|safe|truncatewords_html:6 }} </p>
+                            <p> {{ postulation.precision }} </p>
+                        </div>
+                    </a>
+                    <hr class="divider">
+                {% endfor %}
+            {% else %}
+                <center>
+                    <p class="success">
+                        Vous n'avez passé aucune postulations.
+                    </p>
+                </center>
+            {% endif %}
+        </section>
+    </section>
+
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+</body>
+</html>

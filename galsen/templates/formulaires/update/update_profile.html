@@ -1,0 +1,45 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
+<form method="post" action="update_profile" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <header>
+        <a href="#" id="boutonRetour">
+            <i class="fa fa-arrow-left arrow"></i>
+        </a>
+        Mettre a jours votre Photo de profile
+    </header>
+
+    <div class="section-disparait">
+        <label for="videoFile" class="button">Choisissez des vidéos :</label>
+
+        <input type="file" id="videoFile" accept="video/*" class="file" name="video">
+        <progress id="videoProgress" value="0" max="100"></progress>
+        <span id="videoProgressText">0%</span>
+        <div id="videoContainer"></div>
+    </div>
+
+    <label for="imageFile" class="button">Choisissez une profil :</label>
+
+    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
+    <progress id="imageProgress" value="0" max="100"></progress>
+    <span id="imageProgressText">0%</span>
+    <div id="imageContainer">
+        <div class="media-container-item">
+            {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                <img src="{{ CustomUser.profile_image.url}}" class="enligne">
+            {% else %}
+                <img src="{% static 'assets/default/user.png' %}" class="enligne">
+            {% endif %}
+            <button class="delete-button">X</button>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit"> Mettre à jours </button>
+    </div>
+</form>
+{% endblock %}

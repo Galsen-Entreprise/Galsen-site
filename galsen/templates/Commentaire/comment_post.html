@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Commentaires</title>
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/comments.css' %}">
+
+        <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="chat">
+
+                <div class="chat-header">
+                    <div class="profile">
+                        <div class="left">
+                            <a href="#" id="boutonRetour">
+                                <i class="fa fa-arrow-left arrow"></i>
+                            </a>
+                            {% for media in post.mediaspost_set.all %}
+                                {% if media.image %}
+                                    <img src="{{ media.image.url }}" class="profile">
+                                {% endif %}
+                            {% endfor %}
+                            <div class="details">
+                                <h2>{{ post.contenu_post|safe|truncatewords_html:1.8 }}</h2>
+                                <span>Les commentaires...</span>
+                            </div>
+                        </div>
+                        <div class="right">
+
+                            <a href="#">
+                                <i class="fa fa-ellipsis-v icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-box">
+
+                    {% for comment in comments %}
+                        <div class="chat-r">
+
+                            <div class="comments">
+                                <div class="message_comment">
+                                    <h3>
+                                        <a href="{% url 'user_detail' pk=post.user.id %}">
+                                            {% if user.profile_images and user.profile_images.url %}
+                                            <img src="{{ comment.user.profile_images.url }}">
+                                            {% else %}
+                                                <img src="{% static 'assets/default/user.png' %}">
+                                            {% endif %}
+                                        </a>
+                                        {{ comment.user.first_name }} {{ comment.user.last_name }}
+                                    </h3>
+                                    <p>
+                                        {% if comment.image %}
+                                            <img src="{{ comment.image.url }}">
+                                        {% endif %}
+                                        {{ comment.contenu_commentaire }}
+                                    </p>
+                                    <h5 class="danger">
+                                        {{ comment.date_creation }}
+                                        <a href="{% url 'comment_responses' comment.id %}" class="comment_or_response">
+                                            Répondre 
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="chat-footer">
+                    <form class="forms" method="post" action="{% url 'post_comments' post_id=post.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div id="imagePreview" class="preview"></div>
+                        <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewFiles('imageInput', 'imagePreview', 3)">
+                        <div class="left">
+                            <a class="emo" id="emojiButton">
+                                <i class="fa fa-smile-o"></i>
+                            </a>
+                            
+                            <textarea id="commentTextarea" spellcheck="false" placeholder="Votre commentaire..." name="contenu_commentaire" required></textarea>
+                            
+                            <emoji-picker for="commentTextarea"></emoji-picker>
+                            
+                        </div>
+                        
+                        <div class="right">
+                            <label for="imageInput">
+                                <img src="{% static 'assets/categories/gallery.svg' %}" alt="">
+                            </label>
+
+                            <button type="submit"><i class="fa fa-send"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="{% static 'assets/ressources/scripts/chats.js' %}"></script>
+        <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script> 
+        <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+        <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+        <script type="module" src="{% static 'node_modules/emoji-picker-element/picker.js' %}" defer></script>
+
+    </body>
+</html>

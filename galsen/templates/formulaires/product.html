@@ -1,0 +1,58 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<img src="{% static 'assets/logo/boutique.jpg' %}" class="bg">
+<form method="post" action="{% url 'product' %}" enctype="multipart/form-data" id="mediaForm">
+    {% csrf_token %}
+
+    <header>
+        <a href="#" id="boutonRetour">
+            <i class="fa fa-arrow-left arrow"></i>
+        </a>
+        Créer un poste
+    </header>
+
+    <label for="imageFile" class="button">Choisissez des images :</label>
+
+    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
+    <progress id="imageProgress" value="0" max="100"></progress>
+    <span id="imageProgressText">0%</span>
+    <div id="imageContainer"></div>
+
+    <label for="videoFile" class="button">Choisissez des vidéos :</label>
+
+    <input type="file" id="videoFile" accept="video/*" class="file" name="video">
+    <progress id="videoProgress" value="0" max="100"></progress>
+    <span id="videoProgressText">0%</span>
+    <div id="videoContainer"></div>
+
+    <div class="card">
+        <div class="input-group">
+            <i class="fa fa-edit"></i>
+            <input id="nom_produit" type="text" class="form-control" name="nom_produit" required autocomplete="nom_produit" placeholder="Le titre du produit">
+            <span class="bar"></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="input-group">
+            <i class="fa fa-money"></i>
+            <input id="prix" type="number" class="form-control" name="prix" required placeholder="Le prix du produit">
+            <span class="bar"></span>
+        </div>
+    </div>
+
+    <textarea name="description" id="" cols="30" rows="10" required></textarea>
+
+    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace("description");
+    </script>
+
+    <div>
+        <button type="submit"> POSTER </button>
+    </div>
+
+</form>
+{% endblock %}

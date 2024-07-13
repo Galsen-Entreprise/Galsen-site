@@ -1,0 +1,129 @@
+{% load static %}
+{% load Notifications.custom_tags %} 
+<section>
+    <form class="search">
+        <div class="form-group">
+            <input type="search" name="poste" id="search-input" placeholder="Rechercher une poste"/>
+            <button type="submit" >
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+    
+</section>
+
+<section class="slider pubPolitique">
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner.png' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner3.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner4.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner5.jpg' %}">
+        </a>
+    </div>
+
+    <div class="prev-button" onclick="plusSlideP(-1)">&#10094;</div>
+    <div class="next-button" onclick="plusSlideP(1)">&#10095;</div>
+
+    <div class="lines PageLines">
+        <div class="line_P" onclick="currentSlideP(1)"></div>
+
+        <div class="line_P" onclick="currentSlideP(2)"></div>
+
+        <div class="line_P" onclick="currentSlide(3)"></div>
+
+        <div class="line_P" onclick="currentSlide(4)"></div>
+    </div>
+</section>
+
+<section class="notifications">
+    <header>
+        <h1>Notifications</h1>
+    </header>
+    <div class="noti_content">
+        {% comment %} <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/default/user.png' %}">
+                <i class="primary">Profil:</i> &nbsp;
+                Ngor a changé son photo de profil
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/default/user.png' %}">
+                <i class="primary">Couverture: </i> &nbsp;
+                Ngor a changé son photo de couverture
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/default/user.png' %}">
+                <i class="primary">Abonnement: </i> &nbsp;
+                Ousmane Ndome a commencé à te suivre.
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/default/user.png' %}">
+                <i class="primary">Aimé: </i> &nbsp;
+                Ousmane Ndome a aimé le poste que vous avez(répondu, commenté ou posté)...
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/default/user.png' %}">
+                <i class="primary">Client: </i> &nbsp;
+                Ousmane Ndome est devenu(e) votre client.
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> <img src="{% static 'assets/default/user.png' %}"> 
+                <i class="primary">Postulant :</i> &nbsp;
+                Oumar Thioubou a postulé pour votre offre.</p>
+            <span class="timestamp">Il y a 3 jours</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> 
+                <img src="{% static 'assets/categories/marketplace.png' %}">
+                <i class="primary">Boutique: </i> &nbsp;
+                Votre Commande a été transmis avec succés
+            </p>
+            <span class="timestamp">Il y a 2 minutes</span>
+        </a>
+
+        <a href="#" class="notification">
+            <p class="message"> <img src="{% static 'assets/categories/emplois.png' %}"> 
+                <i class="primary">Emplois :</i> &nbsp;
+                De Nouveaux offre d'emplois sont disponible.</p>
+            <span class="timestamp">Il y a 3 jours</span>
+        </a> {% endcomment %}
+
+        {% show_notifications %}
+    </div>
+</section>

@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mon CV</title>
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/cv.css' %}">
+    </head>
+    <body>
+        <button id="boutonRetour">
+            <i class="fa fa-arrow-left" aria-hidden="true"> Retour </i>
+        </button>
+        <div class="container">
+
+            <header>
+                <div class="header-content">
+                    <h1>{{ user.etablissement }}</h1> <!-- Afficher le nom d'utilisateur -->
+                </div>
+            </header>
+            
+            <section class="profile">
+                <div class="section-header">
+                    <h2>Profil</h2>
+                </div>
+                {% if profil %}
+                    <p>{{ user.profil.description }}</p> <!-- Afficher la description du profil -->
+                    {% else %}
+                    <i>Aucun Profil disponible.</i>
+                {% endif %}
+            </section>
+
+            <section class="experience">
+                <div class="section-header">
+                    <h2>Expérience Professionnelle</h2>
+                </div>
+                <ul>
+                    {% if experience %}
+                        <li>
+                            <h3>{{ user.experience.title }}</h3> <!-- Afficher le titre de l'expérience -->
+                            <p>{{ user.experience.description|safe }}</p> <!-- Afficher la description de l'expérience -->
+                        </li>
+                        {% else %}
+                        <i>Aucun Experience disponible.</i>
+                    {% endif %}
+                </ul>
+            </section>
+
+            <section class="education">
+                <div class="section-header">
+                    <h2>Filiére</h2>
+                </div>
+                <ul>
+                    {% if formation %}
+                        <li>
+                            <h3>{{ user.formation.title }}</h3>
+                            <p>{{ user.formation.description|safe }}</p>
+                        </li>
+                        {% else %}
+                        <i>Aucun Formation disponible.</i>
+                    {% endif %}
+                </ul>
+            </section>
+
+            <footer>
+                <p>Contact: {{ user.email }} | Téléphone: {{ user.number_phone }} | Site Web: {{ user.website_link }}</p> <!-- Afficher les informations de contact -->
+            </footer>
+        </div>
+
+        <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+        <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    </body>
+</html>

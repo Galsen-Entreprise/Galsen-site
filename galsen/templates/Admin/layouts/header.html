@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link type="images/jpg" rel="icon" href="{% static 'admin/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'admin/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/search.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/popup.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/slide.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/lightbox.min.css' %}">
+
+</head>
+<body>
+
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+            <!-- ===== Le Logo ===== -->
+            <!-- ===== Img Profile ===== -->
+            <a href="3"> 
+                <img src="{% static 'admin/delete/images/pic-4.png' %}" class="nav_img">
+            </a>
+
+            <!-- ===== Les Menus ===== -->
+            <div class="nav_menu" id="nav-menu">
+                <!-- ===== Le Ul ===== -->
+                <ul class="nav_list">
+                    <!-- ===== Les Listes li ===== -->
+                    <li class="nav_item">
+                        <a href="ad_post" class="nav_link active-link">
+                            <label for="click-home" class="fa fa-home nav_icon"></label>
+                            <span class="nav_name"><label for="click-home"> Postes </label></span>
+                        </a>
+                    </li>
+
+                    <li class="nav_item">
+                        <a href="ad_etudiant" class="nav_link">
+                            <label for="#" class="fa fa-users nav_icon"></label>
+                            <span class="nav_name"> 
+                                <label for="#"> Etudiants </label></span>
+                        </a>
+                    </li>
+
+                    <li class="nav_item">
+                        <a href="ad_ecole" class="nav_link">
+                            <label for="#" class="fa fa-graduation-cap nav_icon"></label>
+                            <span class="nav_name"> 
+                                <label for="#"> Ecoles </label></span>
+                        </a>
+                    </li>
+
+                    <li class="nav_item">
+                        <a href="ad_entreprise" class="nav_link">
+                            <label for="#" class="fa fa-briefcase nav_icon" aria-hidden="true"></label>
+                            <span class="nav_name"> 
+                                <label for="#"> Entreprises </label></span>
+                        </a>
+                    </li>
+
+                    <li class="nav_item">
+                        <a href="ad_job" class="nav_link">
+                            <label for="#" class="fa fa-handshake-o nav_icon" aria-hidden="true"></label>
+                            <span class="nav_name"> 
+                                <label for=""> Offres d'Emploies </label></span>
+                        </a>
+                    </li>
+
+                    <li class="nav_item">
+                        <a href="ad_boutique" class="nav_link">
+                            <label for="#" class="fa fa-shopping-cart nav_icon" aria-hidden="true"></label>
+                            <span class="nav_name">
+                                <label for="#"> Boutiques </label></span>
+                        </a>
+                    </li>
+                    <!-- ===== Fin des Listes li ===== -->
+                </ul>
+                <!-- ===== Fin Du UL ===== -->
+            </div>
+
+            <div id="header-toggle">
+                
+                <div class="conta_menu">
+                    <span class="fa fa-bars"></span>
+                </div>
+
+            </div>
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+    <!--    nav      -->
+    <section class="nab" id="nabbar">
+        <nav class="nab_container">
+            <div>
+                <a class="nab_link nab_logo ">
+                    <i class="fa fa-bars nab_icon"></i>
+                    <span class="logo_name">
+                        <h3 class=" fa fa-user-secret danger"></h3>|
+ 
+                        <h3>
+                            {{ CustomUser.first_name }} {{ CustomUser.last_name }}
+                        </h3>
+                     </span>
+                </a>
+
+                <div class="nab_list">
+                    <div class="nab_items navtop">
+
+                        <a href="#" class="nab_link nabtop active" id="create">
+                            <img src="{% static 'admin/categories/publication.png' %}" class="nab_icon">
+                            <span class="nab_name"> Créer un Post </span>
+                        </a>
+
+                        <a href="#" class="nab_link nabtop">
+                            <img src="{% static 'admin/categories/friends.png' %}" class="nab_icon">
+                            <span class="nab_name"> Vos Amis </span>
+                        </a>
+
+                        <a href="" class="nab_link nabtop">
+                            <img src="{% static 'admin/categories/file.png' %}" class="nab_icon">
+                            <span class="nab_name"> Paramétrer votre Profile </span>
+                        </a>
+
+                        <a href="{% url 'logout' %}" class="nab_link">
+                            <img src="{% static 'assets/categories/logout.png' %}" class="nab_icon">
+                            <span class="nab_name"> Logouts </span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="theme-btn" id="theme-button">
+                    <span class="fa fa-sun-o"></span>
+                    <span class="fa fa-moon-o active"></span>
+                </div>
+
+                <div class="">
+                    <p class="footer__signature">
+                        &#169; 2023  
+                        <br><a href="#" class="danger">Bour Studios</a>
+                        
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        
+    </section>
+    <!--    nav      -->
+
+    <!-- Contenu -->
+    <main class="middle">
+        {% block Admin %}
+        
+        {% endblock %}
+    </main>
+    
+    <script src="{% static 'admin/ressources/scripts/header.js' %}"></script>
+    <script src="{% static 'admin/ressources/scripts/banner-slide.js' %}"></script>
+    <script src="{% static 'admin/ressources/scripts/post.js' %}"></script>
+    <script src="{% static 'admin/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'admin/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'admin/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <!-- <script src="{% static 'admin/algos/scripts/secrete.js' %}"></script> -->
+</body>
+</html>

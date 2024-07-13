@@ -1,0 +1,11 @@
+{% extends 'Admin/layouts/header.html' %}
+
+{% block Admin %}
+{% load static %}
+    <section class="center">
+        
+        {% include 'common/posts.html' %}
+
+        {% include 'Admin/layouts/sidebar.html' %}
+    </section>
+{% endblock %}

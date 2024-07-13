@@ -1,0 +1,93 @@
+{% load static %}
+<section>
+    <form action="" class="search">
+        <div class="form-group">
+            <input type="search" name="boutique" id="search-input" placeholder="Rechercher un produit"/>
+            <button type="submit" class="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+    
+</section>
+
+<section class="slider pubPolitique">
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner.png' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner3.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner4.jpeg' %}">
+        </a>
+    </div>
+
+    <div class="sliderP">
+        <a href="#">
+            <img src="{% static 'assets/default/banner5.jpg' %}">
+        </a>
+    </div>
+
+    <div class="prev-button" onclick="plusSlideP(-1)">&#10094;</div>
+    <div class="next-button" onclick="plusSlideP(1)">&#10095;</div>
+
+    <div class="lines PageLines">
+        <div class="line_P" onclick="currentSlideP(1)"></div>
+
+        <div class="line_P" onclick="currentSlideP(2)"></div>
+
+        <div class="line_P" onclick="currentSlide(3)"></div>
+
+        <div class="line_P" onclick="currentSlide(4)"></div>
+    </div>
+</section>
+
+<section class="posts professionnals gallery">
+    {% if produits %}
+                    
+        <ul class="images">
+
+            {% for produit in produits %}
+                <li class="card filter">
+                    <a href="{% url 'produit_detail' produit_id=produit.id %}">
+                        <img src="{{ produit.mediasproduct_set.first.image.url }}" alt="Image du produit">
+                    </a>
+                    <div class="details">
+                        <div class="photographer">
+                            <a href="{% url 'produit_detail' produit_id=produit.id %}">
+                                <!-- Photo de profil de la boutique -->
+                                <img src="{{ produit.boutique.photo_profil.url }}" alt="Profile">
+                                <span class="body">
+                                    {{ produit.nom_produit }}
+                                    <p class="danger">
+                                        <span class="primary">Mis en vente depuis le </span>{{ produit.date_creation|date:"d F Y à H:i" }}
+                                    </p>
+                                </span>
+                            </a>
+                        </div>
+                        <button>
+                            <i>
+                                {{ produit.prix }}
+                            </i>
+                            <br>
+                            {{ produit.boutique.devise_money }}
+                        </button>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <center>
+            <p style="margin-top: 100px;">Aucun produit disponible pour le moment.</p>
+        </center>
+    {% endif %} 
+</section>

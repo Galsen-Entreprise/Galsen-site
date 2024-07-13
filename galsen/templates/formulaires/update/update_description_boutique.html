@@ -1,0 +1,19 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<form method="post" action="update_description_boutique" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <textarea name="description" id="description" cols="30" rows="10" class="texta" required></textarea>
+
+    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace("description");
+    </script>
+
+    <div>
+        <button type="submit"> Mettre à jours </button>
+    </div>
+</form>
+{% endblock %}

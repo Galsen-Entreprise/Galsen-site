@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALSEN</title>
+
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+    <img src="{% static 'assets/logo/school.png' %}" class="bg">
+    
+    <section class="container">
+        <header>
+            <h1> LES PARAMETRAGES DE VOTRE COMPTE </h1>
+        </header>
+
+        <div class="content">
+            <div class="param">
+                <h2 class="param-title"><i class="fa fa-user "></i> Profil </h2>
+                <div class="param-toggle">
+                    <i class="fa fa-angle-down param-icon"></i>
+                </div>
+                <div class="setting">
+                    <span>{{ CustomUser.email }}</span>
+                    <a href="settingEmail" class="btn">Modifier</a>
+                </div>
+
+                <div class="setting">
+                    <span>{{ CustomUser.first_name }} {{ CustomUser.last_name }}</span>
+                    <a href="settingNames" class="btn">Modifier</a>
+                </div>
+
+                <div class="setting">
+                    <span>Vous êtes un(e) {{ CustomUser.rôle|upper }}</span>
+                    <a href="#" class="btn">Modifier</a>
+                </div>
+
+                <div class="setting">
+                    <span>Changer votre mot de passe</span>
+                    <a href="#" class="btn">Modifier</a>
+                </div>
+            </div>
+
+            <div class="btn_param">
+                <a href="#" class="delete">Supprimer votre compte</a>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+    <script src="{% static 'assets/ressources/scripts/settings.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>
