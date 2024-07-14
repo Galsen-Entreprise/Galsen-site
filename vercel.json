@@ -2,7 +2,7 @@
     "builds": [{
         "src":"BourStudios/wsgi.py",
         "use":"@vercel/python",
-        "confib":{
+        "config":{
             "maxLambdaSize":"15mb",
             "runtime": "python3"
         }
