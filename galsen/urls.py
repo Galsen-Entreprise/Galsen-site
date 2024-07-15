@@ -12,7 +12,7 @@ from galsen.views import create_post, create_job, create_product, a_propos
 from galsen.views import Per_profile, En_profile, En_job, En_Gestion_Boutique, Ec_profile, Ec_job
 
 # ========== Settings Profil ==================
-from galsen.views import Settings_profil, settingEmail, settingNames
+from galsen.views import Settings_profil, settingEmail, settingNames, settingRole, settingPassWord, settingDelete
 
 # ========== Personnels ===================
 from galsen.views import Per_posts, Per_ecole, Per_entreprise, Per_job, Per_boutique, Per_notification, En_notification, Ec_notification
@@ -165,6 +165,9 @@ urlpatterns = [
     path('settings_profil', Settings_profil, name = 'settings_profil'),
     path('settingEmail', settingEmail, name='settingEmail'),
     path('settingNames', settingNames, name='settingNames'),
+    path('settingsRole', settingRole, name='settingRole'),
+    path('settingPassWord', settingPassWord, name='settingPassWord'),
+    path('settingDelete', settingDelete, name='settingDelete'),
     
     # =========== Personnels ================
                 # ===== Les Pages =====

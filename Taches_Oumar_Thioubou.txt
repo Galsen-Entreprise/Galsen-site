@@ -1,6 +1,0 @@
-
-                        Taches faites
-
-1) Le 31/01/2024: Dans Personnel-> Layouts-> header.html: J'ai rectifier une erreur au niveau  des menus les "active-link";
-2) Le 02/02/2024: Template Comment_post(Dans Commentaire -> comment_post.html) intégrer.
-3) Le 07/02/2024: J'ai pu implanter les emojies. Mais le moteur de validation des Commentaires ne marche pas

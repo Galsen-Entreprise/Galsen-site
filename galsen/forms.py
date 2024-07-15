@@ -1,8 +1,7 @@
 import re
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
     langue = forms.ChoiceField(choices=get_user_model().LANGUE, initial='français', widget=forms.Select(attrs={'autocomplete': 'off'}))
@@ -94,3 +93,55 @@ class NameChangeForm(forms.ModelForm):
         if not user.check_password(password):
             raise forms.ValidationError("Mot de passe incorrect.")
         return password
+
+
+class RoleChangeForm(forms.ModelForm):
+    password = forms.CharField(
+        label='Mot de passe',
+        widget=forms.PasswordInput(attrs={'placeholder': 'Mot de Passe pour valider'})
+    )
+    rôle = forms.ChoiceField(choices=get_user_model().ROLES, widget=forms.Select(attrs={'autocomplete': 'off'}))
+
+    class Meta:
+        model = get_user_model()
+        fields = ['rôle']
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        user = self.instance
+
+        if not user.check_password(password):
+            raise forms.ValidationError("Mot de passe incorrect.")
+        return password
+    
+class AccountDeleteForm(forms.Form):
+    password = forms.CharField(
+        label='Mot de passe',
+        widget=forms.PasswordInput(attrs={'placeholder': 'Mot de Passe pour valider'})
+    )
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        # Logique de validation du mot de passe ici
+        
+        return password
+    
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.update({
+            'autocomplete': 'current-password',
+            'placeholder': 'Ancien mot de passe'
+        })
+        self.fields['new_password1'].widget.attrs.update({
+            'autocomplete': 'new-password',
+            'placeholder': 'Nouveau mot de passe'
+        })
+        self.fields['new_password2'].widget.attrs.update({
+            'autocomplete': 'new-password',
+            'placeholder': 'Confirmer le nouveau mot de passe'
+        })
+
+    class Meta:
+        model = get_user_model()
+        fields = ('old_password', 'new_password1', 'new_password2')

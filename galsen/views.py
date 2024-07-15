@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.utils import timezone
 from django.http import HttpResponseRedirect
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 import os
@@ -25,7 +26,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import viewsets
 from .serializers import CustomUserSerializer
-from .forms import EmailChangeForm, NameChangeForm
+from .forms import EmailChangeForm, NameChangeForm, RoleChangeForm, AccountDeleteForm, PasswordChangeForm
 
 
 # Les APi
@@ -1120,6 +1121,50 @@ def settingNames(request):
         form = NameChangeForm(instance=request.user)
     
     return render(request, 'parameter/updates/names.html', {'form': form, 'CustomUser': request.user})
+
+def settingRole(request):
+    if request.method == 'POST':
+        form = RoleChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            update_session_auth_hash(request, user)
+            return redirect('logout')  # Redirection vers la déconnexion après le changement de rôle
+    else:
+        form = RoleChangeForm(instance=request.user)
+    
+    return render(request, 'parameter/updates/role.html', {'form': form})
+
+def settingPassWord(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Met à jour le hachage du mot de passe dans la session
+            logout(request)  # Déconnecte l'utilisateur
+            return redirect('login')  # Redirige vers la page de connexion après modification du mot de passe
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    return render(request, 'parameter/updates/password.html', {'form': form})
+
+def settingDelete(request):
+    if request.method == 'POST':
+        form = AccountDeleteForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            user = request.user
+            if user.check_password(password):
+                user.delete()
+                return redirect('login')  # Rediriger vers la page de connexion après suppression du compte
+            else:
+                form.add_error('password', "Mot de passe incorrect.")
+    else:
+        form = AccountDeleteForm()
+    
+    return render(request, 'parameter/updates/delete.html', {'form': form})
 
 def boutique(request):
     if request.method == 'POST':
