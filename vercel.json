@@ -1,0 +1,15 @@
+{
+    "builds": [{
+        "src":"BourStudios/wsgi.py",
+        "use":"@vercel/python",
+        "config":{
+            "runtime": "python3"
+        }
+    }],
+    "routes":[
+        {
+            "src": "/(.*)",
+            "dest": "BourStudios/wsgi.py"
+        }
+    ]
+}
