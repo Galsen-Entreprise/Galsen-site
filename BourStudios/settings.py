@@ -35,7 +35,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','*']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 AUTH_USER_MODEL = 'galsen.CustomUser'
 
