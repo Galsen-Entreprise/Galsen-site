@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+import dj_database_url
+
+env = environ.Env()
+environ.Env.read_env()
+ENVIRONMENT= env('ENVIRONMENT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +28,14 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'galsen/templates')
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&x%59^v+d9ysute$+rrmhp!e_osbwe5#qq8of3^&ruhv($fosd'
-
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','*']
 
 AUTH_USER_MODEL = 'galsen.CustomUser'
 
@@ -43,6 +51,7 @@ INSTALLED_APPS = [
     'galsen',
     'pwa',
     'rest_framework',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -95,10 +104,21 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'URL': os.environ.get('DATABASE_URL'),
+        # 'NAME': os.environ.get('PGDATABASE'),
+        # 'USER': os.environ.get('PGUSER'),
+        # 'PASSWORD': os.environ.get('PGPASSWORD'),
+        # 'HOST': os.environ.get('PGHOST'),
+        # 'PORT': os.environ.get('PGPORT'),
     }
 }
 
+# POSTGRES_LOCALLY = False
+# if ENVIRONMENT =='production' or POSTGRES_LOCALLY == True:
+#     DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
 
+ 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -175,3 +195,5 @@ PWA_APP_ICONS_APPLE = [
     }
 ]
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/assets/ressources/pwa_js', 'serviceworker.js')
+
+ACCOUNT_USERNAME_BLACKLIST =['admin', 'accounts', 'profile', 'poste', 'post','ecol', 'bandit']
