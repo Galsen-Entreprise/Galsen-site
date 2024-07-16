@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'galsen',
-    'pwa',
+    # 'pwa',
     'rest_framework',
     'admin_honeypot',
 ]
@@ -174,26 +174,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Configuration django pwa
-PWA_APP_NAME = "Galsem"
-PWA_APP_DESCRIPTION = "environnement Professionnel"
-PWA_APP_THEME_COLOR = "#007bff"
-PWA_APP_BACKGROUND_COLOR = "#ffffff"
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'portrait'
-PWA_APP_START_URL = '/'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/assets/logo/galsen.jpg',
-        'sizes': '160x160'
-    }
-]
-PWA_APP_ICONS_APPLE = [
-    {
-        'src': '/static/assets/logo/galsen.jpg',
-        'sizes': '160x160'
-    }
-]
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/assets/ressources/pwa_js', 'serviceworker.js')
+# PWA_APP_NAME = "Galsem"
+# PWA_APP_DESCRIPTION = "environnement Professionnel"
+# PWA_APP_THEME_COLOR = "#007bff"
+# PWA_APP_BACKGROUND_COLOR = "#ffffff"
+# PWA_APP_DISPLAY = 'standalone'
+# PWA_APP_SCOPE = '/'
+# PWA_APP_ORIENTATION = 'portrait'
+# PWA_APP_START_URL = '/'
+# PWA_APP_ICONS = [
+#     {
+#         'src': '/static/assets/logo/galsen.jpg',
+#         'sizes': '160x160'
+#     }
+# ]
+# PWA_APP_ICONS_APPLE = [
+#     {
+#         'src': '/static/assets/logo/galsen.jpg',
+#         'sizes': '160x160'
+#     }
+# ]
+# PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/assets/ressources/pwa_js', 'serviceworker.js')
 
 ACCOUNT_USERNAME_BLACKLIST =['admin', 'accounts', 'profile', 'poste', 'post','ecol', 'bandit']
