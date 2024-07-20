@@ -44,7 +44,7 @@ protobuf==4.25.3
 ptyprocess==0.7.0
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
-PyAudio==0.2.14
+
 Pygments==2.18.0
 pyparsing==3.1.1
 
