@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 if ENVIRONMENT == 'development':
     DEBUG = True
 else:
-    DEBUG = True
+    DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'BourStudios.wsgi.application'
+WSGI_APPLICATION = 'BourStudios.wsgi.app'
 
 # settings.py
 AUTHENTICATION_BACKENDS = [

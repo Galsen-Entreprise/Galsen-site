@@ -3,7 +3,7 @@
         "src":"BourStudios/wsgi.py",
         "use":"@vercel/python",
         "config":{
-            "runtime": "python3"
+            "runtime": "python3.7"
         }
     }],
     "routes":[
