@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'galsen',
     # 'pwa',
     'rest_framework',
-    'admin_honeypot',
+    #'admin_honeypot',
 ]
 
 MIDDLEWARE = [
