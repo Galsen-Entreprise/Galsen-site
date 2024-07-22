@@ -12,12 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-import environ
 import dj_database_url
 
-env = environ.Env()
-environ.Env.read_env()
-ENVIRONMENT= env('ENVIRONMENT')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,12 +25,10 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'galsen/templates')
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+
+SECRET_KEY = 'django-insecure-&x%59^v+d9ysute$+rrmhp!e_osbwe5#qq8of3^&ruhv($fosd'
 # SECURITY WARNING: don't run with debug turned on in production!
-if ENVIRONMENT == 'development':
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
