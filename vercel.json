@@ -24,8 +24,8 @@
             "dest": "BourStudios/wsgi.py"
         },
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
+            "src": "galsen/static/(.*)",
+            "dest": "galsen/static/$1"
          }
     ]
 }
