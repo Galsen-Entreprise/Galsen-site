@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-&x%59^v+d9ysute$+rrmhp!e_osbwe5#qq8of3^&ruhv($fosd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.now.sh']
 
 AUTH_USER_MODEL = 'galsen.CustomUser'
 
@@ -95,17 +95,29 @@ AUTHENTICATION_BACKENDS = [
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#          'ENGINE': 'django.db.backends.postgresql',
+#         'URL': os.environ.get('DATABASE_URL'),
+#          'NAME': os.environ.get('PGDATABASE'),
+#          'USER': os.environ.get('PGUSER'),
+#          'PASSWORD': os.environ.get('PGPASSWORD'),
+#         'HOST': os.environ.get('PGHOST'),
+#          'PORT': os.environ.get('PGPORT'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'URL': os.environ.get('DATABASE_URL'),
-        # 'NAME': os.environ.get('PGDATABASE'),
-        # 'USER': os.environ.get('PGUSER'),
-        # 'PASSWORD': os.environ.get('PGPASSWORD'),
-        # 'HOST': os.environ.get('PGHOST'),
-        # 'PORT': os.environ.get('PGPORT'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:xxDZWSwYSpBasunoEUcRGPqOXtiLmwYk@viaduct.proxy.rlwy.net:17982/railway',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD':'xxDZWSwYSpBasunoEUcRGPqOXtiLmwYk',
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': 17982,
     }
 }
 
@@ -159,8 +171,11 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 STATIC_URL = '/galsen/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'galsen/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'galsen/static')
+
 MEDIA_URL = '/galsen/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'galsen/images/')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
