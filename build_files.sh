@@ -1,2 +1,2 @@
 pip install -r requirements.txt
-python install collectstatic
+python3.7 install collectstatic
