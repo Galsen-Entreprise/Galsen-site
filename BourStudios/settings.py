@@ -170,8 +170,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/galsen/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'galsen/static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'galsen/static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '/galsen/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', '/galsen/static')
 
 MEDIA_URL = '/galsen/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'galsen/images/')
