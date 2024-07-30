@@ -1,17 +1,12 @@
 from pathlib import Path
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'galsen/templates')
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
 SECRET_KEY = 'django-insecure-&x%59^v+d9ysute$+rrmhp!e_osbwe5#qq8of3^&ruhv($fosd'
 DEBUG = True
-
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.now.sh']
 
 AUTH_USER_MODEL = 'galsen.CustomUser'
@@ -26,7 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'galsen',
     'rest_framework',
-    # 'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +41,7 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'galsen/templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -121,28 +116,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'galsen/images/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Configuration django pwa (commenté car non utilisé)
-# PWA_APP_NAME = "Galsem"
-# PWA_APP_DESCRIPTION = "environnement Professionnel"
-# PWA_APP_THEME_COLOR = "#007bff"
-# PWA_APP_BACKGROUND_COLOR = "#ffffff"
-# PWA_APP_DISPLAY = 'standalone'
-# PWA_APP_SCOPE = '/'
-# PWA_APP_ORIENTATION = 'portrait'
-# PWA_APP_START_URL = '/'
-# PWA_APP_ICONS = [
-#     {
-#         'src': '/static/assets/logo/galsen.jpg',
-#         'sizes': '160x160'
-#     }
-# ]
-# PWA_APP_ICONS_APPLE = [
-#     {
-#         'src': '/static/assets/logo/galsen.jpg',
-#         'sizes': '160x160'
-#     }
-# ]
-# PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/assets/ressources/pwa_js', 'serviceworker.js')
 
 ACCOUNT_USERNAME_BLACKLIST = ['admin', 'accounts', 'profile', 'poste', 'post', 'ecol', 'bandit']
