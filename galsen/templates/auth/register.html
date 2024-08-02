@@ -53,11 +53,11 @@
                 <span class="bar"></span>
             </div>
 
-            <div class="inputfield" id="etablissement_field" style="display: none;"> 
+            <div class="inputfield" id="etablissement_field" style="display: none;">
                 <label><i class="fa fa-briefcase"></i>Nom Complet de Votre Etablissement</label>
                 {{ form.etablissement }}
                 <span class="bar"></span>
-            </div>
+            </div>            
 
             <div class="inputfield">
                 <label><i class="fa fa-envelope"></i>Email</label>
@@ -111,22 +111,32 @@
     document.addEventListener('DOMContentLoaded', function () {
         var roleSelect = document.querySelector('#id_rôle');
         var etablissementField = document.querySelector('#etablissement_field');
-
+        var etablissementInput = document.querySelector('#id_etablissement');
+    
+        if (!roleSelect || !etablissementField || !etablissementInput) {
+            return;
+        }
+    
         roleSelect.addEventListener('change', function () {
             if (roleSelect.value === 'ecole' || roleSelect.value === 'entreprise') {
                 etablissementField.style.display = 'block';
+                etablissementInput.setAttribute('required', 'required');
             } else {
                 etablissementField.style.display = 'none';
+                etablissementInput.removeAttribute('required');
             }
         });
-
+    
         // Initial check to hide/show the field based on initial value
         if (roleSelect.value === 'ecole' || roleSelect.value === 'entreprise') {
             etablissementField.style.display = 'block';
+            etablissementInput.setAttribute('required', 'required');
         } else {
             etablissementField.style.display = 'none';
+            etablissementInput.removeAttribute('required');
         }
     });
+    
 </script>
 
 {% endblock %}

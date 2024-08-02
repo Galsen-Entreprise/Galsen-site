@@ -3,12 +3,16 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+
 class CustomUserCreationForm(UserCreationForm):
     langue = forms.ChoiceField(choices=get_user_model().LANGUE, initial='français', widget=forms.Select(attrs={'autocomplete': 'off'}))
     rôle = forms.ChoiceField(choices=get_user_model().ROLES, initial='personnel', widget=forms.Select(attrs={'autocomplete': 'off'}))
     genre = forms.ChoiceField(choices=get_user_model().GENRE, widget=forms.Select(attrs={'autocomplete': 'off'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}))
-    etablissement = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}))
+    etablissement = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=False)
     email = forms.EmailField(widget=forms.EmailInput(attrs={'autocomplete': 'off'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'off'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'off'}))
@@ -23,6 +27,8 @@ class CustomUserCreationForm(UserCreationForm):
         email = cleaned_data.get('email')
         password1 = cleaned_data.get('password1')
         password2 = cleaned_data.get('password2')
+        rôle = cleaned_data.get('rôle')
+        etablissement = cleaned_data.get('etablissement')
         
         # Validate username length
         if len(username) > 150:
@@ -35,8 +41,13 @@ class CustomUserCreationForm(UserCreationForm):
         # Validate passwords match
         if password1 and password2 and password1 != password2:
             self.add_error('password2', "Les mots de passe ne correspondent pas.")
-    
+        
+        # Validate etablissement field based on rôle
+        if rôle in ['ecole', 'entreprise'] and not etablissement:
+            self.add_error('etablissement', "Ce champ est requis pour les écoles et entreprises.")
+        
         return cleaned_data
+
 
 class ShareForm(forms.Form):
     body = forms.CharField(
