@@ -16,11 +16,11 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'autocomplete': 'off'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'off'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'off'}))
-
+    
     class Meta:
         model = get_user_model()
         fields = ('langue', 'rôle', 'genre', 'username', 'etablissement', 'email', 'password1', 'password2')
-
+    
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
@@ -29,29 +29,24 @@ class CustomUserCreationForm(UserCreationForm):
         password2 = cleaned_data.get('password2')
         rôle = cleaned_data.get('rôle')
         etablissement = cleaned_data.get('etablissement')
-
+        
         # Validate username length
         if len(username) > 150:
             self.add_error('username', "Le nom d'utilisateur ne peut pas dépasser 150 caractères.")
-
+        
         # Validate email uniqueness
         if get_user_model().objects.filter(email=email).exists():
             self.add_error('email', "Un compte avec cette adresse e-mail existe déjà.")
-
+        
         # Validate passwords match
         if password1 and password2 and password1 != password2:
             self.add_error('password2', "Les mots de passe ne correspondent pas.")
-
+        
         # Validate etablissement field based on rôle
-        if rôle in ['ecole', 'entreprise']:
-            if not etablissement:
-                self.add_error('etablissement', "Ce champ est requis pour les écoles et entreprises.")
-        elif etablissement:
-            # Ensure that etablissement is empty or None for personnel
-            cleaned_data['etablissement'] = None
-
+        if rôle in ['ecole', 'entreprise'] and not etablissement:
+            self.add_error('etablissement', "Ce champ est requis pour les écoles et entreprises.")
+        
         return cleaned_data
-
 
 
 class ShareForm(forms.Form):
@@ -86,7 +81,7 @@ class EmailChangeForm(forms.ModelForm):
         if not user.check_password(password):
             raise forms.ValidationError("Mot de passe incorrect.")
         return password
-
+    
 class NameChangeForm(forms.ModelForm):
     password = forms.CharField(
         label='Mot de passe',
@@ -129,7 +124,7 @@ class RoleChangeForm(forms.ModelForm):
         if not user.check_password(password):
             raise forms.ValidationError("Mot de passe incorrect.")
         return password
-
+    
 class AccountDeleteForm(forms.Form):
     password = forms.CharField(
         label='Mot de passe',
@@ -139,9 +134,9 @@ class AccountDeleteForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data['password']
         # Logique de validation du mot de passe ici
-
+        
         return password
-
+    
 class CustomPasswordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

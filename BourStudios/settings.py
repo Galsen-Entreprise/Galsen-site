@@ -14,7 +14,7 @@ DEBUG = ENVIRONMENT == 'development'
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.now.sh', 'galsen.pythonanywhere.com']
 
 AUTH_USER_MODEL = 'galsen.CustomUser'
 
