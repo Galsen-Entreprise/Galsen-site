@@ -112,12 +112,12 @@
         var roleSelect = document.querySelector('#id_rôle');
         var etablissementField = document.querySelector('#etablissement_field');
         var etablissementInput = document.querySelector('#id_etablissement');
-    
+        
         if (!roleSelect || !etablissementField || !etablissementInput) {
             return;
         }
-    
-        roleSelect.addEventListener('change', function () {
+        
+        function toggleEtablissementField() {
             if (roleSelect.value === 'ecole' || roleSelect.value === 'entreprise') {
                 etablissementField.style.display = 'block';
                 etablissementInput.setAttribute('required', 'required');
@@ -125,17 +125,15 @@
                 etablissementField.style.display = 'none';
                 etablissementInput.removeAttribute('required');
             }
-        });
-    
-        // Initial check to hide/show the field based on initial value
-        if (roleSelect.value === 'ecole' || roleSelect.value === 'entreprise') {
-            etablissementField.style.display = 'block';
-            etablissementInput.setAttribute('required', 'required');
-        } else {
-            etablissementField.style.display = 'none';
-            etablissementInput.removeAttribute('required');
         }
+    
+        // Add event listener for role change
+        roleSelect.addEventListener('change', toggleEtablissementField);
+        
+        // Initial check
+        toggleEtablissementField();
     });
+    
     
 </script>
 
