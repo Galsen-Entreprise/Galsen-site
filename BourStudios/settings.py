@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-&x%59^v+d9ysute$+rrmhp!e_osbwe5#qq8of3^&ruhv($fosd
 DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.now.sh']
-
+CSRF_TRUSTED_ORIGINS = ['https://*.pythonanywhere.com']
 AUTH_USER_MODEL = 'galsen.CustomUser'
 
 # Application definition
