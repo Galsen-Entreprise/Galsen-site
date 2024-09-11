@@ -1448,7 +1448,7 @@ def Per_posts(request):
     context = {
         'posts': posts,
     }
-    return render(request, 'users/personnel/post.html', context)
+    return render(request, 'users/Personnel/post.html', context)
 
 @role_required(['personnel'])
 def Per_ecole(request):
@@ -1477,7 +1477,7 @@ def Per_ecole(request):
         'result_count': CustomUsers.count()
     }
     
-    return render(request, 'users/personnel/ecole.html', context)
+    return render(request, 'users/Personnel/ecole.html', context)
 
 @role_required(['personnel'])
 def Per_entreprise(request):

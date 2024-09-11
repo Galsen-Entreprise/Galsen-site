@@ -3,7 +3,7 @@
 {% block Base %}
 {% load static %}
 <img src="{% static 'assets/logo/school.png' %}" class="bg">
-<form method="post" action="{% url 'job' %}" enctype="multipart/form-data"
+<form method="post" action="{% url 'job' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
     <header>
