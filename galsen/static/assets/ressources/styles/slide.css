@@ -68,6 +68,11 @@ body
     height: 100%;
 }
 
+.members
+{
+    width: 1000px;
+}
+
 .pubPolitique
 {
     margin-top: 28px;

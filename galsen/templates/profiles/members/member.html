@@ -13,57 +13,107 @@
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details_like.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/members.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slide.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
 
-    <title>Utilisateurs qui ont aimé ce post</title>
 </head>
 <body>
 
     
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
-    <section class="listes">
-        <header>
-            <a href="#" id="boutonRetour">
-                <i class="fa fa-arrow-left arrow"></i>
+    <section class="header" id="header">
+        <nav class="nav contenu">
+            <form class="search">
+                <div class="form-group">
+                    <input type="search" name="poste" id="search-input" placeholder="Rechercher un membre"/>
+                    <button type="submit">
+                        Rechercher
+                    </button>
+                </div>
+            </form>
+        </nav>
+    </section>
+
+    <section class="slider members">
+        <div class="sliderP">
+            <a href="#">
+                <img src="{% static 'assets/default/banner.png' %}">
             </a>
-            Trouver un Membre
-        </header>
-
-        <div class="temoin">
-            <br>
-            <hr class="divider">
         </div>
+    
+        <div class="sliderP">
+            <a href="#">
+                <img src="{% static 'assets/default/banner3.jpeg' %}">
+            </a>
+        </div>
+    
+        <div class="sliderP">
+            <a href="#">
+                <img src="{% static 'assets/default/banner4.jpeg' %}">
+            </a>
+        </div>
+    
+        <div class="sliderP">
+            <a href="#">
+                <img src="{% static 'assets/default/banner5.jpg' %}">
+            </a>
+        </div>
+    
+        <div class="prev-button" onclick="plusSlideP(-1)">&#10094;</div>
+        <div class="next-button" onclick="plusSlideP(1)">&#10095;</div>
+    
+        <div class="lines PageLines">
+            <div class="line_P" onclick="currentSlideP(1)"></div>
+    
+            <div class="line_P" onclick="currentSlideP(2)"></div>
+    
+            <div class="line_P" onclick="currentSlide(3)"></div>
+    
+            <div class="line_P" onclick="currentSlide(4)"></div>
+        </div>
+    </section>
+    
+    <section class="profiles">
+        <div class="profiles-grid">
 
-        
-
-        <section>
             {% for user in users %}
-                <a href="{% url 'user_detail' pk=user.id %}" class="user-card">
-                    <div class="user-card-img">
+
+                <a href="{% url 'user_detail' pk=user.id %}" class="profile-card">
+                    {% if user.banner_image and user.banner_image.url %}
+                            <img src="{{ user.banner_image.url}}">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}">
+                        {% endif %}
+                    <div class="infos">
+                        <div class="subject"><h3>Design</h3></div>
                         {% if user.profile_image and user.profile_image.url %}
                             <img src="{{ user.profile_image.url}}">
                         {% else %}
                             <img src="{% static 'assets/default/user.png' %}">
                         {% endif %}
                     </div>
-                    <div class="user-card-info">
-                        {% if user.rôle == "personnel" %}
-                                <h2><i class="fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
-                            {% else %}
-                                <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
-                                <p><span class=""><i class="danger">Type:</i>{{ user.rôle|upper }}</span> </p>
-                        {% endif %}
-                        <p><span class="fa fa-envelope primary"> <i class="danger">Email:</i> </span> {{ user.email }} </p>
-                        <p><span class="fa fa-map-marker primary"> <i class="danger">Addresse:</i> </span> {{ user.quartier }}  - {{ user.ville }}  - {{ user.pays }} </p>
+                    {% if user.rôle == "personnel" %}
+                            <h2><i class="profile-name fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
+                        {% else %}
+                            <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
+                            <p><span class=""><i class="danger">Type:</i>{{ user.rôle|upper }}</span> </p>
+                    {% endif %}
+                    <div class="profile-date">
+                        <span> <i class="fa fa-clock-o"></i> {{ user.date_joined|date:"d F Y à H:i" }} </span>
                     </div>
                 </a>
-            {% endfor %}      
-        </section>
+            {% endfor %} 
+
+        </div>
     </section>
+
+    {% include 'sidebar/sidebar.html' %}
 
     
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/banner-slide.js' %}"></script>
 </body>
 </html>
