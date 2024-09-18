@@ -24,9 +24,9 @@
     
     <section class="header" id="header">
         <nav class="nav contenu">
-            <form class="search" method="GET">
+            <form method="GET" action="{% url 'amis' %}" class="search">
                 <div class="form-group">
-                    <input type="search" name="poste" id="search-input" placeholder="Rechercher un membre" value="{{ search_query }}"/>
+                    <input type="text" name="search" placeholder="Rechercher un ami" value="{{ search_query }}">
                     <button type="submit">Rechercher</button>
                 </div>
             </form>
@@ -75,8 +75,9 @@
     
     <section class="profiles">
         <div class="profiles-grid">
+            <h2>Utilisateurs que je suis</h2>
 
-            {% for user in users %}
+            {% for user in following %}
 
                 <a href="{% url 'user_detail' pk=user.id %}" class="profile-card">
                     {% if user.banner_image and user.banner_image.url %}
@@ -101,6 +102,39 @@
                         <span> <i class="fa fa-clock-o"></i> {{ user.date_joined|date:"d F Y à H:i" }} </span>
                     </div>
                 </a>
+                {% empty %}
+                <li>Vous ne suivez personne pour le moment.</li>
+            {% endfor %} 
+
+            <h2>Utilisateurs qui me suivent</h2>
+
+            {% for user in followers %}
+
+                <a href="{% url 'user_detail' pk=user.id %}" class="profile-card">
+                    {% if user.banner_image and user.banner_image.url %}
+                            <img src="{{ user.banner_image.url}}">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}">
+                        {% endif %}
+                    <div class="infos">
+                        <div class="subject"><h3>{{ user.rôle|upper }}</h3></div>
+                        {% if user.profile_image and user.profile_image.url %}
+                            <img src="{{ user.profile_image.url}}">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}">
+                        {% endif %}
+                    </div>
+                    {% if user.rôle == "personnel" %}
+                            <h2 class="profile-name"><i class="fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
+                        {% else %}
+                            <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
+                    {% endif %}
+                    <div class="profile-date">
+                        <span> <i class="fa fa-clock-o"></i> {{ user.date_joined|date:"d F Y à H:i" }} </span>
+                    </div>
+                </a>
+                {% empty %}
+                <li>Personne ne vous suit pour le moment.</li>
             {% endfor %} 
 
         </div>

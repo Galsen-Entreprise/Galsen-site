@@ -108,14 +108,74 @@ def vos_postule(request):
 
 def members(request):
     user_role = request.user.rôle
+    
     # Récupérer tous les utilisateurs ayant le même rôle que l'utilisateur connecté
     users = CustomUser.objects.filter(rôle=user_role).exclude(id=request.user.id)
+
+    # Récupérer la valeur du champ de recherche
+    search_query = request.GET.get('poste', '')
+
+    # Si une recherche est effectuée, filtrer les utilisateurs par établissement, prénom ou nom
+    if search_query:
+        # Rechercher dans le prénom, le nom ou l'établissement
+        users = users.filter(
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(etablissement__icontains=search_query)
+        )
     
     context = {
         'users': users,
+        'search_query': search_query,  # Passer la recherche pour réutilisation
     }
     
     return render(request, 'profiles/members/member.html', context)
+
+def amis(request):
+    # Récupérer l'utilisateur connecté
+    current_user = request.user
+
+    # Récupérer ceux que l'utilisateur suit et ceux qui le suivent
+    following = current_user.get_following()
+    followers = current_user.get_followers()
+
+    # Trouver les amis mutuels (ceux que l'utilisateur suit et qui le suivent)
+    mutual_friends = set(following).intersection(set(followers))
+
+    # Récupérer la valeur du champ de recherche
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        # Appliquer le filtre sur les utilisateurs suivis (following)
+        following = following.filter(
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(etablissement__icontains=search_query)
+        )
+
+        # Appliquer le filtre sur les utilisateurs qui suivent l'utilisateur (followers)
+        followers = followers.filter(
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(etablissement__icontains=search_query)
+        )
+
+        # Filtrer les amis mutuels manuellement (car intersection() convertit en set)
+        mutual_friends = [friend for friend in mutual_friends if
+                          search_query.lower() in friend.first_name.lower() or
+                          search_query.lower() in friend.last_name.lower() or
+                          search_query.lower() in (friend.etablissement or '').lower()]
+
+    context = {
+        'following': following,
+        'followers': followers,
+        'mutual_friends': mutual_friends,
+        'search_query': search_query,
+    }
+
+    return render(request, 'profiles/amis/amis.html', context)
+
+
 
 def my_view(request):
     user_language = get_user_model().objects.get(pk=request.user.pk).langue

@@ -27,7 +27,7 @@ from galsen.views import Ad_posts, Ad_personnel, Ad_ecole, Ad_entreprise, Ad_job
 from galsen.views import PersonnelDetails, EcoleDetails, EntrepriseDetails, update_post, update_job
 
 # ========== Update Statu: Personnels, Entreprise, Ecole ===================
-from galsen.views import update, update_profile, update_banner, profile, boutique, update_logo_boutique, update_banner_boutique, update_description_boutique, gestion_boutique, rapport_product, les_commandes, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation, vos_commande, vos_postule, members
+from galsen.views import update, update_profile, update_banner, profile, boutique, update_logo_boutique, update_banner_boutique, update_description_boutique, gestion_boutique, rapport_product, les_commandes, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation, vos_commande, vos_postule, members, amis
 
 # ========== Les Commentaires: Post et Les Réponses:Commentaires ===================
 from galsen.views import post_comments, comment_responses
@@ -100,6 +100,7 @@ urlpatterns = [
     path('vos_commande', vos_commande, name='vos_commande'),
     path('vos_postule', vos_postule, name='vos_postule'),
     path('members', members, name='members'),
+    path('amis', amis, name='amis'),
      
     # ========== Update Statu, Update Profile, Update Banner, Update Post, Update Job: Personnels, Entreprise, Ecole ===================
     path('update', update, name = 'update'),
