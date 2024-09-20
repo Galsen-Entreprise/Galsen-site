@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+:root
+{
+      /*========== Colors ==========*/
+  --hue-color: 240;
+
+  --first-color: hsl(var(--hue-color), 53%, 49%);
+  --title-color: hsl(var(--hue-color), 53%, 15%);
+  --text-color: hsl(var(--hue-color), 1%, 4%);
+  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --container-color: #fff;
+  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --color-danger: hsl(0, 95%, 65%);
+
+  --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+  --color-danger-light: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+  --color-success-light: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+  --color-purple-light: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+
+    /* Tailles */
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem
+    
+}
+
+
+
+*, *::before, *::after
+{
+
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    appearance: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    padding: 16px 16px 0;
+    margin: 56px 0 0 0;
+    font-size: 16px;
+    color: var(--title-color);
+    background: var(--body-color);
+}
+
+/* ===== Search ===== */
+.search
+{
+    position: fixed;
+    top: 50px;
+    z-index: 10;
+    /* max-width: 68%; */
+    width: 100%;
+    margin-right: auto;
+}
+
+.search .form-group
+{
+    position: relative;
+    width: 65%;
+}
+
+.search .form-group input
+{
+    width: 100%;
+    background: var(--body-color);
+    color: var(--title-color);
+    font-size: 16px;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #299bd5;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 15px 36px 10px 10px;
+    transition: all .3s ease;
+}
+
+.search .form-group input:focus
+{
+    box-shadow: 0 0 0 4px var(--color-danger);
+}
+
+.search .form-group button
+{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+    color: var(--text-color);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.search .form-group button i
+{
+    color: var(--title-color);
+    font-size: 20px;
+    transition: all .3s ease;
+}
+
+.search .form-group button i:hover
+{
+    color: var(--color-danger);
+}
+
+/* ================ Responsive ================== */
+/* ============ Version MacBook ============= */
+@media screen and (max-width: 1280px) {
+    .search
+    {
+        width: 100%;
+    }
+    .search .form-group
+    {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .search
+    {
+        width: 100%;
+    }
+
+    .search .form-group
+    {
+        width: 86%;
+    }
+}
+
+@media screen and (max-width: 884px) {
+    .search
+    {
+        width: 100%;
+    }
+
+    .search .form-group
+    {
+        width: 86%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search
+    {
+        width: 100%;
+    }
+    .search .form-group
+    {
+        width: 90%;
+    }
+}

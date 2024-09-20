@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root
+{
+      /*========== Colors ==========*/
+  --hue-color: 240;
+
+  --first-color: hsl(var(--hue-color), 53%, 49%);
+  --title-color: hsl(var(--hue-color), 53%, 15%);
+  --text-color: hsl(var(--hue-color), 1%, 4%);
+  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --container-color: #fff;
+  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --color-danger: hsl(0, 95%, 65%);
+
+  --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+  --color-danger-light: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+  --color-success-light: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+  --color-purple-light: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+
+    /* Tailles */
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem
+    
+}
+
+/*========== Variables Dark theme ==========*/
+body.dark-theme 
+{
+    --title-color: hsl(var(--hue-color), 12%, 95%);
+    --text-color: hsl(var(--hue-color), 12%, 75%);
+    --body-color: hsl(var(--hue-color), 10%, 16%);
+    --container-color: hsl(var(--hue),24%, 12%);
+}
+
+*, *::before, *::after
+{
+
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    appearance: none;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  padding: 16px 16px 0;
+  margin: 56px 0 0 0;
+  font-size: 16px;
+  color: var(--title-color);
+  background: var(--body-color);
+}
+
+/* ===== Search ===== */
+.search
+{
+    position: fixed;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68%;
+    top: 49px;
+}
+
+.search input
+{
+    width: 100%;
+    background-color: var(--body-color);
+    border-bottom: 2px solid var(--color-danger);
+    border-top: 2px solid var(--color-danger);
+    color: var(--title-color);
+    font-weight: bold;
+    padding: 1em 0.5em;
+}
+
+.search input:focus
+{
+    border-bottom-color: #299bd5;
+    border-top-color: #299bd5;
+}
+
+.search .button
+{
+    padding: 1em 0.3em;
+    background-color: #299bd5;
+    color: #fff;
+    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.778),
+                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search .button:hover
+{
+    opacity: 0.8;
+    transition: 0.3s;
+    content: '';
+    background: #fff;
+    color: #299bd5;
+    font-weight: bold;
+    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.778),
+                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.search .button:active
+{
+    transform: translateY(5px);
+}
+
+.search .button i
+{
+    font-size: 15px;
+    letter-spacing: 5px;
+    display: flex;
+    font-weight: bold;
+}
+
+/* ================ Responsive ================== */
+/* ============ Version MacBook ============= */
+@media screen and (max-width: 1280px) {
+    .search
+    {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search
+    {
+        width: 92%;
+    }
+}

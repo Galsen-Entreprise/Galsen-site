@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root
+{
+      /*========== Colors ==========*/
+  --hue-color: 240;
+
+  --first-color: hsl(var(--hue-color), 53%, 49%);
+  --title-color: hsl(var(--hue-color), 53%, 15%);
+  --text-color: hsl(var(--hue-color), 1%, 4%);
+  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --container-color: #fff;
+  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --color-danger: hsl(0, 95%, 65%);
+
+  --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+  --color-danger-light: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+  --color-success-light: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+  --color-purple-light: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+
+    /* Tailles */
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem
+    
+}
+
+/*========== Variables Dark theme ==========*/
+body.dark-theme 
+{
+    --title-color: hsl(var(--hue-color), 12%, 95%);
+    --text-color: hsl(var(--hue-color), 12%, 75%);
+    --body-color: hsl(var(--hue-color), 10%, 16%);
+    --container-color: hsl(var(--hue),24%, 12%);
+}
+
+*, *::before, *::after
+{
+
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    /* text-decoration: none;
+    list-style: none; */
+    border: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    appearance: none;
+    /* text-decoration: none;
+    list-style: none; */
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  padding: 16px 16px 0;
+  margin: 56px 0 0 0;
+  font-size: 16px;
+  color: var(--title-color);
+  background: var(--body-color);
+}
+
+/* Slider */
+.slider
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.pubPolitique
+{
+    margin-top: 25px;
+    width: 74%;
+    height: 220px;
+}
+
+.sliderP img
+{
+    width: 100%;
+    height: 150px;
+}
+
+.sliderRH img,
+.sliderRP img
+{
+    width: 100%;
+    height: 90vh;
+    vertical-align: middle;
+}
+
+.prev-button, .next-button
+{
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--body-color);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px) saturate(500%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: none;
+}
+
+.prev-button
+{
+    left: 17%;
+    top: 30%;
+}
+
+.next-button
+{
+    right: 2%;
+    top: 30%;
+}
+
+.prev-button:hover, .next-button:hover
+{
+    color: white;
+}
+
+.lines
+{
+    position: absolute;
+    display: flex;
+    margin-top: -20px;
+}
+
+.PageLines
+{
+    left: 35%;
+}
+
+.line_P,
+.line_RH
+{
+    padding: 1.5px 10px;
+    margin: 0 3px;
+    background-color: var(--title-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.activeP,
+.activesh, 
+.line_P:hover, 
+.line_RP:hover
+{
+    background-color: #299bd5;
+}
+
+.sliderP,
+.sliderRP
+{
+    display: none;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade 
+{
+    from
+    {
+        opacity: 0.5;
+    }
+    to
+    {
+        opacity: 1;
+    } 
+}
+
+
+@media screen and (max-width: 767px) {
+    .pubPolitique
+    {
+        width: 100%;
+    }
+}
