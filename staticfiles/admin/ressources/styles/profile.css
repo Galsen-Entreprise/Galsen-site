@@ -1,0 +1,1583 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+/* Variable CSS */
+:root
+{
+    --header-height: 3rem;
+
+    
+
+    /* font and typography */
+    --body-font: 'Open Sans', sans-serif;
+
+    --h1-font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --tiny-font-size: .625rem;
+
+    /* z index */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+:root
+{
+      /*========== Colors ==========*/
+  --hue-color: 240;
+
+  --first-color: hsl(var(--hue-color), 53%, 49%);
+  --title-color: hsl(var(--hue-color), 53%, 15%);
+  --text-color: hsl(var(--hue-color), 1%, 4%);
+  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --container-color: #fff;
+  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --color-danger: hsl(0, 95%, 65%);
+
+  --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+  --color-danger-light: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+  --color-success-light: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+  --color-purple-light: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+
+    /* Tailles */
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem
+    
+}
+
+/*========== Variables Dark theme ==========*/
+body.dark-theme 
+{
+    --title-color: hsl(var(--hue-color), 12%, 95%);
+    --text-color: hsl(var(--hue-color), 12%, 75%);
+    --body-color: hsl(var(--hue-color), 10%, 16%);
+    --container-color: hsl(var(--hue),24%, 12%);
+}
+
+/* ========== Les Base =========== */
+*, *::before, *::after
+{
+
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    font-family: "Poppins", sans-serif;
+    color: var(--title-color);
+    background: var(--body-color);
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar
+{
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track
+{
+    background: var(--body-color);
+    border-radius: 25px;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background: var(--title-color);
+    border-radius: 25px;
+}
+
+body::-webkit-scrollbar-thumb:hover
+{
+    background: #b3b3b3;
+}
+
+/* h1
+{
+    font-size: 2.2rem;
+} */
+
+h2
+{
+    font-size: 1.5rem;
+}
+
+h3
+{
+    font-size: 1.2rem;
+}
+
+h4
+{
+    font-size: 1rem;
+}
+
+h5
+{
+    font-size: 0.86rem;
+    font-weight: 500;
+}
+
+h6
+{
+    font-size: 1.76rem;
+}
+
+p
+{
+    font-size: 00.86rem;
+    color: var(--title-color);
+}
+
+small
+{
+    font-weight: 300;
+    font-size: 0.77rem;
+}
+
+.text-muted
+{
+    color: gray;
+}
+
+.primary
+{
+    color: #299bd5;
+    /* rgb(71, 7, 234) */
+}
+
+.danger
+{
+    color: var(--color-danger);
+}
+
+.success
+{
+    color: rgb(34, 202, 75);
+}
+
+.purple
+{
+    color: rgb(160, 99, 245);
+}
+
+.bg-primary
+{
+    background: #299bd5;
+    /* rgb(71, 7, 234) */
+    box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+}
+
+.bg-danger
+{
+    background: var(--color-danger);
+    box-shadow: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+}
+
+.bg-success
+{
+    background: rgb(34, 202, 75);
+    box-shadow: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+}
+
+.bg-yellow
+{
+    background: #d5d229;
+    box-shadow: 0 0.8rem 0.8rem rgba(255, 218, 54, 0.2);
+}
+
+.bg-purple
+{
+    background: rgb(160, 99, 245);
+    box-shadow: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+}
+
+.bg-dark
+{
+    background: #27282f;
+    box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== Le haut, Header en Mode Fixe ==================== */
+/* ====== Le haut, Header en Mode Fixe ===== */
+.header{
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: var(--body-color);
+    z-index: var(--z-fixed);
+    transition: .4s;
+    box-shadow: 0 0.2px 0.5px #299bd5;
+    /* display: none; */
+}
+
+/* ====== Partie contenu ===== */
+.contenu
+{
+    max-width: 968px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+/* ====== Le NavBar ===== */
+.nav
+{
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ====== Img Profile ===== */
+.nav_img
+{
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.nav_img img
+{
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 100ms ease;
+    font-size: 0.9rem;
+}
+
+/*===== Change background header (Changement du Background) =====*/
+.scroll-header
+{
+    box-shadow: 0 1px 12px #299bd5;
+}
+
+/* ========== Search ========== */
+#search-container
+{
+    width: 800px;
+    display: flex;
+}
+
+#search-container input
+{
+    background-color: var(--body-color);
+    border-bottom: 2px solid #299bd5;
+    border-top: 2px solid #299bd5;
+    color: var(--title-color);
+    font-weight: bold;
+    padding: 1em 0.3em;
+    width: 100%;
+}
+
+#search-container input:focus
+{
+    border-bottom-color: var(--color-danger);
+    border-top-color: var(--color-danger);
+}
+
+#search-container button
+{
+    padding: 1em 0.3em;
+    margin-right: 1em;
+    background-color: #299bd5;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* =========== Main ========== */
+main
+{
+    display: flex;
+    margin-left: 5px; 
+    margin-bottom: 30px;
+}
+
+.profile-banner
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    width: 100%;
+    height: 180px;
+    margin-top: 10px;
+}
+
+#bannier
+{
+    width: 960px;
+    height: 100%;
+}
+
+#bannier img
+{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.edit-banner
+{
+    left: 95%;
+    position: absolute;
+    z-index: 1;
+    margin-top: -25px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px) saturate(180%);
+    border-radius: 5px;
+}
+
+.edit-banner a
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #299bd5;
+    cursor: pointer;
+}
+
+.profile-photo
+{
+    position: absolute;
+    display: flex;
+}
+
+.profile-photo img
+{
+    width: 140px;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-top: -126px;
+    box-shadow: 0 0 5rem #27282f;
+    cursor: pointer;
+}
+
+.mon_nom
+{
+    margin-top: 15px;
+}
+
+.temoin
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.temoin .divider
+{
+    width: 50%;
+    border: 0.5px solid #299bd5;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.Profilage
+{
+    height: 30px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: var(--title-color);
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.Profilage a
+{
+    color: var(--title-color);
+}
+
+.boutons
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boutons .bouton
+{
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: var(--title-color);
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.boutons .bouton a
+{
+    color: #fff;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.list-propos, .propos-list
+{
+    display: grid;
+}
+
+.list-propos
+{
+    row-gap: 40px;
+}
+
+.propos-list
+{
+    row-gap: 15px;
+}
+
+.propos-list a
+{
+    display: flex;
+    align-items: center;
+    color: var(--title-color);
+}
+
+.propos-list a i
+{
+    width: 40px;
+    font-size: 20px;
+}
+
+.propos-list a span
+{
+    width: 250px;
+    margin-left: 10px;
+}
+
+.sidebarRight-actu
+{
+    position: fixed;
+    width: 320px;
+    top: 9%;
+    right: 0%;
+    height: 90.1vh;
+    border-radius: 10px;
+    background: var(--body-color);
+    z-index: 100;
+    transition: 0.5s;
+    box-shadow: 0 0 0.3rem #299bd5;
+    margin-right: 7px;
+    overflow: hidden;
+}
+
+.cadre-grid
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 27px;
+}
+
+.cadre
+{
+    position: relative;
+    width: 360px;
+    min-height: auto;
+    max-height: 450px;
+    border-radius: 10px;
+    align-items: center;
+    background: var(--body-color);
+    box-shadow: 0.8rem 0.8rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease;
+    overflow: hidden;
+}
+
+.cadre:hover
+{
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem #299bd5;
+    cursor: pointer;
+}
+
+.cadre .profile
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cadre .profile .user_infos
+{
+    display: flex;
+    align-items: center;
+}
+
+.cadre .profile .user_infos img
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.cadre .profile .user_infos .time
+{
+    font-size: 10px;
+}
+
+.who
+{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--title-color);
+    box-shadow: 0 0 0.9rem #299bd5;
+    border-radius: 50%;
+}
+
+.who a
+{
+    color: var(--body-color);
+}
+
+.post-details
+{
+    display: block;
+    cursor: pointer;
+}
+
+.content-post-texte .title
+{
+    position: relative;
+    padding: 10px;
+    color: var(--title-color);
+}
+
+.content-post-texte .title::before
+{
+    content: 'Voir plus';
+    color: #299bd5;
+    position: absolute;
+    top: 60%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 15px;
+}
+
+.content-post-texte.actipe .title::before
+{
+    content: 'moins';
+}
+
+.content-post-texte .description-post
+{
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: var(--title-color);
+    font-weight: bold;
+    font-size: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s;
+    overflow-y: auto;
+}
+
+.content-post-texte .description-post::-webkit-scrollbar
+{
+    width: 2px;
+}
+
+.content-post-texte .description-post::-webkit-scrollbar-track
+{
+    background: var(--body-color);
+    border-radius: 25px;
+}
+
+.content-post-texte .description-post::-webkit-scrollbar-thumb
+{
+    background: var(--title-color);
+    border-radius: 25px;
+}
+
+.content-post-texte .description-post::-webkit-scrollbar-thumb:hover
+{
+    background: #b3b3b3;
+}
+
+.content-post-texte.actipe .description-post
+{
+    max-height: 150px;
+}
+
+.post-details .contenu
+{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+}
+
+.post-details video
+{
+    position: absolute;
+    z-index: -2;
+}
+
+.post-details .affiche
+{
+    border-radius: 10px;
+    width: 100%;
+    height: 260px;
+}
+
+.followers
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.followers label
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 30px;
+    border-radius: 10px;
+    color: var(--title-color);
+    background: var(--body-color);
+    box-shadow: 0 0 0.1rem #299bd5;
+    cursor: pointer;
+}
+
+div.abonnement button
+{
+    height: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+    background: gray;
+    color: #5a5a5a;
+    font-size: 19px;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.abonne_btn span
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+/* ==================== Button Clicked ==================== */
+button.abonne_btn.abonne-cliked
+{
+    background: var(--color-danger);
+}
+
+.text-clicked
+{
+    color: #fff;
+}
+
+/* ================== Responsive ================== */
+@media screen and (width: 1680px) {
+    .header
+    {
+        width: 100%;
+        height: 6rem;
+        box-shadow: 0 0.2px 0.9px #299bd5;
+    }
+
+    img.nav_img
+    {
+        width: 95px;
+        height: 95px;
+    }
+
+    #search-container
+    {
+        width: 1026px;
+        height: 79px;
+    }
+
+    #search-container input
+    {
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    #search-container button
+    {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    .middle
+    {
+        margin-left: 51px;
+        margin-top: 50px;
+    }
+
+    .profile-banner
+    {
+        width: 998px;
+        height: 250px;
+    }
+
+    #bannier img
+    {
+        height: 250px;
+    }
+
+    .profile-photo img
+    {
+        width: 250px;
+        height: 250px;
+    }
+
+    .mon_nom
+    {
+        margin-top: 135px;
+        font-size: 40px;
+    }
+
+    .propos-list a
+    {
+        font-size: 35px;
+    }
+
+    .propos-list a i
+    {
+        font-size: 30px;
+    }
+
+    .propos-list a span {
+        width: 300px;
+        margin-left: 10px;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 950px;
+        height: 50px;
+        font-size: 38px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 30px;
+        margin-top: 60px;
+    }
+
+    .cadre
+    {
+        width: 480px;
+        max-height: 600px;
+    }
+
+    .cadre .profile .user_infos img
+    {
+        width: 90px;
+        height: 90px;
+    }
+
+    .cadre .profile .user_infos h3
+    {
+        font-size: 30px;
+    }
+
+    .lieux span 
+    {
+        font-size: 40px;
+    }
+
+    .lieux span b
+    {
+        font-size: 25px;
+    }
+
+    .cadre .profile .user_infos .time
+    {
+        font-size: 20px;
+    }
+
+    div.who
+    {
+        font-size: 30px;
+    }
+
+    .post-title h1
+    {
+        font-size: 25px;
+    }
+
+    .post-details .affiche
+    {
+        width: 100%;
+        height: 400px;
+    }
+
+    .followers
+    {
+        font-size: 30px;
+    }
+
+    .sidebarRight-actu
+    {
+        top: 9%;
+        width: 520px;
+        height: 91.1vh;
+    }
+
+    .boutons .bouton
+    {
+        height: 60px;
+    }
+
+    .boutons .bouton a
+    {
+        font-size: 40px;
+    }
+}
+
+@media screen and (width: 1024px) {
+    #bannier
+    {
+        width: 596px;
+    }
+}
+
+@media screen and (max-width: 1200px) 
+{
+    .boutons
+    {
+        display: flex;
+        align-items: center;
+        justify-content: normal;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    body::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    #search-container
+    {
+        width: 678px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 740px;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 741px;
+    }
+}
+
+@media screen and (width: 768px) {
+    #search-container
+    {
+        width: 678px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 620px;
+    }
+
+    .edit-banner
+    {
+        left: 92%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 619px;
+    }
+}
+
+@media screen and (width: 425px) {
+    #search-container
+    {
+        width: 355px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 394px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .profil-img img
+    {
+        width: 115px;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 388px;
+    }
+}
+
+@media screen and (width: 360px) {
+    #search-container
+    {
+        width: 297px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 319px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 322px;
+    }
+}
+
+@media screen and (width: 393px) {
+    #search-container
+    {
+        width: 328px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 354px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 354px;
+    }
+}
+
+@media screen and (width: 390px) {
+    #search-container
+    {
+        width: 324px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 351px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 352px;
+    }
+}
+
+@media screen and (width: 412px) {
+    #search-container
+    {
+        width: 344px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 374px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 374px;
+    }
+}
+
+@media screen and (width: 414px) {
+    #search-container
+    {
+        width: 346px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 375px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 377px;
+    }
+}
+
+@media screen and (width: 428px) {
+    #search-container
+    {
+        width: 363px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 390px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 390px;
+    }
+}
+
+@media screen and (width: 375px) {
+    #search-container
+    {
+        width: 307px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 327px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .profil-img img
+    {
+        width: 115px;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 329px;
+    }
+}
+
+@media screen and (width: 320px) {
+    #search-container
+    {
+        width: 259px;
+        top: 50px;
+    }
+    
+    #search-container input
+    {
+        width: 100%;
+    }
+
+    .profil-image
+    {
+        width: 277px;
+    }
+
+    .edit-banner
+    {
+        left: 85%;
+    }
+
+    .profil-img img
+    {
+        width: 115px;
+    }
+
+    .Profilage, div.abonnement button
+    {
+        width: 280px;
+    }
+}
+
+@media screen and (width: 1024px)
+{
+    main
+    {
+        margin-top: -27.8px;
+    }
+
+}
+
+@media screen and (min-width: 1080px)
+{
+    main
+    {
+        margin-top: -27.8px;
+    }
+
+}
+
+@media screen and (width: 768px)
+{
+    main
+    {
+        margin-top: -27.8px;
+    }
+
+}
+
+@media screen and (max-width: 768px)
+{
+    .sidebarRight-actu
+    {
+        display: none;
+    }
+}
+
+@media screen and (width: 425px)
+{
+    main
+    {
+        margin-top: -15.8px;
+    }
+
+}
+
+@media screen and (width: 375px)
+{
+    main
+    {
+        margin-top: -15.8px;
+    }
+
+}
+
+@media screen and (width: 320px)
+{
+    main
+    {
+        margin-top: -15.8px;
+    }
+
+}
+
+@media screen and (width: 2048px) {
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 30px;
+        margin-top: 60px;
+    }
+}
+
+@media screen and (width: 1728px) {
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1080px)
+{
+    .center
+    {
+        margin-left: 75px;
+        padding-right: 20px;
+        width: 779px;
+    }
+}
+
+@media screen and (width: 1024px)
+{
+    .middle
+    {
+        width: 700px;
+        /* box-shadow: 0 0 0.3rem #299bd5; */
+        overflow: hidden;
+    }
+
+    .center
+    {
+        margin-left: 75px;
+        padding-right: 20px;
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (width: 768px)
+{
+    .middle
+    {
+        width: 700px;
+        /* box-shadow: 0 0 0.3rem #299bd5; */
+        overflow: hidden;
+    }
+
+    .center
+    {
+        margin-left: 75px;
+        padding-right: 20px;
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-left: 138px;
+    }
+}
+
+@media screen and (width: 390px)
+{
+    .middle
+    {
+        width: 700px;
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (width: 393px)
+{
+    .middle
+    {
+        width: 700px;
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (width: 412px)
+{
+    .middle
+    {
+        width: 700px;
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cadre
+    {
+        width: 370px;
+    }
+}
+
+@media screen and (width: 414px)
+{
+    .middle
+    {
+        width: 700px;
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cadre
+    {
+        width: 371px;
+    }
+}
+
+@media screen and (width: 425px)
+{
+    .middle
+    {
+        width: 700px;
+        /* box-shadow: 0 0 0.3rem #299bd5; */
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 25px;
+    }
+
+    .cadre
+    {
+        width: 388px;
+    }
+}
+
+@media screen and (width: 428px)
+{
+    .middle
+    {
+        width: 700px;
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 779px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cadre
+    {
+        width: 390px;
+    }
+}
+
+@media screen and (width: 390px) {
+    .cadre
+    {
+        width: 350px;
+    }
+}
+
+@media screen and (width: 393px) {
+    .cadre
+    {
+        width: 357px;
+    }
+}
+
+@media screen and (max-width: 375px)
+{
+    .middle
+    {
+        width: 330px;
+        /* box-shadow: 0 0 0.3rem #299bd5; */
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 409px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cadre
+    {
+        width: 331px;
+    }
+}
+
+@media screen and (width: 360px) {
+    .cadre
+    {
+        width: 320px;
+    }
+}
+
+@media screen and (width: 320px)
+{
+    .middle
+    {
+        width: 320px;
+        /* box-shadow: 0 0 0.3rem #299bd5; */
+        overflow: hidden;
+    }
+
+    .center
+    {
+        width: 409px;
+    }
+
+    .cadre-grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cadre
+    {
+        width: 283px;
+    }
+}

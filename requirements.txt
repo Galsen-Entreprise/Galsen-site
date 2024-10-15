@@ -16,7 +16,8 @@ pillow==10.2.0
 platformdirs==4.1.0
 pylint==3.0.3
 psycopg2-binary==2.9.9
+python-dotenv
 sqlparse==0.4.4
 tomlkit==0.12.3
 tzdata==2023.4
-
+whitenoise==6.5.0

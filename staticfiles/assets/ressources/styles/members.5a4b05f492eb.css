@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+/* ===== VARIABLES CSS ====== */
+:root {
+    --header-height: 3rem;
+
+    /* ====== Colors ====== */
+    --hue: 174;
+    --sat: 63%;
+
+    --first-color: hsl(var(--hue), var(--sat), 40%);
+    --first-color-alt: hsl(var(--hue), var(--sat), 36%);
+    --title-color: hsl(var(--hue), 12%, 15%);
+    --text-color: hsl(var(--hue), 8%, 35%);
+    --body-color: hsl(var(--hue), 100%, 99%);
+    --container-color: #fff;
+    --color-danger: hsl(0, 95%, 65%);
+
+    /* ========== Font and typography ========= */
+    --body-font: 'Open Sans', sans-serif;
+
+    --h1-font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --tiny-font-size: .625rem;
+
+    /* ===== z Index ====== */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+/* ====== Responsive typography ====== */
+@media screen and (min-width: 968px) {
+    :root {
+        --h1-font-size: 2.25rem;
+        --normal-font-size: 1rem;
+    }
+}
+
+/* ===== Les Bases ===== */
+* 
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+ul
+{
+    list-style: none;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+img
+{
+    max-width: 100%;
+    height: auto;
+}
+
+.header{
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: var(--body-color);
+    z-index: var(--z-fixed);
+    transition: .4s;
+    box-shadow: 0 0.2px 0.5px #299bd5;
+}
+
+/* ====== Le NavBar ===== */
+.nav
+{
+    height: var(--header-height);
+    padding: 10px;
+}
+
+.search .form-group
+{
+    padding: 1px;
+}
+
+.search .form-group input
+{
+    position: relative;
+    width: 90%;
+    padding: 9px;
+    border-radius: 5px;
+}
+
+.search .form-group button
+{
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    background: #299bd5;
+    width: 120px;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.profiles
+{
+    position: relative;
+    padding: 1.5rem 0 2rem;
+}
+
+.profile-card
+{
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.profiles-grid
+{
+    padding: 10px;
+    margin-top: 20px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.profile-card
+{
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.profile-card:hover
+{
+    box-shadow: 5px 5px 20px #F2B749;
+}
+
+.profile-card img
+{
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    height: 100px;
+    width: 100%;
+}
+
+.profile-card .infos
+{
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0px;
+}
+
+.profile-card .infos img
+{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
+	right: 15px;
+	top: -50%;
+	outline: 1px solid var(--primary-clr);
+	outline-offset: 3px;
+}
+
+.profile-card .infos .subject
+{
+	padding: 8px 10px;
+	background-color: #edfaf1;
+	border-radius: 5px;
+}
+
+.profile-card .infos .subject h3
+{
+	font-size: 18px;
+	font-weight: 500;
+	color: var(--text-color);
+}
+
+.profile-card .profile-name
+{
+	font-size: 15px;
+	color: var(--title-color);
+}
+
+.profile-card .profile-date
+{
+	padding: 15px 0px 0px;
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid #ccc;
+}
+
+.profile-card .profile-date span
+{
+	color: var(--title-color);
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* ===== Responsive Design ====== */
+@media (width > 540px) {
+    .profiles-grid
+    {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .profiles
+    {
+        max-width: 1030px;
+    }
+
+    .profile-card img
+    {
+        height: 100px;
+        width: 100%;
+        object-fit: cover;
+    }
+}

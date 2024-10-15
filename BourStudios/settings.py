@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Determine environment and set DEBUG accordingly
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
-DEBUG = ENVIRONMENT == 'development'
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
@@ -41,6 +41,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'galsen.middleware.MarqueDispositifMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'BourStudios.urls'
@@ -82,6 +83,7 @@ DATABASES = {
         'PASSWORD': os.getenv('PGPASSWORD'),
         'HOST': os.getenv('PGHOST'),
         'PORT': os.getenv('PGPORT'),
+        
     }
 }
 
@@ -117,12 +119,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'galsen/static')
+    ]
 
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'galsen/static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'galsen/images/')
 
