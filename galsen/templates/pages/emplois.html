@@ -1,0 +1,112 @@
+{% extends 'pages/layouts/app.html' %}
+
+{% block app %}
+{% load static %}
+
+    <section class="center">
+
+        <section>
+            <form action="" class="search">
+                <div class="form-group">
+                    <input type="search" name="job" id="search-input" placeholder="Rechercher une offre"/>
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            
+        </section>
+        
+        <section class="slider pubPolitique">
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner.png' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner3.jpeg' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner4.jpeg' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner5.jpg' %}">
+                </a>
+            </div>
+        
+            <div class="lines PageLines">
+                <div class="line_P" onclick="currentSlideP(1)"></div>
+        
+                <div class="line_P" onclick="currentSlideP(2)"></div>
+        
+                <div class="line_P" onclick="currentSlide(3)"></div>
+        
+                <div class="line_P" onclick="currentSlide(4)"></div>
+            </div>
+        </section>
+
+        {% include 'PUB/partenaire.html' %}
+
+        <section class="emplois">
+            {% for job in jobs %}
+                <div class="card-job">
+                    <div  class="job-profil">
+                        {% if job.user.bannner_image and job.user.banner_image.url %}
+                                <img src="{{ job.user.banner_image.url}}">
+                            {% else %}
+                                <img src="{% static 'assets/default/user.png' %}">
+                        {% endif %}
+                    </div>
+
+                    <div class="job-content">
+                        <div class="job-infos-date">
+                            <h4>
+                                <span> <i class="fa fa-calendar primary"></i> {{ job.date_creation_post|date:"d F Y à H:i" }} </span>
+                                <span> <i class="fa fa-user primary"></i>  ({{ job.user.rôle|upper }}), {{ job.user.etablissement }} </span>
+                                <span> <i class="fa fa-envelope primary"></i> {{ job.user.email }} </span>
+                                <span> <i class="fa fa-phone primary"></i> +{{ job.user.indicatif_pays }} {{ job.user.number_phone }} </span>
+                            </h4>
+                        </div>
+                        <div class="job-title">
+                            <h1>
+                                {{ job.title|safe }}
+                            </h1>
+                        </div>
+                        <div class="job-description">
+                            <p>
+                                {{ job.contenu_job|safe|truncatewords_html:50 }}
+
+                            </p>
+                        </div>
+                        <div class="job-buttons">
+                            <a href="{% url 'job_detail' job_id=job.id %}"> Plus de détails </a>
+                            <form id="postule-form-{{ job.pk }}" method="POST" action="{% url 'postule' job.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="postuler" type="submit">
+                                    {% if request.user in job.postule_job.all %}
+                                        Ne plus postuler
+                                    {% else %}
+                                        Postuler
+                                    {% endif %}
+                                    <b class="number-like danger">{{ job.postule_job.count }}</b>
+                                </button>
+                            </form>
+                            <button> <i class="fa fa-share-alt"></i> </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+
+        {% include 'pages/common/sidebar.html' %}
+    </section>
+{% endblock %}

@@ -3,14 +3,13 @@
 :root
 {
       /*========== Colors ==========*/
-  --hue-color: 240;
 
-  --first-color: hsl(var(--hue-color), 53%, 49%);
-  --title-color: hsl(var(--hue-color), 53%, 15%);
-  --text-color: hsl(var(--hue-color), 1%, 4%);
-  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --first-color: #3b3bbf;
+  --title-color: #363949;
+  --text-color: #0a0a0a;
+  --text-color-light: #9b9bb0;
   --container-color: #fff;
-  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --body-color: #f6f6f9;
   --color-danger: hsl(0, 95%, 65%);
 
   --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
@@ -265,6 +264,7 @@ small
 
 .sidebar-share-profile a
 {
+    display: flex;
     list-style: none;
     text-decoration: none;
     flex-direction: column;
@@ -280,27 +280,27 @@ small
     margin-top: 10px;
 }
 
-.sidebar-share-profile a .whatsapp
+.sidebar-share-profile a .whatsapp, a.fa.fa-whatsapp.whatsapp
 {
     color: #25D366;
 }
 
-.sidebar-share-profile a .facebook
+.sidebar-share-profile a .facebook, a.fa.fa-facebook.facebook
 {
     color: #2364f0;
 }
 
-.sidebar-share-profile a .telegram
+.sidebar-share-profile a .telegram, a.fa.fa-telegram.telegram
 {
     color: #0088cc;
 }
 
-.sidebar-share-profile a .linkedin
+.sidebar-share-profile a .linkedin, a.fa.fa-linkedin.linkedin
 {
     color: #0077b5;
 }
 
-.sidebar-share-profile a .pinterest
+.sidebar-share-profile a .pinterest, a.fa.fa-pinterest.pinterest
 {
     color: #C8232C;
 }

@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+    <title>Vos Postulants</title>
+</head>
+<body>
+
+    
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
+    <section class="listes">
+        <header>
+            <a href="#" id="boutonRetour">
+                <i class="fa fa-arrow-left arrow"></i>
+            </a>
+            Liste de vos Postulants
+        </header>
+
+        <div class="temoin">
+            <br>
+            <hr class="divider">
+        </div>
+
+        <section>
+            {% for job, postulants in postulants.items %}
+                {% for postulant in postulants %}
+                    <a href="{% url 'user_detail' user_id=postulant.id %}" class="user-card">
+                        <div class="user-card-img">
+                            <img src="{% static 'assets/categories/postule.png' %}">
+                        </div>
+                        <p> De votre offre, <i> {{ job.title }} </i>
+                            <br> <span> <b> {{ postulant.first_name }} {{ postulant.last_name }} </b> a postulé à cette offre </sapn> 
+                        </p>
+                    </a>
+                    {% empty %}
+                    <li class="success">Vous n'avez pas de postulants pour le moment.</li>
+                {% endfor %}
+            {% endfor %}
+        </section>
+        
+    </section>
+
+    
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+</body>
+</html>

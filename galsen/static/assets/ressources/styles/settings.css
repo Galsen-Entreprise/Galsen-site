@@ -4,14 +4,13 @@
 :root
 {
       /*========== Colors ==========*/
-  --hue-color: 240;
 
-  --first-color: hsl(var(--hue-color), 53%, 49%);
-  --title-color: hsl(var(--hue-color), 53%, 15%);
-  --text-color: hsl(var(--hue-color), 1%, 4%);
-  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --first-color: #3b3bbf;
+  --title-color: #363949;
+  --text-color: #0a0a0a;
+  --text-color-light: #9b9bb0;
   --container-color: #fff;
-  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --body-color: #f6f6f9;
   --color-danger: hsl(0, 95%, 65%);
 
   --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);

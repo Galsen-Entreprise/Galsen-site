@@ -1,0 +1,335 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/sunprice.png' %}">
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profil.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Profile Banner -->
+        <div class="banner">
+            {% if user.banner_image and user.banner_image.url %}
+                    <img src="{{ user.banner_image.url }}">
+                {% else %}
+                    <img src="{% static 'assets/default/user.png' %}">
+            {% endif %}
+        </div>
+    
+        <!-- Profile Section -->
+        <div class="profile-section">
+          <div class="profile-pic">
+                {% if user.profile_image and user.profile_image.url %}
+                    <img src="{{ user.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                {% endif %}
+          </div>
+
+          <div class="profile-info">
+            <h1>
+                {% if profile_user.rôle == "personnel" %}
+                    {{ profile_user.first_name }} {{ profile_user.last_name }}
+                {% else %}
+                    {{ profile_user.etablissement }}
+                {% endif %}
+            </h1>
+            <p>{{ profile_user.email }}</p>
+          </div>
+        </div>
+    
+        <!-- Navigation Links -->
+        <div class="profile-nav">
+          <ul>
+            <li><a href="#"><span>{{ profile_user.following_users.count }}</span>Abonnements</a></li>
+            <li><a href="#"><span>{{ profile_user.followers.count }}</span>Abonnés</a></li>
+            <li><a href="#"><span>{{ profile_user.total_likes_received }}</span>Aimes</a></li>
+          </ul>
+        </div>
+    
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <div class="buttons-1">
+                <form id="subscribe-form-{{ profile_user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=profile_user.id %}" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated and user != profile_user %}
+                        <button type="submit" class="button" data-user-id="{{ profile_user.id }}">
+                            {% if request.user in profile_user.followers.all %}
+                            <i class="fa fa-check"></i> Suivi
+                            {% else %}
+                            <i class="fa fa-user-plus"></i> Suivre
+                            {% endif %}
+                        </button>
+                    {% endif %}
+                </form>
+                <a href="{% url 'a_propos_detail' user_id=profile_user.id %}" class="button"> <i class="fa fa-list-alt"></i> A Propos </a>
+            </div>
+
+            <ul class="status">
+                <li>
+                    {% if profile_user.genre == "homme" %}
+                        <i class="fa fa-male primary"></i>
+                        <p>Je suis un
+                            <span>{{ profile_user.genre }}</span> 
+                        </p>
+                    {% elif profile_user.genre == "femme" %}
+                        <i class="fa fa-female primary"></i>
+                        <p>Je suis une
+                            <span>{{ profile_user.genre }}</span> 
+                        </p>
+                    {% else %}
+                        <p>Genre non spécifié</p>
+                    {% endif %}
+                </li>
+
+                <li>
+                    <i class="fa fa-home primary"></i>
+                    <p>J'habites au(x) 
+                        <span>{{ profile_user.pays }}</span> dans la ville de 
+                        <span>{{ profile_user.ville }}</span> au quartier 
+                        <span>{{ profile_user.quartier }}</span> 
+                     </p>
+                </li>
+
+                <li>
+                    <i class="fa fa-transgender primary"></i>
+                    <p>Je suis 
+                        <span>{{ profile_user.situation_matrimoniale }}</span> 
+                     </p>
+                </li>
+
+                
+                {% if profile_user.rôle == "personnel" %}
+                        <li>
+                            <i class="fa fa-briefcase primary"></i>
+                            <p>J'ai comme métier:
+                                <span>{{ profile_user.metier }}</span> 
+                            </p>
+                        </li>
+                    {% else %}
+
+                {% endif %}
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-whatsapp primary"></i>
+                        <p>Mon numéro whatsapp est: 
+                            <span>+{{ profile_user.indicatif_pays }} {{ profile_user.number_phone }}</span> 
+                        </p>
+                    </a>
+                </li>
+            </ul>
+
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="post-card post-card-user">
+                        <div class="top-post">
+                            <div class="infos-users">
+                                <a href="#">
+                                    <div class="image">
+                                        {% if post.user.profile_image and post.user.profile_image.url %}
+                                            <img src="{{ post.user.profile_image.url}}" class="enligne">
+                                        {% else %}
+                                            <img src="{% static 'assets/default/user.png' %}" class="enligne">
+                                        {% endif %}
+                                    </div>
+                                    <div class="details">
+                                        <div class="name">
+                                            {% if post.user.rôle == "personnel" %}
+                                                <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
+                                            {% else %}
+                                                <h3> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} 
+                                                    <span class="danger">
+                                                        ({{ post.user.rôle|upper }})
+                                                    </span> 
+                                                </h3>
+                                            {% endif %}
+                                        </div>
+                                        <div class="user_localhome">
+                                            <span>
+                                                {% if post.user.quartier and post.user.ville and post.user.pays %} 
+                                                    <b><i class="fa fa-map-marker primary"></i> {{ post.user.quartier }}  - {{ post.user.ville }}  - {{ post.user.pays }} </b>
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div class="time_post">
+                                            <span class="fa fa-clock-o"><i class="primary">Posté le {{ post.date_creation_post|date:"d F Y à H:i" }}
+                                                </i></span>
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </a> 
+                            </div>
+                            <form id="subscribe-form-{{ post.user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=post.user.id %}" method="post">
+                                {% csrf_token %}
+                                {% if user.is_authenticated and user != post.user %}
+                                    <button type="submit" class="button-follow" data-user-id="{{ post.user.id }}">
+                                        {% if request.user in post.user.followers.all %}
+                                            Suivi
+                                        {% else %}
+                                            Suivre
+                                        {% endif %}
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        
+                        <div class="center-post">
+                            <div class="description">
+                                <p>
+                                    {{ post.contenu_post|safe }}
+                                </p>
+                            </div>
+                            <a class="more"></a>
+
+                            {% if post.mediaspost_set.all or post.video %}
+                                <div class="media-carousel" data-post-id="{{ post.id }}">
+                                    <button class="prev-btn">&#10094;</button>
+                                    <div class="media-wrapper" onclick="openModal(event)">
+                                        {% for media in post.mediaspost_set.all %}
+                                            {% if media.image %}
+                                                <img src="{{ media.image.url }}" alt="Media 1" class="affiche"> 
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+                                        {% if post.video %}
+                                            <video autoplay muted controls loop disablepictureinpicture controlslist="nodownload noplaybackrate" class="affiche" alt="Media 1">
+                                                <source src="{{ post.video.url }}" type="video/mp4">
+                                            </video>
+                                        {% endif %}
+                                    </div>
+                                    <button class="next-btn">&#10095;</button>
+                                    <div class="media-indicator"></div>
+                                </div>
+                            {% endif %}
+
+            
+                            
+                            <!-- Modal pour afficher les images en grand -->
+                            <div id="modal" class="modal" onclick="closeModal()">
+                                <span class="close_views">&times;</span>
+                                <img class="modal-content" id="modal-img">
+                            </div>
+                        </div>
+
+                        {% comment %} <div class="bottom-post"></div> {% endcomment %}
+                        <section class="followers">
+                            <a class="like-btn" data-like-url="{% url 'likes' post.pk %}">
+                                <form id="like-form-{{ post.pk }}" method="POST" action="{% url 'likes' post.pk %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="button-like" data-post-id="{{ post.pk }}">
+                                        <span class="like-icon" id="likeIcon{{ post.pk }}">
+                                            {% if user.is_authenticated %}
+                                                {% if request.user in post.like_post.all %}
+                                                    <i class="fa fa-thumbs-up primary"></i>
+                                                {% else %}
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                {% endif %}
+                                            {% else %}
+                                                <i class="fa fa-thumbs-down"></i>
+                                            {% endif %}
+                                        </span>
+                                        <b class="number-like primary">{{ post.like_post.count }}</b>
+                                    </button>
+                                </form>
+                        
+                            </a>
+                            
+                
+                            <a href="{% url 'post_comments' post.id %}">
+                                <i class="fa fa-comments">
+                                    <span class="primary" style="font-weight: bold;">
+                                        {% if post.nombre_commentaire > 1000 %}
+                                            {{ post.nombre_commentaire|divisibleby:1000|floatformat:"0.1" }}k
+                                        {% else %}
+                                            {{ post.nombre_commentaire }}
+                                        {% endif %}
+                                    </span>
+                                </i>
+                            </a>
+                
+                            <a onclick="openPopup('{{ post.id }}')">
+                                <i class="fa fa-share-alt"></i>
+                            </a>
+        
+                        </section>
+                        {% for post in posts %}
+                            <section class="popup popup-{{ post.id }}">
+                                <div class="content-popup">
+                                    <span class="close" onclick="closePopup('{{ post.id }}')">&times;</span>
+                            
+                                    <h2>Partager sur:</h2>
+
+                                    <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                            
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                            
+                                    <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+
+                                    <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+
+                            
+                                    <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                            
+                                </div>
+                            
+                            </section>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            
+                    {% else %}
+                    <center>
+                        <p>Aucun poste disponible pour le moment.</p>
+                    </center>
+            {% endif %}
+        </div>
+          
+      </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/profil.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stocke la position actuelle dans un cookie lors du chargement de la page
+            document.cookie = 'scrollPos=' + window.scrollY + ';path=/';
+        });
+
+
+
+        let more = document.querySelectorAll('.more');
+
+        for (let i = 0; i < more.length; i ++) {
+            more[i].addEventListener('click', function() {
+                more[i].parentNode.classList.toggle('active')
+            })
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    <title> Vos Commandes </title>
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    <title>Vos Commandes</title>
+</head>
+<body>
+    <img src="{% static 'assets/logo/school.png' %}" class="bg">
+    <section class="listes">
+        <header>
+            <a href="#" id="boutonRetour">
+                <i class="fa fa-arrow-left arrow"></i>
+            </a>
+            Vos Commandes
+        </header>
+
+        <div class="temoin">
+            <br>
+            <hr class="divider">
+        </div>
+
+        <section>
+            {% if commandes %}
+                {% for commande in commandes %}
+                    
+                    <a href="#" class="user-card">
+                        <div class="user-card-img">
+                            <img src="{{ commande.product.mediasproduct_set.first.image.url }}">
+                        </div>
+                        <div class="user-card-info">
+                            <h2> {{ commande.product.nom_produit }} </h2>
+                            <p> {{ commande.date_creation }} </p>
+                            <p> {{ commande.product.prix }} </p>
+                            <p> {{ commande.precision }} </p>
+                        </div>
+                    </a>
+                    <hr class="divider">
+                {% endfor %}
+            {% else %}
+                <center>
+                    <p class="success">
+                        Vous n'avez passé aucune commande.
+                    </p>
+                </center>
+            {% endif %}
+        </section>
+    </section>
+
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+</body>
+</html>

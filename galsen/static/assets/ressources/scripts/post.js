@@ -1,23 +1,3 @@
-let video = document.querySelectorAll("video")
-video.forEach(video => {
-    let playPromise = video.play()
-    if(playPromise !== undefined) {
-        playPromise.then(() => {
-            let observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    video.muted = true
-                    if(entry.intersectionRatio !== 1 && !video.paused){
-                        video.pause()
-                    } else if (entry.intersectionRatio > 0.5 && video.paused) {
-                        video.play()
-                    }
-                })
-            }, {threshold: 0.5})
-            observer.observe(video)
-        })
-    }
-})
-
 // Image Carroussel
 document.addEventListener('DOMContentLoaded', () => {
     const mediaCarousels = document.querySelectorAll('.media-carousel');
@@ -146,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
 // Like
 $(document).ready(function() {
     function getCookie(name) {
@@ -258,17 +237,3 @@ function closePopup(postId) {
         popup.style.display = "none";
     }
 }
-
-
-// Notification
-document.addEventListener('DOMContentLoaded', function () {
-    const notifications = document.querySelectorAll('.notification');
-
-    notifications.forEach(notification => {
-        notification.addEventListener('click', function () {
-            // Ajoutez une classe pour marquer la notification comme lue
-            this.classList.add('read');
-        });
-    });
-});
-

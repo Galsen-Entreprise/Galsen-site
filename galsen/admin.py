@@ -16,6 +16,7 @@ from .models import ShareJob
 from .models import Notification
 from .models import Commande
 from .models import ReponseCommande
+from .models import Traffic
 
 # Register your models here.
 
@@ -56,3 +57,4 @@ admin.site.register(ShareJob)
 admin.site.register(Notification)
 admin.site.register(Commande)
 admin.site.register(ReponseCommande)
+admin.site.register(Traffic)

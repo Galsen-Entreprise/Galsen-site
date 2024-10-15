@@ -52,7 +52,7 @@
                             <div class="comments">
                                 <div class="message_comment">
                                     <h3>
-                                        <a href="{% url 'user_detail' pk=post.user.id %}">
+                                        <a href="{% url 'user_detail' user_id=post.user.id %}">
                                             {% if user.profile_images and user.profile_images.url %}
                                             <img src="{{ comment.user.profile_images.url }}">
                                             {% else %}

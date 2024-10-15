@@ -1,0 +1,57 @@
+{% extends 'pages/layouts/app.html' %}
+
+{% block app %}
+    <section class="product-detail">
+        <div class="product-main">
+            <h1>{{ produit.nom_produit }}</h1>
+            <img src="{{ produit.mediasproduct_set.first.image.url }}" alt="{{ produit.nom_produit }}">
+            <p>{{ produit.description }}</p>
+            <h2>Prix : {{ produit.prix }} {{ produit.boutique.devise_money }} </h2>
+        </div>
+
+        <div class="other-products">
+            <h1 class="title-categorie">Produits similaires dans la catégorie : {{ produit.get_category_display }}</h1>
+
+            <div class="products-grid">
+                {% for produit_similaire in produits_meme_categorie %}
+                    <div class="product-card">
+                        <div class="img-product">
+                            <img src="{{ produit_similaire.mediasproduct_set.first.image.url }}">
+                            <ul class="action">
+                                <li> 
+                                    <a href="{% url 'product_detail' produit_similaire.id %}">
+                                        <i class="fa fa-eye"></i>
+                                        <span>Consulter le Produit</span>
+                                    </a>
+                                </li>
+                                <li> 
+                                    <a href="#">
+                                        <i class="fa fa-list-alt"></i>
+                                        <span>Ajouter à votre Facture</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"> 
+                                        <i class="fa fa-star"></i>
+                                        <span>Donner une étoile</span>
+                                    </a> 
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <div class="product-name">
+                                <h3>{{ produit_similaire.nom_produit }}</h3>
+                            </div>
+                            <div class="product-price_rating">
+                                <h2>{{ produit_similaire.prix }} {{ produit_similaire.boutique.devise_money }}</h2>
+                                <div class="rating">
+                                    <h3>1 000 <i class="fa fa-star"></i></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

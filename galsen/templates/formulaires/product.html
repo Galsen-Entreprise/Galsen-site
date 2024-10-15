@@ -14,14 +14,12 @@
     </header>
 
     <label for="imageFile" class="button">Choisissez des images :</label>
-
     <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
     <progress id="imageProgress" value="0" max="100"></progress>
     <span id="imageProgressText">0%</span>
     <div id="imageContainer"></div>
 
     <label for="videoFile" class="button">Choisissez des vidéos :</label>
-
     <input type="file" id="videoFile" accept="video/*" class="file" name="video">
     <progress id="videoProgress" value="0" max="100"></progress>
     <span id="videoProgressText">0%</span>
@@ -40,6 +38,30 @@
             <i class="fa fa-money"></i>
             <input id="prix" type="number" class="form-control" name="prix" required placeholder="Le prix du produit">
             <span class="bar"></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="input-group">
+            <i class="fa fa-list-alt"></i>
+            <div class="custom_select">
+                <select id="category" class="form-control" name="category" required>
+                    <option value="">-- Choisir une catégorie --</option>
+                    <option value="electronics">Électronique</option>
+                    <option value="fashion">Mode et Vêtements</option>
+                    <option value="home_garden">Maison et Jardin</option>
+                    <option value="beauty_health">Beauté et Santé</option>
+                    <option value="food_drink">Alimentation et Boissons</option>
+                    <option value="sports_leisure">Sport et Loisirs</option>
+                    <option value="books_media">Livres et Médias</option>
+                    <option value="toys_kids">Jouets et Enfants</option>
+                    <option value="automotive_tools">Automobile et Outils</option>
+                    <option value="pets">Animaux</option>
+                    <option value="services">Services et Abonnements</option>
+                    <option value="special_offers">Offres spéciales / Promotions</option>
+                </select>
+            </div>
+            
         </div>
     </div>
 

@@ -286,7 +286,7 @@
 .fa-flag:before {
   content: "\f024";
 }
-.fa-headphones:before {
+.fa-headphones:before { 
   content: "\f025";
 }
 .fa-volume-off:before {
