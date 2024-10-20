@@ -36,7 +36,7 @@
         </div>
 
         <section>
-            {% for job, postulants in postulants.items %}
+            {% if postulants %}
                 {% for postulant in postulants %}
                     <a href="{% url 'user_detail' user_id=postulant.id %}" class="user-card">
                         <div class="user-card-img">
@@ -46,10 +46,14 @@
                             <br> <span> <b> {{ postulant.first_name }} {{ postulant.last_name }} </b> a postulé à cette offre </sapn> 
                         </p>
                     </a>
-                    {% empty %}
-                    <li class="success">Vous n'avez pas de postulants pour le moment.</li>
                 {% endfor %}
-            {% endfor %}
+                {% else %}
+                <center>
+                    <p class="success">
+                        Vous n'avez passé aucune postulants.
+                    </p>
+                </center>
+            {% endif %}
         </section>
         
     </section>
