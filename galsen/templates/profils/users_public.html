@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title> Galsen </title>
 
     <link type="images/jpg" rel="icon" href="{% static 'assets/logo/sunprice.png' %}">
 
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/profil.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
 
 </head>
 <body>
@@ -23,8 +24,10 @@
     <div class="profile-container">
         <!-- Profile Banner -->
         <div class="banner">
-            {% if user.banner_image and user.banner_image.url %}
-                    <img src="{{ user.banner_image.url }}">
+            {% if profile_user.banner_image and profile_user.banner_image.url %}
+                <a href="{{ profile_user.banner_image.url }}" data-lightbox="mygallery">
+                    <img src="{{ profile_user.banner_image.url }}">
+                </a>
                 {% else %}
                     <img src="{% static 'assets/default/user.png' %}">
             {% endif %}
@@ -33,8 +36,10 @@
         <!-- Profile Section -->
         <div class="profile-section">
           <div class="profile-pic">
-                {% if user.profile_image and user.profile_image.url %}
-                    <img src="{{ user.profile_image.url }}">
+                {% if profile_user.profile_image and profile_user.profile_image.url %}
+                    <a href="{{ profile_user.profile_image.url }}" data-lightbox="mygallery">
+                        <img src="{{ profile_user.profile_image.url }}">
+                    </a>
                     {% else %}
                         <img src="{% static 'assets/default/user.png' %}">
                 {% endif %}
@@ -125,10 +130,28 @@
                 {% endif %}
 
                 <li>
-                    <a href="#">
+                    <a href="tel:+{{ profile_user.indicatif_pays }}{{ profile_user.number_phone }}">
+                        <i class="fa fa-phone primary"></i>
+                        <p>Mon numéro de téléphone est: 
+                            <span>+{{ profile_user.indicatif_pays }} {{ profile_user.number_phone }}</span> 
+                        </p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://wa.me/+{{ profile_user.indicatif_pays }}{{ profile_user.number_phone }}">
                         <i class="fa fa-whatsapp primary"></i>
                         <p>Mon numéro whatsapp est: 
                             <span>+{{ profile_user.indicatif_pays }} {{ profile_user.number_phone }}</span> 
+                        </p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="mailto:{{ profile_user.email }}">
+                        <i class="fa fa-envelope primary"></i>
+                        <p>Et mon email est: 
+                            <span>{{ profile_user.email }}</span> 
                         </p>
                     </a>
                 </li>
@@ -297,7 +320,7 @@
             
                     {% else %}
                     <center>
-                        <p>Aucun poste disponible pour le moment.</p>
+                        <p class="success">Aucune poste disponible pour le moment.</p>
                     </center>
             {% endif %}
         </div>

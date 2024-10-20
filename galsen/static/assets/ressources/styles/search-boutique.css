@@ -215,86 +215,68 @@ small
     color: var(--body-color);
 }
 
-.banner
+.search-product
+{
+    position: fixed;
+    width: 92.5%;
+    left: 6.5%;
+    top: 50px;
+    z-index: 10;
+}
+
+.search-product .form-search
 {
     position: relative;
-    width: 95%;
-    height: 400px;
-    left: 5.5%;
-    margin-top: 30px;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.banner .slider-boutique
-{
-    position: absolute;
     width: 100%;
-    height: 400px;
-    top: 0;
 }
 
-.banner .slider-boutique img
+.search-product .form-search input
 {
-    border-radius: 10px;
     width: 100%;
-    height: 100%;
+    background: var(--body-color);
+    color: var(--title-color);
+    font-size: 16px;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #299bd5;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 15px 36px 10px 10px;
+    transition: all .3s ease;
 }
 
-.lines-boutique
+.search-product .form-search input:focus
+{
+    box-shadow: 0 0 0 4px var(--color-danger);
+}
+
+.search-product .form-search button
 {
     position: absolute;
-    display: flex;
-    margin-top: -20px;
-}
-
-.PageLinesBoutique
-{
-    position: absolute;
-    left: 45%;
-}
-
-.line-boutique
-{
-    padding: 1.5px 10px;
-    margin: 0 3px;
-    background-color: var(--title-color);
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+    color: var(--text-color);
+    border: none;
+    background: transparent;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.activeBoutique, 
-.line-boutique:hover
+.search-product .form-search button i
 {
-    background-color: #299bd5;
+    color: var(--title-color);
+    font-size: 20px;
+    transition: all .3s ease;
 }
 
-.slider-boutique
+.search-product .form-search button i:hover
 {
-    display: none;
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@keyframes fade 
-{
-    from
-    {
-        opacity: 0.5;
-    }
-    to
-    {
-        opacity: 1;
-    } 
+    color: var(--color-danger);
 }
 
 @media screen and (max-width: 767px) {
-    .banner 
+    .search-product
     {
         width: 425px;
-        height: 200px;
-        margin-top: 30px;
-        margin-left: -29px;
-        position: relative;
+        margin-left: -23px;
     }
 }

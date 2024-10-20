@@ -33,7 +33,7 @@
             {% if commandes %}
                 {% for commande in commandes %}
                     
-                    <a href="#" class="user-card">
+                    <a href="{% url 'product_detail' commande.product.id %}" class="user-card">
                         <div class="user-card-img">
                             <img src="{{ commande.product.mediasproduct_set.first.image.url }}">
                         </div>
@@ -41,7 +41,7 @@
                             <h2> {{ commande.product.nom_produit }} </h2>
                             <p> {{ commande.date_creation }} </p>
                             <p> {{ commande.product.prix }} </p>
-                            <p> {{ commande.precision }} </p>
+                            <p> {{ commande.precision|safe }} </p>
                         </div>
                     </a>
                     <hr class="divider">

@@ -276,6 +276,7 @@ body
 
 .profile-info 
 {
+    width: 100%;
     margin-left: 150px;
 }
 
@@ -288,6 +289,37 @@ body
 .profile-info p 
 {
     color: var(--text-color-light);
+}
+
+.profile-info .edits
+{
+    margin: 15px 0;
+    display: flex;
+    list-style-type: none;
+    padding: 15px 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-info .edits .button
+{display: grid;
+    text-align: center;
+    padding: 10px 17px;
+    font-size: 17px;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    background: #299bd5;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.1s;
+}
+
+.profile-info .edits .button:hover
+{
+    transform: scale(0.98);
+    background: var(--color-danger);
 }
 
 /* Profile Navigation */

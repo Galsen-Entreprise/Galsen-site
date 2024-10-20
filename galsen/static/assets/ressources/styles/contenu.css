@@ -871,6 +871,8 @@ button.button-like
     color: grey;
 }
 
+
+
 @media (width > 540px) {
     .user-grid
     {
@@ -898,6 +900,7 @@ button.button-like
 }
 
 @media screen and (max-width: 767px) {
+
     .center 
     {
         width: 500px;

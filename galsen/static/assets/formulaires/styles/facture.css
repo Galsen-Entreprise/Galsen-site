@@ -22,13 +22,14 @@
 :root
 {
       /*========== Colors ==========*/
+  --hue-color: 240;
 
-  --first-color: #3b3bbf;
-  --title-color: #363949;
-  --text-color: #0a0a0a;
-  --text-color-light: #9b9bb0;
+  --first-color: hsl(var(--hue-color), 53%, 49%);
+  --title-color: hsl(var(--hue-color), 53%, 15%);
+  --text-color: hsl(var(--hue-color), 1%, 4%);
+  --text-color-light: hsl(var(--hue-color), 12%, 65%);
   --container-color: #fff;
-  --body-color: #f6f6f9;
+  --body-color: hsl(var(--hue-color), 24%, 94%);
   --color-danger: hsl(0, 95%, 65%);
 
   --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
@@ -48,7 +49,14 @@
     
 }
 
-
+/*========== Variables Dark theme ==========*/
+body.dark-theme
+{
+    --title-color: hsl(var(--hue-color), 12%, 95%);
+    --text-color: hsl(var(--hue-color), 12%, 75%);
+    --body-color: hsl(var(--hue-color), 10%, 16%);
+    --container-color: hsl(var(--hue),24%, 12%);
+}
 
 /* ========== Les Base =========== */
 *, *::before, *::after
@@ -215,86 +223,98 @@ small
     color: var(--body-color);
 }
 
-.banner
-{
-    position: relative;
-    width: 95%;
-    height: 400px;
-    left: 5.5%;
-    margin-top: 30px;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.banner .slider-boutique
-{
-    position: absolute;
-    width: 100%;
-    height: 400px;
-    top: 0;
-}
-
-.banner .slider-boutique img
-{
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-}
-
-.lines-boutique
-{
-    position: absolute;
-    display: flex;
-    margin-top: -20px;
-}
-
-.PageLinesBoutique
-{
-    position: absolute;
-    left: 45%;
-}
-
-.line-boutique
-{
-    padding: 1.5px 10px;
-    margin: 0 3px;
-    background-color: var(--title-color);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.activeBoutique, 
-.line-boutique:hover
-{
-    background-color: #299bd5;
-}
-
-.slider-boutique
+.section-disparait
 {
     display: none;
-    animation-name: fade;
-    animation-duration: 1.5s;
 }
 
-@keyframes fade 
+.invoice {
+    width: 920px;
+    margin: auto;
+    padding: 20px;
+    background: var(--body-color);
+    border-radius: 8px;
+    box-shadow: 0.1px 0.1px 5px 2px var(--clr-light);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--text-color-light);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.company-info h2 {
+    margin: 0;
+}
+
+.invoice-info p {
+    margin: 5px 0;
+}
+
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+main table th, main table td {
+    border: 1px solid var(--title-color);
+    padding: 8px;
+    text-align: left;
+}
+
+main table tbody td a
 {
-    from
-    {
-        opacity: 0.5;
-    }
-    to
-    {
-        opacity: 1;
-    } 
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--title-color);
+    font-weight: bold;
 }
 
-@media screen and (max-width: 767px) {
-    .banner 
+main table tbody td a img {
+    width: 50px;
+    height: 50px;
+    margin-right: 2px;
+}
+
+main table th {
+    background-color: var(--body-color);
+}
+
+tfoot tr {
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    border-top: 2px solid var(--text-color-light);
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .invoice-info {
+        margin-top: 10px;
+    }
+
+    main table {
+        font-size: 14px;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+
+    .invoice
     {
-        width: 425px;
-        height: 200px;
-        margin-top: 30px;
-        margin-left: -29px;
-        position: relative;
+        width: 423px;
     }
 }

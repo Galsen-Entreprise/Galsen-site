@@ -223,7 +223,7 @@ $(document).ready(function() {
 
  // partage
 // Fonction pour ouvrir le popup
-function openPopup(postId) {
+function openPopup() {
     var popup = document.querySelector('.popup.popup-' + postId);
     if (popup) {
         popup.style.display = "block";
@@ -231,7 +231,7 @@ function openPopup(postId) {
 }
 
 // Fonction pour fermer le popup
-function closePopup(postId) {
+function closePopup() {
     var popup = document.querySelector('.popup.popup-' + postId);
     if (popup) {
         popup.style.display = "none";
