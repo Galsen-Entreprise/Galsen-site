@@ -1,0 +1,90 @@
+{% extends 'pages/layouts/app.html' %}
+
+{% block app %}
+{% load static %}
+
+    <section class="center">
+        
+        <section>
+            <form action="" class="search">
+                <div class="form-group">
+                    <input type="search" name="entreprise" id="search-input" placeholder="Rechercher une entreprise"/>
+                    <button type="submit" class="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            
+        </section>
+        
+        <section class="slider">
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner.png' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner3.jpeg' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner4.jpeg' %}">
+                </a>
+            </div>
+        
+            <div class="sliderP">
+                <a href="#">
+                    <img src="{% static 'assets/default/banner5.jpg' %}">
+                </a>
+            </div>
+        
+            <div class="lines PageLines">
+                <div class="line_P" onclick="currentSlideP(1)"></div>
+        
+                <div class="line_P" onclick="currentSlideP(2)"></div>
+        
+                <div class="line_P" onclick="currentSlide(3)"></div>
+        
+                <div class="line_P" onclick="currentSlide(4)"></div>
+            </div>
+        </section>
+        
+        
+        {% if query %}
+            <section class="posts">
+                <center><p>{{ result_count }} résultat(s) trouvé(s) pour "{{ query }}"</p></center> 
+            </section>
+        {% endif %}
+        
+        <div class="user-grid">
+            {% for CustomUsers in CustomUsers %}
+                <a href="{% url 'user_detail' user_id=CustomUsers.id %}" class="user-card">
+                    {% if CustomUsers.profile_image and CustomUsers.profile_image.url %}
+                        <img src="{{ CustomUsers.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                    {% endif %}
+                    <p><i class="fa fa-map-marker primary"></i> {{ CustomUsers.pays }}, {{ CustomUsers.ville }}, {{ CustomUsers.quartier }}</p>
+                    <h4>
+                        <span><i class="fa fa-briefcase primary"></i></span>
+                        {% if CustomUsers.etablissement %}
+                            {{ CustomUsers.etablissement }}
+                        {% endif %} 
+                    </h4>
+                    <div>
+                        <div class="rating">
+                            <span><i class="fa fa-clock-o primary"></i></span>
+                            Inscrit(e) le {{ CustomUsers.date_joined|date:"d F Y à H:i" }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        {% include 'pages/common/sidebar.html' %}
+    </section>
+{% endblock %}

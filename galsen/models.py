@@ -204,6 +204,20 @@ class Client(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     
 class Product(models.Model):
+    CATEGORY_CHOICES = [
+        ('electronics', 'Électronique'),
+        ('fashion', 'Mode et Vêtements'),
+        ('home_garden', 'Maison et Jardin'),
+        ('beauty_health', 'Beauté et Santé'),
+        ('food_drink', 'Alimentation et Boissons'),
+        ('sports_leisure', 'Sport et Loisirs'),
+        ('books_media', 'Livres et Médias'),
+        ('toys_kids', 'Jouets et Enfants'),
+        ('automotive_tools', 'Automobile et Outils'),
+        ('pets', 'Animaux'),
+        ('services', 'Services et Abonnements'),
+        ('special_offers', 'Offres spéciales / Promotions'),
+    ]
     boutique = models.ForeignKey(Boutique, on_delete=models.CASCADE)
     video = models.FileField(upload_to='product_videos/')
     nom_produit = models.CharField(max_length=255)
@@ -211,6 +225,7 @@ class Product(models.Model):
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     quantite_stock = models.IntegerField(null=True, blank=True)
     fournisseur = models.CharField(max_length=255)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='electronics')
     date_creation = models.DateTimeField(auto_now_add=True)
     
 class Commande(models.Model):
@@ -239,3 +254,10 @@ class Notification(models.Model):
     comment = models.ForeignKey('Commentaire', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
     date = models.DateTimeField(default=timezone.now)
     user_has_seen = models.BooleanField(default=False)
+    
+class Traffic(models.Model):
+    date = models.DateField(auto_now_add=True)
+    visits = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.date} - {self.visits}"

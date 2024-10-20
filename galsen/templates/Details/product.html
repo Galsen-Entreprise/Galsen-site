@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/product_details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="infos-vendeur">
+                {% if produit.boutique.profile_image and produit.boutique.profile_image.url %}
+                    <img src="{{ produit.boutique.photo_profil.url }}">
+                {% else %}
+                    <img src="{% static 'assets/default/user.png' %}">
+                {% endif %}
+                <span> {{ produit.boutique.nom_boutique }} </span>
+            </div>
+
+            <div class="follow-boutique">
+                <i class="fa fa-list-alt"></i>
+            </div>
+        </nav>
+    </header>
+
+    <section class="content">
+        <div class="content-products">
+            <div class="product-images">
+                <img src="{{ produit.mediasproduct_set.first.image.url }}">
+            </div>
+            <div class="product-infos">
+                <h1 class="title">
+                    {{ produit.nom_produit }}
+                </h1>
+                <h3 class="price">
+                    {{ produit.prix }} {{ produit.boutique.devise_money }}
+                </h3>
+                <b class="date text-muteds"> Mis en vente le, {{ produit.date_creation|date:"d F Y à H:i" }} </b>
+            </div>
+
+            <div class="description">
+                <h1>Description</h1>
+                <p>{{ produit.description|safe }}</p>
+            </div>
+
+            <h1>Autres Images du produit</h1>
+            <div class="product-grid">
+                {% for media in produit.mediasproduct_set.all %}
+                    {% if media.image %}
+                            {% if media.image and media.image.url %}
+                                <a href="{{ media.image.url }}"  data-lightbox="mygallery">
+                                    <img src="{{ media.image.url }}">
+                                </a>
+                            {% endif %}
+                        {% else %}
+                        <center>
+                            <p class="success">Aucun produits similaires</p>
+                        </center>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="similaires">
+                <h1 class="title-categorie">Produits similaires dans la catégorie : {{ produit.get_category_display }}</h1>
+                <div class="products-grid">
+                    {% if produits_meme_categorie %}
+                            {% for produits_meme_categorie in produits_meme_categorie %}
+                                <div class="product-card">
+                                    <div class="img-product">
+                                        <img src="{{ produits_meme_categorie.mediasproduct_set.first.image.url }}">
+                                        <ul class="action">
+                                            <li> 
+                                                <a href="{% url 'product_detail' produits_meme_categorie.id %}">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span>Consulter le Produit</span>
+                                                </a>
+                                            </li>
+                                            <li> 
+                                                <a href="#">
+                                                    <i class="fa fa-list-alt"></i>
+                                                    <span>Ajouter à votre Facture</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"> 
+                                                    <i class="fa fa-star"></i>
+                                                    <span>Donner une étoile</span>
+                                                </a> 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="content">
+                                        <div class="product-name">
+                                            <h3>{{ produits_meme_categorie.nom_produit }}</h3>
+                                        </div>
+                                        <div class="product-price_rating">
+                                            <h2>{{ produits_meme_categorie.prix }} {{ produits_meme_categorie.boutique.devise_money }}</h2>
+                                            <div class="rating">
+                                                <h3>1 000 <i class="fa fa-star"></i></h3>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'product_detail' produit.id %}" class="link-product">
+                                            <b>
+                                                Consulter
+                                            </b>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                        <center>
+                            <p class="success">Aucun produits similaires</p>
+                        </center>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'pages/common/sidebar.html' %}
+    </section>
+    
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
+</body>
+</html>

@@ -1,0 +1,267 @@
+{% load static %}
+{% load Notifications.custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/boutique.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/boutique-slide.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/search.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slide.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+
+    <!-- ==================== Le haut, Header en Mode Fixe ==================== -->
+    <section class="header" id="header">
+        <!-- ===== Le NavBar ===== -->
+        <nav class="nav contenu">
+            <!-- ===== Le Logo ===== -->
+            <!-- ===== Img Profile ===== -->
+            <a href="detail_profile"> 
+                {% if user.profile_image and user.profile_image.url %}
+                    <img src="{{ user.profile_image.url }}" class="nav_img enligne">
+                {% else %}
+                    <img src="{% static 'assets/default/user.png' %}"class="nav_img enligne">
+                {% endif %}
+            </a>
+
+            <a href="post" class="alter_post danger"> 
+                 |<img src="{% static 'assets/categories/publication.png' %}"class="nav_img">
+            </a>
+
+            <!-- ===== Les Menus ===== -->
+            <div class="nav_menu" id="nav-menu">
+                <!-- ===== Le Ul ===== -->
+                {% with request.resolver_match.url_name as url_name %}
+                    <ul class="nav_list">
+                        <!-- ===== Les Listes li ===== -->
+                        <li class="nav_item">
+                            <a href="home" class="nav_link {% if url_name == 'home' %} active-link {% endif %}">
+                                <label for="click-home" class="fa fa-home nav_icon"></label>
+                                <span class="nav_name"><label for="click-home"> Home </label></span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="personnel" class="nav_link {% if url_name == 'personnel' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-users nav_icon"></label>
+                                <span class="nav_name"> 
+                                    <label for="#"> Personnels </label></span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="ecole" class="nav_link {% if url_name == 'ecole' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-graduation-cap nav_icon"></label>
+                                <span class="nav_name"> 
+                                    <label for="#"> Ecoles </label></span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="entreprise" class="nav_link {% if url_name == 'entreprise' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-briefcase nav_icon" aria-hidden="true"></label>
+                                <span class="nav_name"> 
+                                    <label for="#"> Entreprises </label></span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="emplois" class="nav_link {% if url_name == 'emplois' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-handshake-o nav_icon" aria-hidden="true"></label>
+                                <span class="nav_name"> 
+                                    <label for=""> Offres d'Emploies </label></span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="boutique" class="nav_link {% if url_name == 'boutique' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-shopping-cart nav_icon" aria-hidden="true"></label>
+                                <span class="nav_name">
+                                    <label for="#"> Boutiques </label>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav_item">
+                            <a href="per_notification" class="nav_link {% if url_name == 'Per_notification' %} active-link {% endif %}">
+                                <label for="#" class="fa fa-bell nav_icon" aria-hidden="true"></label>
+                                <span class="nav_name">
+                                    <label for="#"> Notifications </label>
+                                </span>
+                                <span class="badge">5</span>
+                            </a>
+                        </li>
+                        <!-- ===== Fin des Listes li ===== -->
+                    </ul>
+                {% endwith %}
+                <!-- ===== Fin Du UL ===== -->
+            </div>
+
+            <div id="header-toggle">
+                
+                <div class="conta_menu">
+                    <span class="fa fa-bars"></span>
+                </div>
+
+            </div>
+                <!-- ===== Fin Des Menus ===== -->
+                <!-- ===== Fin de Img Profile ===== -->
+        </nav>
+        <!-- ===== Fin du NavBar ===== -->
+    </section>
+    <!-- ==================== Fin du haut, Header en Mode Fixe ==================== -->
+
+    <!--    nav      -->
+    <section class="nab" id="nabbar">
+        <nav class="nab_container">
+            <div>
+                <a href="per_profile" class="nab_logo ">
+                    <i class="fa fa-bars nab_icon"></i>
+                    <span class="logo_name">
+                        <h3 class=" fa fa-user primary"></h3>|
+ 
+                        <h3>
+                            &nbsp; {{ user.first_name|truncatewords_html:1 }} {{ user.last_name }}
+                        </h3>
+                     </span>
+                </a>
+
+                <div class="nab_list">
+                    <div class="nab_items navtop">
+
+                        <a href="post" class="nab_link nabtop active" id="create">
+                            <img src="{% static 'assets/categories/publication.png' %}" class="nab_icon">
+                            <span class="nab_name"> Créer un Post </span>
+                        </a>
+
+                        {% if request.user.rôle != 'personnel' %}
+                            <a href="job" class="nab_link nabtop active">
+                                <img src="{% static 'assets/categories/emplois.png' %}" class="nab_icon">
+                                <span class="nab_name"> Poster un Offre </span>
+                            </a>
+
+                            <a href="postulant" class="nab_link nabtop active">
+                                <img src="{% static 'assets/categories/patient.png' %}" class="nab_icon">
+                                <span class="nab_name"> Les Postulants </span>
+                            </a>
+
+                        {% endif %}
+
+                        {% if request.user.rôle != 'personnel' and request.user.rôle != 'ecole' %}
+                            <a href="en_Gestion_Boutique" class="nab_link nabtop">
+                                <img src="{% static 'assets/categories/marketplace.png' %}" class="nab_icon">
+                                <span class="nab_name"> Votre Boutique </span>
+                            </a>
+                        {% endif %}
+
+                        <a href="amis" class="nab_link nabtop">
+                            <img src="{% static 'assets/categories/friends.png' %}" class="nab_icon">
+                            <span class="nab_name"> Vos Amis </span>
+                        </a>
+
+                        <a href="vos_commande" class="nab_link nabtop">
+                            <img src="{% static 'assets/categories/commande.png' %}" class="nab_icon">
+                            <span class="nab_name"> Vos Commandes </span>
+                        </a>
+
+                        <a href="vos_postule" class="nab_link nabtop">
+                            <img src="{% static 'assets/categories/postule.png' %}" class="nab_icon">
+                            <span class="nab_name"> Vos Postules </span>
+                        </a>
+
+                        
+                        <a href="{% url 'logout' %}" class="nab_link">
+                            <img src="{% static 'assets/categories/logout.png' %}" class="nab_icon">
+                            <span class="nab_name"> Se déconnecter </span>
+                        </a>
+                        
+
+                    </div>
+                </div>
+
+                <div class="theme-btn" id="theme-button">
+                    <span class="fa fa-sun-o"></span>
+                    <span class="fa fa-moon-o active"></span>
+                </div>
+
+                <div class="">
+                    <p class="footer__signature">
+                        &#169; 2024  
+                        <br><a href="#" class="danger">Bour Studios</a>
+                        
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        
+    </section>
+    <!--    nav      -->
+
+    <!-- Contenu -->
+    <main class="middle">
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <script>alert("{{ message }}");</script>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        {% block app %}
+        
+        
+        {% endblock %}
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stocke la position actuelle dans un cookie lors du chargement de la page
+            document.cookie = 'scrollPos=' + window.scrollY + ';path=/';
+        });
+
+
+
+        let more = document.querySelectorAll('.more');
+
+        for (let i = 0; i < more.length; i ++) {
+            more[i].addEventListener('click', function() {
+                more[i].parentNode.classList.toggle('active')
+            })
+        }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'assets/ressources/scripts/header.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/banner-slide.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/boutique.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+</body>
+</html>

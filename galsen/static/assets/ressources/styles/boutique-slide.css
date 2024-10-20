@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+/* Variable CSS */
+:root
+{
+    --header-height: 3rem;
+
+    
+
+    /* font and typography */
+    --body-font: 'Open Sans', sans-serif;
+
+    --h1-font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --tiny-font-size: .625rem;
+
+    /* z index */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+:root
+{
+      /*========== Colors ==========*/
+
+  --first-color: #3b3bbf;
+  --title-color: #363949;
+  --text-color: #0a0a0a;
+  --text-color-light: #9b9bb0;
+  --container-color: #fff;
+  --body-color: #f6f6f9;
+  --color-danger: hsl(0, 95%, 65%);
+
+  --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+  --color-danger-light: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+  --color-success-light: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+  --color-purple-light: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+
+    /* Tailles */
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem
+    
+}
+
+
+
+/* ========== Les Base =========== */
+*, *::before, *::after
+{
+
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    font-family: "Poppins", sans-serif;
+    color: var(--title-color);
+    background: var(--body-color);
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar
+{
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track
+{
+    background: var(--body-color);
+    border-radius: 25px;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background: var(--title-color);
+    border-radius: 25px;
+}
+
+body::-webkit-scrollbar-thumb:hover
+{
+    background: #b3b3b3;
+}
+
+h1
+{
+    font-size: 2.2rem;
+}
+
+h2
+{
+    font-size: 1.5rem;
+}
+
+h3
+{
+    font-size: 1.2rem;
+}
+
+h4
+{
+    font-size: 1rem;
+}
+
+h5
+{
+    font-size: 0.86rem;
+    font-weight: 500;
+}
+
+h6
+{
+    font-size: 1.76rem;
+}
+
+p
+{
+    font-size: 00.86rem;
+    color: var(--title-color);
+}
+
+small
+{
+    font-weight: 300;
+    font-size: 0.77rem;
+}
+
+.text-muted
+{
+    color: gray;
+}
+
+.blanc
+{
+    color: var(--title-color);
+}
+
+.primary
+{
+    color: #299bd5;
+    /* rgb(71, 7, 234) */
+}
+
+.danger
+{
+    color: var(--color-danger);
+}
+
+.success
+{
+    color: rgb(34, 202, 75);
+}
+
+.purple
+{
+    color: rgb(160, 99, 245);
+}
+
+.bg-primary
+{
+    background: #299bd5;
+    /* rgb(71, 7, 234) */
+    box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
+}
+
+.bg-danger
+{
+    background: var(--color-danger);
+    box-shadow: 0 0.8rem 0.8rem rgba(255, 67, 54, 0.2);
+}
+
+.bg-success
+{
+    background: rgb(34, 202, 75);
+    box-shadow: 0 0.8rem 0.8rem rgba(34, 202, 75, 0.2);
+}
+
+.bg-purple
+{
+    background: rgb(160, 99, 245);
+    box-shadow: 0 0.8rem 0.8rem rgba(160, 99, 245, 0.2);
+}
+
+.bg-dark
+{
+    background: #27282f;
+    box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+}
+
+.normal
+{
+    color: var(--body-color);
+}
+
+.banner
+{
+    position: relative;
+    width: 95%;
+    height: 400px;
+    left: 5.5%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.banner .slider-boutique
+{
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    top: 0;
+}
+
+.banner .slider-boutique img
+{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.lines-boutique
+{
+    position: absolute;
+    display: flex;
+    margin-top: -20px;
+}
+
+.PageLinesBoutique
+{
+    position: absolute;
+    left: 45%;
+}
+
+.line-boutique
+{
+    padding: 1.5px 10px;
+    margin: 0 3px;
+    background-color: var(--title-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.activeBoutique, 
+.line-boutique:hover
+{
+    background-color: #299bd5;
+}
+
+.slider-boutique
+{
+    display: none;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade 
+{
+    from
+    {
+        opacity: 0.5;
+    }
+    to
+    {
+        opacity: 1;
+    } 
+}
+
+.parteners
+{
+    margin-left: 11px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 98%;
+    height: 50px;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        var(--title-color) 10% 90%,
+        transparent
+    );
+    border-bottom: 3px solid #299bd5;
+}
+
+.parteners .list
+{
+    display: flex;
+    width: 100%;
+    min-width: calc(var(--width) * var(--quantity));
+    position: relative;
+}
+
+.parteners .list .item
+{
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    left: 100%;
+    animation: autoRun 10s linear infinite;
+    transition: filter 0.5s;
+    animation-delay: calc( (10s / var(--quantity)) * (var(--position) - 1))!important;
+}
+
+.parteners .list .item img
+{
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+}
+
+@keyframes autoRun 
+{
+    from {
+        left: 100%;
+    } to {
+        left: calc(var(--width) * -1);
+    }
+}
+
+.parteners:hover .item
+{
+    animation-play-state: paused!important;
+    filter: grayscale(1);
+}
+
+.parteners .item:hover
+{
+    filter: grayscale(0);
+}
+
+.parteners[reverse="true"] .item
+{
+    animation: reversePlay 10s linear infinite;
+}
+
+@keyframes reversePlay 
+{
+    from {
+        left: calc(var(--width) * -1);
+    } to {
+        left: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .banner 
+    {
+        width: 425px;
+        height: 200px;
+        top: -8px;
+        margin-left: -29px;
+        position: relative;
+    }
+}

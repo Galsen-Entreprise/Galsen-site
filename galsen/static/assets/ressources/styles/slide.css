@@ -3,14 +3,13 @@
 :root
 {
       /*========== Colors ==========*/
-  --hue-color: 240;
 
-  --first-color: hsl(var(--hue-color), 53%, 49%);
-  --title-color: hsl(var(--hue-color), 53%, 15%);
-  --text-color: hsl(var(--hue-color), 1%, 4%);
-  --text-color-light: hsl(var(--hue-color), 12%, 65%);
+  --first-color: #3b3bbf;
+  --title-color: #363949;
+  --text-color: #0a0a0a;
+  --text-color-light: #9b9bb0;
   --container-color: #fff;
-  --body-color: hsl(var(--hue-color), 24%, 94%);
+  --body-color: #f6f6f9;
   --color-danger: hsl(0, 95%, 65%);
 
   --color-primary-light: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
@@ -63,9 +62,9 @@ body
 /* Slider */
 .slider
 {
-    position: relative;
     width: 100%;
-    height: 100%;
+    height: 400px;
+    margin-top: 15px;
 }
 
 .members
@@ -73,62 +72,11 @@ body
     width: 1000px;
 }
 
-.pubPolitique
-{
-    margin-top: 28px;
-    width: 77%;
-    height: 200px;
-    margin-bottom: 10px;
-}
-
-.sliderP img
+.sliderP a img
 {
     width: 100%;
-    height: 180px;
+    height: 400px;
     object-fit: fill;
-}
-
-.sliderRH img,
-.sliderRP img
-{
-    width: 100%;
-    height: 90vh;
-    vertical-align: middle;
-}
-
-.prev-button, .next-button
-{
-    position: absolute;
-    width: 40px;
-    height: 60px;
-    font-size: 30px;
-    font-weight: bold;
-    color: var(--body-color);
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px) saturate(500%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: none;
-}
-
-.prev-button
-{
-    left: 17%;
-    top: 30%;
-}
-
-.next-button
-{
-    right: 2%;
-    top: 30%;
-}
-
-.prev-button:hover, .next-button:hover
-{
-    color: white;
 }
 
 .lines
@@ -140,11 +88,11 @@ body
 
 .PageLines
 {
-    left: 35%;
+    position: absolute;
+    left: 45%;
 }
 
-.line_P,
-.line_RH
+.line_P
 {
     padding: 1.5px 10px;
     margin: 0 3px;
@@ -153,16 +101,13 @@ body
     transition: background-color 0.3s ease;
 }
 
-.activeP,
-.activesh, 
-.line_P:hover, 
-.line_RP:hover
+.activeP, 
+.line_P:hover
 {
     background-color: #299bd5;
 }
 
-.sliderP,
-.sliderRP
+.sliderP
 {
     display: none;
     animation-name: fade;
@@ -183,36 +128,26 @@ body
 
 
 @media screen and (max-width: 767px) {
-    .pubPolitique
+    .slider
     {
         width: 100%;
+        height: 200px;
+        top: -8px;
+        position: relative;
     }
-}
 
-@media screen and (max-width: 800px) {
-    .pubPolitique
+    .sliderP a img
     {
         width: 100%;
+        height: 200px;
+        object-fit: fill;
+    }
+
+    .PageLines
+    {
+        top: 31%;
+        left: 38%;
+        display: flex;
     }
 }
 
-@media screen and (max-width: 884px) {
-    .pubPolitique
-    {
-        width: 100%;
-    }
-}
-
-@media screen and (width: 1280px) {
-    .pubPolitique
-    {
-        width: 74%;
-    }
-}
-
-@media screen and (min-width: 1180px) {
-    .pubPolitique
-    {
-        width: 74%;
-    }
-}
