@@ -1,4 +1,5 @@
 echo " MAKE BUILDS..."
+python3.9 -m ensurepip
 pip install -r requirements.txt
 python3.9 install collectstatic
 
