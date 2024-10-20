@@ -1,0 +1,10 @@
+/*========== Variables Dark theme ==========*/
+
+body.dark-theme 
+{
+    --title-color: #edeffd;
+    --text-color: #b8b8c7;
+    --body-color: #181a1e;
+    --container-color: #171726;
+    --clr-light: rgba(0, 0, 0, 0.4);
+}
