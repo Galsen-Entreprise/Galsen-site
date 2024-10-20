@@ -1167,11 +1167,9 @@ def vos_commande(request):
     # Récupérer les commandes de l'utilisateur connecté
     commandes = Commande.objects.filter(user=request.user)
     
-    In_commande = Commande.objects.filter(user=request.user, commandes=commandes).exists()
     
     context = {
-        'commandes': commandes,
-        'In_commande': In_commande
+        'commandes': commandes
     }
     
     return render(request, 'details/Vos_commandes.html', context)
