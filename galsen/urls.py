@@ -13,7 +13,7 @@ from galsen.views import home, personnel, entreprise, ecole, emplois, boutique
 from galsen.views import SuperAdmin
 
 # ========== Formulaires ===================
-from galsen.views import create_post, create_job, AddPostule, create_boutique, create_product
+from galsen.views import create_post, create_job, AddPostule, create_boutique, create_product, facture
 
 # ====== CV: Update profile, Create experience, Update experience, Create Formation, Update Formation =====
 from galsen.views import update, update_profile, update_banner, a_propos, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation
@@ -25,7 +25,7 @@ from galsen.views import update_logo_boutique, update_banner_boutique, update_de
 from galsen.views import AddLikes
 
 # ========== Details ===================
-from galsen.views import detail_profile, job_detail, En_Gestion_Boutique, postulant, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses
+from galsen.views import detail_profile, job_detail, En_Gestion_Boutique, postulant, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande
 
 # ========== Les Paramétres ==================
 from galsen.views import Settings_profil, settingEmail, settingNames, settingRole, settingPassWord, settingDelete
@@ -82,6 +82,7 @@ urlpatterns = [
     path('job/<int:pk>/postule', AddPostule.as_view(), name='postule'),
     path('create_boutique', create_boutique, name = 'create_boutique'),
     path('product', create_product, name = 'product'),
+    path('facture', facture, name='facture'),
     
     # ====== CV: Update profile, Create experience, Update experience, Create Formation, Update Formation =====
     path('a_propos', a_propos, name = 'a_propos'),
@@ -120,6 +121,8 @@ urlpatterns = [
     path('post/<int:post_id>/', post_detail, name='post_detail'),
     path('post/<int:post_id>/comments/', post_comments, name='post_comments'),
     path('comment/<int:comment_id>/responses/', comment_responses, name='comment_responses'),
+    path('categorie/<str:category>/', views.categorie_view, name='categorie'),
+    path('commande/<int:produit_id>/commander', produit_commande, name='produit_commande'),
     
     # ========== Les Supprimes ==================
     

@@ -3,6 +3,17 @@
 {% block app %}
 {% load static %}
 
+    <section>
+        <form action="#" class="search-product">
+            <div class="form-search">
+                <input type="search" name="boutique" id="search-input" placeholder="Rechercher une produit"/>
+                <button type="submit" class="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </section>
+
     <section class="banner">
         <a href="#" class="slider-boutique">
             <img src="{% static 'assets/default/banner.png' %}">
@@ -34,6 +45,44 @@
 
     <section class="boutique">
 
+        {% if recherche_active %}
+            <h2>Résultats de la recherche pour "{{ request.GET.boutique }}"</h2>
+            <div class="products-grid">
+                {% for produit in produits_recherches %}
+                    <div class="product-card">
+                        <div class="img-product">
+                            <img src="{{ produit.mediasproduct_set.first.image.url }}">
+                            <ul class="action">
+                                <li> 
+                                    <a href="{% url 'product_detail' produit.id %}">
+                                        <i class="fa fa-eye"></i>
+                                        <span>Consulter le Produit</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <div class="product-name">
+                                <h3>{{ produit.nom_produit }}</h3>
+                            </div>
+                            <div class="product-price_rating">
+                                <h2>{{ produit.prix }} {{ produit.boutique.devise_money }}</h2>
+                                <div class="rating">
+                                    <h3>1 000 <i class="fa fa-star"></i></h3>
+                                </div>
+                            </div>
+                            <a href="{% url 'product_detail' produit.id %}" class="link-product">
+                                <b>Consulter</b>
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <li>Aucun produit trouvé.</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
         {% if produits_recents %}
 
             <h1 class="title-categorie">Produits récents </h1>
@@ -50,18 +99,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -91,7 +128,7 @@
 
         {% if special_offers %}
 
-            <h1 class="title-categorie">Offres spéciales / Promotions <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Offres spéciales / Promotions <a href="{% url 'categorie' 'special_offers' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -105,18 +142,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -145,13 +170,13 @@
 
         {% include 'PUB/sponsor.html' %}
 
-        {% if electronic %}
+        {% if electronics %}
 
-            <h1 class="title-categorie"> Electroniques <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie"> Electroniques <a href="{% url 'categorie' 'electronics' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
-                {% for produit in electronic %}
+                {% for produit in electronics %}
                     <div class="product-card">
                         <div class="img-product">
                             <img src="{{ produit.mediasproduct_set.first.image.url }}">
@@ -161,18 +186,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -201,7 +214,7 @@
 
         {% if fashion %}
 
-            <h1 class="title-categorie"> Fashions <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie"> Fashions <a href="{% url 'categorie' 'fashion' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -215,18 +228,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -249,13 +250,13 @@
                     </div>
                 {% endfor %}
 
-            </div>.
+            </div>
 
         {% endif %}
 
         {% if produits_maison_jardin %}
 
-            <h1 class="title-categorie">Maison et Jardins <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Maison et Jardins <a href="{% url 'categorie' 'home_garden' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -269,18 +270,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -309,7 +298,7 @@
 
         {% if beauty_health %}
 
-            <h1 class="title-categorie">Beauté et Santé <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Beauté et Santé <a href="{% url 'categorie' 'beauty_health' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -323,18 +312,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -363,7 +340,7 @@
 
         {% if food_drink %}
 
-            <h1 class="title-categorie">Alimentation et Boissons <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Alimentation et Boissons <a href="{% url 'categorie' 'food_drink' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -377,18 +354,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -417,7 +382,7 @@
 
         {% if sports_leisure %}
 
-            <h1 class="title-categorie">Sport et Loisirs <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Sport et Loisirs <a href="{% url 'categorie' 'sports_leisure' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -431,18 +396,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -471,7 +424,7 @@
 
         {% if books_media %}
 
-            <h1 class="title-categorie">Livres et Médias <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Livres et Médias <a href="{% url 'categorie' 'books_media' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -485,18 +438,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -525,7 +466,7 @@
 
         {% if toys_kids %}
 
-            <h1 class="title-categorie">Jouets et Enfants <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Jouets et Enfants <a href="{% url 'categorie' 'toys_kids' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -539,18 +480,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -579,7 +508,7 @@
 
         {% if automotive_tools %}
 
-            <h1 class="title-categorie">Automobile et Outils <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Automobile et Outils <a href="{% url 'categorie' 'automotive_tools' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -593,18 +522,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -633,7 +550,7 @@
 
         {% if pets %}
 
-            <h1 class="title-categorie">Animaux <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Animaux <a href="{% url 'categorie' 'pets' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -647,18 +564,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -687,7 +592,7 @@
 
         {% if services %}
 
-            <h1 class="title-categorie">Services et Abonnements <a href="#">Voir Plus!</a> </h1>
+            <h1 class="title-categorie">Services et Abonnements <a href="{% url 'categorie' 'services' %}">Voir Plus!</a> </h1>
 
             <div class="products-grid">
             
@@ -701,18 +606,6 @@
                                         <i class="fa fa-eye"></i>
                                         <span>Consulter le Produit</span>
                                     </a>
-                                </li>
-                                <li> 
-                                    <a href="#">
-                                        <i class="fa fa-list-alt"></i>
-                                        <span>Ajouter à votre Facture</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"> 
-                                        <i class="fa fa-star"></i>
-                                        <span>Donner une étoile</span>
-                                    </a> 
                                 </li>
                             </ul>
                         </div>
@@ -741,4 +634,6 @@
 
 
     </section>
+
+    {% include 'pages/common/footer.html' %}
 {% endblock %}

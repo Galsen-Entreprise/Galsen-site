@@ -75,6 +75,65 @@
                 {% endfor %}
             </div>
 
+            <div class="facture">
+                <center>
+                        {% if user.is_authenticated %}
+                            {% if is_in_facture %}
+                                <!-- Afficher le bouton pour enlever le produit de la facture -->
+                                <form method="POST" action="{% url 'product_detail' product_id=produit.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="remove"> <i class="fa fa-list-alt"></i> Enlever de la Facture</button>
+                                </form>
+                            {% else %}
+                                <!-- Afficher le bouton pour ajouter le produit à la facture -->
+                                <form method="POST" action="{% url 'product_detail' product_id=produit.id %}">
+                                    {% csrf_token %}
+                                    <label for="quantity">Quantité :</label>
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+                                    <button type="submit"> <i class="fa fa-list-alt"></i> Ajouter au Facture</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <p>Veuillez vous connecter pour gérer votre facture.</p>
+                        {% endif %}
+                </center>
+            </div>
+                
+            <div class="buttons">
+                {% if In_commande %}
+                    <a onclick="openPopup()"> <i class="fa fa-shopping-bag"></i> Commander </a>
+                    {% else %}
+                    <p>Produit déja à votre commande</p>
+                {% endif %}
+                <a href="#"> <i class="fa fa-shopping-cart"></i> Visiter la boutique </a>
+            </div>
+
+            <div class="popup-commande">
+                <span class="close" onclick="closePopup()">&times;</span>
+
+                <header>
+                    <h3>
+                        Confirmer votre Commande!
+                    </h3>
+                </header>
+
+                <form class="precise" method="post" action="{% url 'produit_commande' produit_id=produit.pk %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="commande" value="a commander ce produit." readonly Style="display: none;">
+
+                    <textarea name="precision" id="" cols="30" rows="10"></textarea>
+
+                    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+                    <script>
+                        CKEDITOR.replace("precision");
+                    </script>
+
+                    <div>
+                        <button class="commander" type="submit"> Valider! </button>
+                    </div>
+                </form>
+            </div>
+
             <div class="similaires">
                 <h1 class="title-categorie">Produits similaires dans la catégorie : {{ produit.get_category_display }}</h1>
                 <div class="products-grid">
@@ -85,22 +144,10 @@
                                         <img src="{{ produits_meme_categorie.mediasproduct_set.first.image.url }}">
                                         <ul class="action">
                                             <li> 
-                                                <a href="{% url 'product_detail' produits_meme_categorie.id %}">
+                                                <a href="{% url 'product_detail' produit.id %}">
                                                     <i class="fa fa-eye"></i>
                                                     <span>Consulter le Produit</span>
                                                 </a>
-                                            </li>
-                                            <li> 
-                                                <a href="#">
-                                                    <i class="fa fa-list-alt"></i>
-                                                    <span>Ajouter à votre Facture</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> 
-                                                    <i class="fa fa-star"></i>
-                                                    <span>Donner une étoile</span>
-                                                </a> 
                                             </li>
                                         </ul>
                                     </div>
@@ -133,9 +180,28 @@
 
         {% include 'pages/common/sidebar.html' %}
     </section>
+
+    {% include 'pages/common/footer.html' %}
     
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
     <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
+
+    <script>
+        function openPopup(postId) {
+            var popup = document.querySelector('.popup-commande');
+            if (popup) {
+                popup.style.display = "block";
+            }
+        }
+        
+        // Fonction pour fermer le popup
+        function closePopup(postId) {
+            var popup = document.querySelector('.popup-commande');
+            if (popup) {
+                popup.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

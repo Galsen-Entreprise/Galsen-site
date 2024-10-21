@@ -55,13 +55,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-  padding: 16px 16px 0;
-  margin: 56px 0 0 0;
-  font-size: 16px;
-  color: var(--title-color);
-  background: var(--body-color);
-}
+
 
 .lb-loader,
 .lightbox {

@@ -15,13 +15,14 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from .decorators import role_required
+from django.db.models import Case, When, Value, IntegerField
 
 ''' =========== Les API ========= '''
 from rest_framework import viewsets
 from .serializers import CustomUserSerializer, PostSerializer, MediasPostSerializer, JobSerializer, BoutiqueSerializer, CommentaireSerializer, ReponseSerializer, ProductSerializer, MediasProductSerializer, ProfilSerializer, ExperienceSerializer, FormationSerializer, NotificationSerializer, CommandeSerializer
 
 ''' =========== Les Models ========= '''
-from .models import CustomUser, Post, MediasPost, Job, Boutique, Commentaire, Reponse, Product, MediasProduct, Profil, Experience, Formation, Notification, Commande, Traffic
+from .models import CustomUser, Facture, Post, MediasPost, Job, Boutique, Commentaire, Reponse, Product, MediasProduct, Profil, Experience, Formation, Notification, Commande, Traffic
 
 ''' =========== Authentication ========= '''
 from django.contrib.auth import authenticate, login, logout
@@ -316,80 +317,73 @@ def boutique(request):
     # Récupérer l'utilisateur connecté
     user = request.user
 
+    # Récupérer les informations de localisation de l'utilisateur
+    user_pays = user.pays
+    user_ville = user.ville
+    user_quartier = user.quartier
+
     # Récupérer les produits commandés par l'utilisateur connecté
     produits_commandes = Commande.objects.filter(user=user).values_list('product', flat=True)
 
-    # Récupérer les 4 produits les plus récents, en excluant ceux commandés
-    produits_recents = Product.objects.select_related('boutique').exclude(id__in=produits_commandes).order_by('-date_creation')[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Electronic', en excluant ceux commandés
-    electronic = Product.objects.select_related('boutique').filter(category='electronics').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Fashion', en excluant ceux commandés
-    fashion = Product.objects.select_related('boutique').filter(category='fashion').exclude(id__in=produits_commandes)[:4]
+    # Filtrer d'abord les produits par localisation
+    produits_filtrés = Product.objects.select_related('boutique').filter(
+        boutique__user__pays=user_pays,
+        boutique__user__ville=user_ville,
+        boutique__user__quartier=user_quartier
+    ).exclude(id__in=produits_commandes)
 
-    # Récupérer 4 produits de la catégorie 'Maison et Jardin', en excluant ceux commandés
-    produits_maison_jardin = Product.objects.select_related('boutique').filter(category='home_garden').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Beauté et Santé', en excluant ceux commandés
-    beauty_health = Product.objects.select_related('boutique').filter(category='beauty_health').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Alimentation et Boissons', en excluant ceux commandés
-    food_drink = Product.objects.select_related('boutique').filter(category='food_drink').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Sport et Loisirs', en excluant ceux commandés
-    sports_leisure = Product.objects.select_related('boutique').filter(category='sports_leisure').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Livres et Médias', en excluant ceux commandés
-    books_media = Product.objects.select_related('boutique').filter(category='books_media').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Jouets et Enfants', en excluant ceux commandés
-    toys_kids = Product.objects.select_related('boutique').filter(category='toys_kids').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Automobile et Outils', en excluant ceux commandés
-    automotive_tools = Product.objects.select_related('boutique').filter(category='automotive_tools').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Animaux', en excluant ceux commandés
-    pets = Product.objects.select_related('boutique').filter(category='pets').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Services et Abonnements', en excluant ceux commandés
-    services = Product.objects.select_related('boutique').filter(category='services').exclude(id__in=produits_commandes)[:4]
-    
-    # Récupérer 4 produits de la catégorie 'Offres spéciales / Promotions', en excluant ceux commandés
-    special_offers = Product.objects.select_related('boutique').filter(category='special_offers').exclude(id__in=produits_commandes)[:4]
+    # Si aucun produit ne correspond à la localisation, afficher tous les produits disponibles
+    if not produits_filtrés.exists():
+        produits_filtrés = Product.objects.exclude(id__in=produits_commandes)
 
-    if request.method == "GET":
-        nom_produit = request.GET.get('boutique')
-        if nom_produit is not None:
-            produits_recents = produits_recents.filter(nom_produit__icontains=nom_produit)
-            electronic = electronic.filter(nom_produit__icontains=nom_produit)
-            fashion = fashion.filter(nom_produit__icontains=nom_produit)
-            produits_maison_jardin = produits_maison_jardin.filter(nom_produit__icontains=nom_produit)
-            beauty_health = produits_maison_jardin.filter(nom_produit__icontains=nom_produit)
-            food_drink = produits_maison_jardin.filter(nom_produit__icontains=nom_produit)
-            sports_leisure = sports_leisure.filter(nom_produit__icontains=nom_produit)
-            books_media = books_media.filter(nom_produit__icontanis=nom_produit)
-            toys_kids = toys_kids.filter(nom_produit__icontains=nom_produit)
-            pets = pets.filter(nom_produit__icontains=nom_produit)
-            services = services.filter(nom_produit__icontains=nom_produit)
-            special_offers = special_offers.filter(nom_produit__icontains=nom_produit)
+    # Gestion du filtre de recherche
+    nom_produit = request.GET.get('boutique')
+    if nom_produit:
+        produits_filtrés = produits_filtrés.filter(nom_produit__icontains=nom_produit)
 
+        # Imprimer les produits trouvés pour déboguer
+        print("Produits trouvés :", produits_filtrés)
+
+        # Si une recherche est faite, ne pas limiter le nombre de résultats
+        context = {
+            'user': user,
+            'produits_recherches': produits_filtrés,
+            'recherche_active': True,  # Utilisé dans le template pour conditionner l'affichage
+        }
+        return render(request, 'pages/boutique.html', context)
+
+    # S'il n'y a pas de recherche, limiter les produits à 4 par catégorie
+    produits_recents = produits_filtrés.order_by('-date_creation')[:4]
+    electronics = produits_filtrés.filter(category='electronics')[:4]
+    fashion = produits_filtrés.filter(category='fashion')[:4]
+    produits_maison_jardin = produits_filtrés.filter(category='home_garden')[:4]
+    beauty_health = produits_filtrés.filter(category='beauty_health')[:4]
+    food_drink = produits_filtrés.filter(category='food_drink')[:4]
+    sports_leisure = produits_filtrés.filter(category='sports_leisure')[:4]
+    books_media = produits_filtrés.filter(category='books_media')[:4]
+    toys_kids = produits_filtrés.filter(category='toys_kids')[:4]
+    automotive_tools = produits_filtrés.filter(category='automotive_tools')[:4]
+    pets = produits_filtrés.filter(category='pets')[:4]
+    services = produits_filtrés.filter(category='services')[:4]
+    special_offers = produits_filtrés.filter(category='special_offers')[:4]
+
+    # Contexte pour l'affichage par défaut (pas de recherche)
     context = {
         'user': user,
         'produits_recents': produits_recents,
-        'electronic': electronic,
-        'fashion' : fashion,
+        'electronics': electronics,
+        'fashion': fashion,
         'produits_maison_jardin': produits_maison_jardin,
-        'beauty_health' : beauty_health,
-        'food_drink' : food_drink,
-        'sports_leisure' : sports_leisure,
-        'books_media' : books_media,
-        'toys_kids' : toys_kids,
-        'automotive_tools' : automotive_tools,
-        'pets' : pets,
-        'services' : services,
-        'special_offers' : special_offers
-        
+        'beauty_health': beauty_health,
+        'food_drink': food_drink,
+        'sports_leisure': sports_leisure,
+        'books_media': books_media,
+        'toys_kids': toys_kids,
+        'automotive_tools': automotive_tools,
+        'pets': pets,
+        'services': services,
+        'special_offers': special_offers,
+        'recherche_active': False,  # Pour indiquer qu’il n’y a pas de recherche active
     }
     return render(request, 'pages/boutique.html', context)
 
@@ -616,6 +610,35 @@ def create_product(request):
         return redirect('En_Gestion_Boutique')
         
     return render(request, 'formulaires/product.html')
+
+def facture(request):
+    factures = Facture.objects.filter(user=request.user)
+    
+    # Vérifier si toutes les factures sont partagées
+    all_shared = factures.filter(is_public=False).count() == 0
+    
+    if request.method == "POST":
+        if 'share_all' in request.POST:
+            # Partager toutes les factures de l'utilisateur
+            factures.update(is_public=True)
+            
+            # Envoyer la notification après le partage
+            users_with_public_invoices = CustomUser.objects.filter(
+                pays=request.user.pays,
+                quartier=request.user.quartier,
+                ville=request.user.ville
+            )
+            # Créer une notification pour chaque utilisateur
+            for user in users_with_public_invoices:
+                Notification.objects.create(user=user, message=f"{request.user.username} a partagé ses factures.")
+
+        elif 'unshare_all' in request.POST:
+            # Ne plus partager toutes les factures de l'utilisateur
+            factures.update(is_public=False)
+
+        return redirect('facture')
+
+    return render(request, 'formulaires/facture.html', {'factures': factures, 'all_shared': all_shared})
 
 ''' =========== CV: Update profile, Create experience, Update experience, Create Formation, Update Formation ========= '''
 @role_required(['admin','personnel', 'ecole', 'entreprise'])
@@ -1110,10 +1133,33 @@ def product_detail(request, product_id):
 
     # Récupérer d'autres produits de la même catégorie
     produits_meme_categorie = Product.objects.filter(category=produit.category).exclude(id=product_id)[:10]
+    
+    if request.method == "POST":
+        quantity = int(request.POST.get("quantity", 1))
+        if quantity > 0:
+            # Vérifier si le produit est déjà dans la facture
+            existing_facture = Facture.objects.filter(user=request.user, product=produit).first()
+            if existing_facture:
+                if 'remove' in request.POST:
+                    # Supprimer le produit de la facture
+                    existing_facture.delete()
+                else:
+                    # Mettre à jour la quantité si le produit est déjà dans la facture
+                    existing_facture.quantity = quantity
+                    existing_facture.save()
+            else:
+                # Ajouter le produit à la facture s'il n'est pas encore présent
+                facture = Facture(user=request.user, product=produit, quantity=quantity)
+                facture.save()
+        return redirect('boutique')
+
+    # Vérifier si le produit est déjà dans la facture pour afficher le bon bouton
+    is_in_facture = Facture.objects.filter(user=request.user, product=produit).exists()
 
     context = {
         'produit': produit,
-        'produits_meme_categorie': produits_meme_categorie
+        'produits_meme_categorie': produits_meme_categorie,
+        'is_in_facture': is_in_facture
     }
     return render(request, 'details/product.html', context)
 
@@ -1121,8 +1167,9 @@ def vos_commande(request):
     # Récupérer les commandes de l'utilisateur connecté
     commandes = Commande.objects.filter(user=request.user)
     
+    
     context = {
-        'commandes': commandes,
+        'commandes': commandes
     }
     
     return render(request, 'Details/Vos_commandes.html', context)
@@ -1218,6 +1265,39 @@ def comment_responses(request, comment_id):
     responses = Reponse.objects.filter(commentaire_id=comment.id)
     return render(request, 'Commentaire/response.html', {'comment': comment, 'responses': responses})
 
+def produit_commande(request, produit_id):
+    user = request.user
+    produit = get_object_or_404(Product, pk=produit_id)
+    commande = request.POST.get('commande')
+    precision = request.POST.get('precision')
+    
+    commander = Commande.objects.create(product=produit, user=request.user, commande=commande, precision=precision)
+    
+    if user is not None and user.is_authenticated:
+
+        user.rôle = request.user.rôle
+        if user.rôle == 'admin':
+            return redirect('Ad_boutique')
+        else:
+            return redirect('boutique')
+  
+    produit = get_object_or_404(Product, pk=produit_id)
+    commandes = Commande.objects.filter(produit=produit)
+    return render(request, 'Commandes/commande.html', {'produit': produit, 'commandes': commandes})
+
+def categorie_view(request, category):
+    # Récupérer tous les produits de la catégorie sélectionnée
+    produits = Product.objects.filter(category=category)
+    
+    # Pour déboguer, vous pouvez imprimer les catégories existantes
+    print("Catégorie demandée:", category)
+    print("Produits trouvés:", produits.count())
+
+    context = {
+        'produits': produits,
+        'category': category,
+    }
+    return render(request, 'details/categories/categorie.html', context)
 
 def get_or_none(model, **kwargs):
     try:
