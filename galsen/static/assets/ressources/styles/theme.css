@@ -8,3 +8,12 @@ body.dark-theme
     --container-color: #171726;
     --clr-light: rgba(0, 0, 0, 0.4);
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;  /* Empêche le défilement horizontal */
+    zoom: 100%; /* Assure un zoom par défaut */
+}
