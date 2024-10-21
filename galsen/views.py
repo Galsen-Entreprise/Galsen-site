@@ -1081,7 +1081,7 @@ def user_detail(request, user_id):
 
 def job_detail(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
-    return render(request, 'details/job.html', {'job': job})
+    return render(request, 'Details/job.html', {'job': job})
 
 @role_required(['entreprise'])
 def En_Gestion_Boutique(request):
@@ -1115,7 +1115,7 @@ def postulant(request):
         'postulants': postulants,
     }
     
-    return render(request, 'details/postulant.html', context)
+    return render(request, 'Details/postulant.html', context)
 
 def vos_postule(request):
     # Récupérer les postulations de l'utilisateur connecté
@@ -1125,7 +1125,7 @@ def vos_postule(request):
         'postulations': postulations,
     }
     
-    return render(request, 'details/vos_postules.html', context)
+    return render(request, 'Details/vos_postules.html', context)
 
 def product_detail(request, product_id):
     # Récupérer le produit spécifique
@@ -1161,7 +1161,7 @@ def product_detail(request, product_id):
         'produits_meme_categorie': produits_meme_categorie,
         'is_in_facture': is_in_facture
     }
-    return render(request, 'details/product.html', context)
+    return render(request, 'Details/product.html', context)
 
 def vos_commande(request):
     # Récupérer les commandes de l'utilisateur connecté
@@ -1172,7 +1172,7 @@ def vos_commande(request):
         'commandes': commandes
     }
     
-    return render(request, 'details/Vos_commandes.html', context)
+    return render(request, 'Details/Vos_commandes.html', context)
 
 def les_commandes(request):
     # Récupérer toutes les commandes de l'utilisateur connecté
@@ -1182,7 +1182,7 @@ def les_commandes(request):
         'commandes': commandes,
     }
     
-    return render(request, 'details/commandes.html', context)
+    return render(request, 'Details/commandes.html', context)
 
 def amis(request):
     # Récupérer l'utilisateur connecté
@@ -1226,11 +1226,11 @@ def amis(request):
         'search_query': search_query,
     }
 
-    return render(request, 'details/amis.html', context)
+    return render(request, 'Details/amis.html', context)
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'details/post.html', {'post': post})
+    return render(request, 'Details/post.html', {'post': post})
 
 @role_required(['admin','personnel', 'ecole', 'entreprise'])
 def post_comments(request, post_id):
@@ -1297,7 +1297,7 @@ def categorie_view(request, category):
         'produits': produits,
         'category': category,
     }
-    return render(request, 'details/categories/categorie.html', context)
+    return render(request, 'Details/categories/categorie.html', context)
 
 def get_or_none(model, **kwargs):
     try:
