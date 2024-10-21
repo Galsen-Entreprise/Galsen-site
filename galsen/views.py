@@ -1125,7 +1125,7 @@ def vos_commande(request):
         'commandes': commandes,
     }
     
-    return render(request, 'details/Vos_commandes.html', context)
+    return render(request, 'Details/Vos_commandes.html', context)
 
 def les_commandes(request):
     # Récupérer toutes les commandes de l'utilisateur connecté
