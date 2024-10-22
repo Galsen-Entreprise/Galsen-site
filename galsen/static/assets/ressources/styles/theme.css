@@ -8,3 +8,8 @@ body.dark-theme
     --container-color: #171726;
     --clr-light: rgba(0, 0, 0, 0.4);
 }
+
+html
+{
+    zoom: 59%;
+}
