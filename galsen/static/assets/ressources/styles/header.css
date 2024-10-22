@@ -842,6 +842,7 @@ label.fa.nav_icon
         align-content: center;
         border-radius: 1.25rem 1.25rem 0 0;
         transition: .4s;
+        zoom: 130%;
     }
 
     .alter_post
