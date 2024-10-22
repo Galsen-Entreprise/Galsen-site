@@ -906,9 +906,14 @@ button.button-like
 
     .center 
     {
-        width: 500px;
+        width: 100%;
         margin-left: -14px;
         padding-bottom: 40px;
+    }
+
+    .happen
+    {
+        width: 100%;
     }
 
     .post-card
