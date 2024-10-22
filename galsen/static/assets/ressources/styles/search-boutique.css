@@ -276,7 +276,7 @@ small
 @media screen and (max-width: 767px) {
     .search-product
     {
-        width: 425px;
+        width: 100%;
         margin-left: -23px;
     }
 }
