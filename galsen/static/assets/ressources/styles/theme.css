@@ -9,4 +9,9 @@ body.dark-theme
     --clr-light: rgba(0, 0, 0, 0.4);
 }
 
-
+@media screen and (max-width: 767px) {
+    html
+    {
+        zoom: 70%;
+    }
+}
