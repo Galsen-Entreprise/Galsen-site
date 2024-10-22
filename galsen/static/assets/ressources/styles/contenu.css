@@ -906,7 +906,7 @@ button.button-like
 
     .center 
     {
-        max-width: 501px;
+        width: 500.5px;
         margin-left: -14px;
         padding-bottom: 40px;
     }
