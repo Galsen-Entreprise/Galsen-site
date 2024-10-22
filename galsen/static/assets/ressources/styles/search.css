@@ -62,17 +62,16 @@ body {
 .search
 {
     position: fixed;
-    top: 50px;
+    top: 51px;
     z-index: 1000;
-    /* max-width: 68%; */
-    width: 100%;
+    width: 66%;
     margin-right: auto;
 }
 
 .search .form-group
 {
     position: relative;
-    width: 65%;
+    width: 100%;
 }
 
 .search .form-group input

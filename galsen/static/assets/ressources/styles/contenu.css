@@ -218,7 +218,7 @@ small
 
 .happen
 {
-    width: 99%;
+    width: 67.5%;
     padding: 10px;
     margin-top: 20px;
     border-radius: 1rem;
@@ -269,9 +269,14 @@ small
     font-weight: 500;
 }
 
+.center
+{
+    width: 100%;
+}
+
 .post-card
 {
-    width: 99%;
+    width: 67.5%;
     padding: 5px;
     margin-top: 1rem;
     border-radius: 1rem;
@@ -561,6 +566,7 @@ button.button-like
 
 .profil-grid
 {
+    width: 67.5%;
     padding: 10px;
     margin-top: 20px;
     display: grid;
@@ -631,7 +637,7 @@ button.button-like
 
 .user-grid
 {
-    width: 100%;
+    width: 67.5%;
     padding: 10px;
     margin-top: 20px;
     display: grid;
@@ -696,7 +702,7 @@ button.button-like
 {
     display: flex;
     margin-top: 10px;
-    width: 99.5%;
+    width: 67.5%;
     border-radius: 5px;
     box-shadow: 0.1px 0.1px 5px 2px var(--clr-light);
     overflow: hidden;
@@ -705,7 +711,7 @@ button.button-like
 .job-profil
 {
     width: 600px;
-    height: 200px;
+    height: 300px;
 }
 
 .job-profil img
@@ -883,11 +889,8 @@ button.button-like
 @media screen and (min-width: 767px) {
     .center
     {
-        position: relative;
-        padding: 1.5rem 0 2rem;
-        width: 67%;
-        left: 5.5%;
-        overflow: hidden;
+        padding: 3rem 0 2rem;
+        margin-left: 80px;
     }
 
     .boutique
@@ -910,6 +913,7 @@ button.button-like
 
     .post-card
     {
+        width: 100%;
         margin-bottom: 20px;
     }
 
@@ -918,16 +922,17 @@ button.button-like
         width: 510px;
     }
 
-    .profil-grid
+    .profil-grid, .user-grid
     {
-        grid-template-columns: repeat(1, 1fr);
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .card-job
     {
         display: block;
         margin-top: 10px;
-        width: 500px;
+        width: 100%;
         border-radius: 5px;
         box-shadow: -1px 0px 3px 0px var(--title-color);
         overflow: hidden;
