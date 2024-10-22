@@ -908,6 +908,7 @@ label.fa.nav_icon
 
     .contenu
     {
+        position: relative;
         left: 5%;
         margin-top: 8px;
         display: flex;
