@@ -30,8 +30,11 @@ class CustomUser(AbstractUser):
         ('italien', 'Italien'),
         ('arabe', 'Arabe'),
     ]
+    ACCESS = [
+        ('autorised', 'Autorisé(e)'),
+        ('no_autorised', 'Non autorisé(e)'),
+    ]
     ROLES = [
-        ('admin', 'Admin'),
         ('personnel', 'Personnel(le)'),
         ('ecole', 'Ecole'),
         ('entreprise', 'Entreprise'),
@@ -66,6 +69,7 @@ class CustomUser(AbstractUser):
     website_link = models.URLField(null=True, blank=True)
     langue = models.CharField(max_length=255, choices=LANGUE, default='français')
     rôle = models.CharField(max_length=255, choices=ROLES, default='personnel')
+    access = models.CharField(max_length=255, choices=ACCESS, default='no_autorised')
     genre = models.CharField(max_length=255, choices=GENRE, default='homme')
     situation_matrimoniale = models.CharField(max_length=20, choices=SITUATION_MATRIMONIALE, default='celibataire')
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following_users', blank=True)

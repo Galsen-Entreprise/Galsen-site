@@ -266,11 +266,6 @@ form .inputfield
     border-radius: 3px;
 }
 
-.inputfield .custom_select select option[value="admin"]
-{
-    display: none;
-}
-
 form .inputfield label
 {
     width: 112px;
