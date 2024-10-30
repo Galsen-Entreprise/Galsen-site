@@ -892,14 +892,6 @@ button.button-like
         padding: 3rem 0 2rem;
         margin-left: 80px;
     }
-
-    .boutique
-    {
-        position: relative;
-        width: 95%;
-        left: 5.5%;
-        overflow: hidden;
-    }
 }
 
 @media screen and (max-width: 767px) {

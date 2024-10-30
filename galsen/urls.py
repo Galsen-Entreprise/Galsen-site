@@ -123,6 +123,7 @@ urlpatterns = [
     path('comment/<int:comment_id>/responses/', comment_responses, name='comment_responses'),
     path('categorie/<str:category>/', views.categorie_view, name='categorie'),
     path('commande/<int:produit_id>/commander', produit_commande, name='produit_commande'),
+    path('boutique/<int:boutique_id>/', views.boutique_detail, name='boutique_detail'),
     
     # ========== Les Supprimes ==================
     

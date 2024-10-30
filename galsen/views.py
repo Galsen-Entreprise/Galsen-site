@@ -1128,12 +1128,12 @@ def vos_postule(request):
     return render(request, 'Details/vos_postules.html', context)
 
 def product_detail(request, product_id):
-    # Récupérer le produit spécifique
+    # Récupérer le produit spécifique et sa boutique
     produit = Product.objects.select_related('boutique').get(id=product_id)
 
     # Récupérer d'autres produits de la même catégorie
     produits_meme_categorie = Product.objects.filter(category=produit.category).exclude(id=product_id)[:10]
-    
+
     if request.method == "POST":
         quantity = int(request.POST.get("quantity", 1))
         if quantity > 0:
@@ -1141,27 +1141,28 @@ def product_detail(request, product_id):
             existing_facture = Facture.objects.filter(user=request.user, product=produit).first()
             if existing_facture:
                 if 'remove' in request.POST:
-                    # Supprimer le produit de la facture
                     existing_facture.delete()
                 else:
-                    # Mettre à jour la quantité si le produit est déjà dans la facture
                     existing_facture.quantity = quantity
                     existing_facture.save()
             else:
-                # Ajouter le produit à la facture s'il n'est pas encore présent
-                facture = Facture(user=request.user, product=produit, quantity=quantity)
-                facture.save()
+                Facture.objects.create(user=request.user, product=produit, quantity=quantity)
         return redirect('boutique')
 
-    # Vérifier si le produit est déjà dans la facture pour afficher le bon bouton
+    # Vérifier si le produit est dans une facture
     is_in_facture = Facture.objects.filter(user=request.user, product=produit).exists()
+
+    # Vérifier si le produit a déjà été commandé par l'utilisateur
+    in_commande = Commande.objects.filter(user=request.user, product=produit).exists()
 
     context = {
         'produit': produit,
         'produits_meme_categorie': produits_meme_categorie,
-        'is_in_facture': is_in_facture
+        'is_in_facture': is_in_facture,  # Conserver la logique de facture
+        'In_commande': in_commande        # Ajouter la logique pour commande
     }
     return render(request, 'Details/product.html', context)
+
 
 def vos_commande(request):
     # Récupérer les commandes de l'utilisateur connecté
@@ -1266,24 +1267,54 @@ def comment_responses(request, comment_id):
     return render(request, 'Commentaire/response.html', {'comment': comment, 'responses': responses})
 
 def produit_commande(request, produit_id):
+    # Récupération de l'utilisateur et du produit
     user = request.user
     produit = get_object_or_404(Product, pk=produit_id)
-    commande = request.POST.get('commande')
-    precision = request.POST.get('precision')
-    
-    commander = Commande.objects.create(product=produit, user=request.user, commande=commande, precision=precision)
-    
-    if user is not None and user.is_authenticated:
 
-        user.rôle = request.user.rôle
-        if user.rôle == 'admin':
-            return redirect('Ad_boutique')
-        else:
-            return redirect('boutique')
-  
-    produit = get_object_or_404(Product, pk=produit_id)
+    if request.method == 'POST':
+        # Récupérer les informations de la commande depuis le formulaire POST
+        commande = request.POST.get('commande')
+        precision = request.POST.get('precision')
+
+        # Créer une nouvelle commande
+        Commande.objects.create(
+            product=produit, 
+            user=user, 
+            commande=commande, 
+            precision=precision
+        )
+
+        # Rediriger en fonction du rôle de l'utilisateur
+        if user.is_authenticated:
+            if user.rôle == 'admin':
+                return redirect('Ad_boutique')
+            else:
+                return redirect('boutique')
+
+        # Si l'utilisateur n'est pas connecté, on pourrait le rediriger ici :
+        return redirect('login')
+
+    # Récupérer les commandes liées au produit et rendre la page
     commandes = Commande.objects.filter(produit=produit)
     return render(request, 'Commandes/commande.html', {'produit': produit, 'commandes': commandes})
+
+def boutique_detail(request, boutique_id):
+    # Récupérer la boutique spécifique
+    boutique = get_object_or_404(Boutique, id=boutique_id)
+
+    # Récupérer tous les produits de cette boutique
+    produits = Product.objects.filter(boutique=boutique)
+
+    # Gestion de la recherche par 'nom_produit'
+    query = request.GET.get('poste')
+    if query:
+        produits = produits.filter(Q(nom_produit__icontains=query))
+
+    context = {
+        'boutique': boutique,
+        'produits': produits,
+    }
+    return render(request, 'profils/boutiques.html', context)
 
 def categorie_view(request, category):
     # Récupérer tous les produits de la catégorie sélectionnée

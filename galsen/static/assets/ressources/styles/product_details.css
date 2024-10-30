@@ -434,6 +434,8 @@ header nav .infos-vendeur span
 
 .product-grid
 {
+    position: relative;
+    left: -34px;
     width: 100%;
     display: grid;
     grid-gap: 20px;

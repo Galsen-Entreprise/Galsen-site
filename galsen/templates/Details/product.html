@@ -59,7 +59,7 @@
             </div>
 
             <h1>Autres Images du produit</h1>
-            <div class="product-grid">
+            <div class="product-grid autre-image">
                 {% for media in produit.mediasproduct_set.all %}
                     {% if media.image %}
                             {% if media.image and media.image.url %}
@@ -101,11 +101,15 @@
                 
             <div class="buttons">
                 {% if In_commande %}
-                    <a onclick="openPopup()"> <i class="fa fa-shopping-bag"></i> Commander </a>
-                    {% else %}
-                    <p>Produit déja à votre commande</p>
+                    <p>Produit déjà à votre commande</p>
+                {% else %}
+                    <a onclick="openPopup()"> 
+                        <i class="fa fa-shopping-bag"></i> Commander 
+                    </a>
                 {% endif %}
-                <a href="#"> <i class="fa fa-shopping-cart"></i> Visiter la boutique </a>
+                <a href="{% url 'boutique_detail' produit.boutique.id %}"> 
+                    <i class="fa fa-shopping-cart"></i> Visiter la boutique 
+                </a>
             </div>
 
             <div class="popup-commande">

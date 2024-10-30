@@ -15,3 +15,500 @@ body.dark-theme
         zoom: 70%;
     }
 }
+
+@media screen and (width: 320px) {
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 320px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .content-boutique
+    {
+        width: 320px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .banner
+    {
+        height: 200px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .banner, .boutique
+    {
+        margin-left: 0.5%;
+    }
+
+    .boutique
+    {
+        width: 100%;
+    }
+
+    .search-product
+    {
+        width: 100%;
+    }
+
+    .product-card
+    {
+        width: 100%;
+        margin-left: 3.5%;
+    }
+
+    .products-grid
+    {
+        width: 320px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
+
+@media  screen and (width: 375px) {
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 375px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .post-card-user
+    {
+        width: 510px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
+
+@media screen and (width: 384px) {
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 384px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .search, .search .form-group input
+    {
+        width: 384px;
+    }
+
+    .search .form-group button
+    {
+        right: -130px;
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .post-card-user
+    {
+        width: 510px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
+
+@media screen and (width: 412px) {
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 412px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .search, .search .form-group input
+    {
+        width: 412px;
+    }
+
+    .search .form-group button
+    {
+        right: -130px;
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .post-card-user
+    {
+        width: 510px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
+
+@media screen and (width: 414px) {
+
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 414px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .search, .search .form-group input
+    {
+        width: 414px;
+    }
+
+    .search .form-group button
+    {
+        right: -130px;
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .post-card-user
+    {
+        width: 510px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
+
+@media screen and (width: 428px) {
+    .nav_menu
+    {
+        zoom: 100%;
+    }
+
+    .center 
+    {
+        width: 428px;
+        margin-left: -12px;
+        padding-bottom: 40px;
+    }
+
+    .search, .search .form-group input
+    {
+        width: 428px;
+    }
+
+    .search .form-group button
+    {
+        right: -130px;
+    }
+
+    .happen
+    {
+        width: 100%;
+    }
+
+    .post-card
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .post-card-user
+    {
+        width: 510px;
+    }
+
+    .profil-grid, .user-grid
+    {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-job
+    {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: -1px 0px 3px 0px var(--title-color);
+        overflow: hidden;
+    }
+
+    .job-profil
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+    .job-profil img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-job
+    {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .profile-content .post-card-user
+    {
+        width: 100%;
+    }
+}
