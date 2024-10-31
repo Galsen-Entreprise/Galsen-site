@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #222;
+}
+
+.success
+{
+    color: rgb(34, 202, 75);
+}
+
+@property --a
+{
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.box
+{
+    position: relative;
+    width: 400px;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: repeating-conic-gradient(from var(--a), #299bd5 0%, #299bd5 10%, transparent 10%, transparent 50%);
+    animation: animate 6s linear infinite;
+    filter: drop-shadow(0 0 15px #fb5151);
+}
+
+@keyframes animate
+{
+    0%
+    {
+        --a: 0deg
+    }
+
+    100%
+    {
+        --a: 360deg
+    }
+}
+
+.box::before
+{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-conic-gradient(from var(--a), #299bd5 0%, #299bd5 10%, transparent 10%, transparent 50%);
+    animation: animate 6s linear infinite;
+    animation-delay: -1.5s;
+    filter: drop-shadow(0 0 15px #299bd5);
+} 
+
+.box::after
+{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 20px solid #222;
+    background: #303030;
+    box-shadow: 0.8rem 0.8rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+form
+{
+    position: relative;
+    z-index: 1000;
+}
+
+form h2
+{
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding-top: 60px;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.inputBx
+{
+    position: relative;
+    margin-bottom: 40px;
+    width: 240px;
+}
+
+.inputBx span
+{
+    position: absolute;
+    inset: -2px;
+    z-index: 1;
+}
+
+.inputBx span::before
+{
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: repeating-conic-gradient(from var(--a), #299bd5 0%, #299bd5 10%, transparent 10%, transparent 50%);
+    animation: animate 6s linear infinite;
+    box-shadow: 0 0 0 2px #000;
+}
+
+.inputBx:nth-child(2) span::before
+{
+    animation-delay: -1.5s;
+}
+
+.inputBx span::after
+{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #292929;
+}
+
+.inputBx .icone
+{
+    position: absolute;
+    z-index: 2000;
+    color: #299bd5;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 8px;
+}
+
+.inputBx .right
+{
+    position: absolute;
+    right: -25px;
+    z-index: 2000;
+    top: 8px;
+    color: #fb5151;
+    cursor: pointer;
+}
+
+.inputBx input
+{
+    position: relative;
+    z-index: 100000;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 8px 14px;
+    margin-left: 10px;
+    background: transparent;
+    color: #fff;
+    letter-spacing: 0.1em;
+}
+
+.inputBx .password
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.inputBx input::placeholder
+{
+    font-weight: 300;
+    font-size: 15px;
+    color: #8d8d8d;
+    opacity: 0.5s;
+}
+
+.Submit
+{
+    background: #299bd5;
+    cursor: pointer;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #292929;
+    border-radius: 2px;
+    border: none;
+    padding: 10px;
+}
+
+
+.Submit:hover
+{
+    color: #fff;
+}
+
+.group
+{
+    position: relative;
+    top: -10px;
+    padding-bottom: 60px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.group a
+{
+    text-decoration: none;
+    color: #807d7d;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75em;
+}
+
+.group a:hover
+{
+    color: #299bd5;
+}

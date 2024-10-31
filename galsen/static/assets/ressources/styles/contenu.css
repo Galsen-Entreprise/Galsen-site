@@ -216,59 +216,6 @@ small
     color: var(--body-color);
 }
 
-.happen
-{
-    width: 67.5%;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 1rem;
-    box-shadow: -1px 0px 3px 0px #299bd5;
-    overflow: hidden;
-}
-
-.happen .what
-{
-    display: flex;
-    align-items: center;
-}
-
-.happen .what img
-{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.happen .what input
-{
-    margin-left: 10px;
-    width: 95%;
-    padding: 10px;
-    border-radius: 10px;
-    background: var(--text-color-light);
-    color: var(--title-color);
-    font-size: 20px;
-}
-
-.happen .what input::placeholder
-{
-    color: #ffffff91;
-}
-
-.happen .button-forms
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.happen .button-forms label
-{
-    font-size: 20px;
-    font-weight: 500;
-}
-
 .center
 {
     width: 100%;
@@ -700,9 +647,11 @@ button.button-like
 
 .card-job
 {
+    position: relative;
     display: flex;
     margin-top: 10px;
     width: 67.5%;
+    /* max-height: 300px; */
     border-radius: 5px;
     box-shadow: 0.1px 0.1px 5px 2px var(--clr-light);
     overflow: hidden;
@@ -710,8 +659,8 @@ button.button-like
 
 .job-profil
 {
-    width: 600px;
-    height: 300px;
+    width: 400px;
+    height: 200px;
 }
 
 .job-profil img
@@ -757,11 +706,13 @@ button.button-like
 
 .job-buttons
 {
-    position: relative;
+    position: absolute;
+    width: 60.5%;
     margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    bottom: 0;
 }
 
 .job-buttons a, .job-buttons .postuler
@@ -952,6 +903,17 @@ button.button-like
     {
         margin-top: 10px;
         margin-bottom: 25px;
+    }
+
+    .job-buttons
+    {
+        position: relative;
+        width: 100%;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* bottom: 0; */
     }
 
     .profile-content .post-card-user

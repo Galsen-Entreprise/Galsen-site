@@ -28,10 +28,14 @@
             </div>
 
             <div class="infos-admin">
-                <img src="assets/images/pic-4.png" onclick="toggle()">
+                {% if user.profile_image and user.profile_image.url %}
+                    <img src="{{ user.profile_image.url }}" onclick="toggle()">
+                    {% else %}
+                    <img src="{% static 'assets/default/user.png' %}" onclick="toggle()">
+                {% endif %}
                 <ul class="profil-dropdown-list">
                     <li class="profil-dropdown-list-item">
-                        <a href="#">
+                        <a href="detail_profile">
                             <i class="fa fa-user"></i>
                             Votre Profil
                         </a>
@@ -90,17 +94,17 @@
                     <h4>{{ admin_count }} <br><br> Admins </h4>
                 </a>
             
-                <a href="#" class="circle data-users-card" data-degree="{{ personnel_percentage|floatformat:1 }}" data-color="#fee800">
+                <a href="{% url 'users_by_role' 'personnel' %}" class="circle data-users-card" data-degree="{{ personnel_percentage|floatformat:1 }}" data-color="#fee800">
                     <h2 class="number">{{ personnel_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ personnel_count }} <br><br> Personnels </h4>
                 </a>
             
-                <a href="#" class="circle data-users-card" data-degree="{{ ecole_percentage|floatformat:1 }}" data-color="#ff2972">
+                <a href="{% url 'users_by_role' 'ecole' %}" class="circle data-users-card" data-degree="{{ ecole_percentage|floatformat:1 }}" data-color="#ff2972">
                     <h2 class="number">{{ ecole_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ ecole_count }} <br><br> Ecoles </h4>
                 </a>
             
-                <a href="#" class="circle data-users-card" data-degree="{{ entreprise_percentage|floatformat:1 }}" data-color="#045FFCFF">
+                <a href="{% url 'users_by_role' 'entreprise' %}" class="circle data-users-card" data-degree="{{ entreprise_percentage|floatformat:1 }}" data-color="#045FFCFF">
                     <h2 class="number">{{ entreprise_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ entreprise_count }} <br><br> Entreprises </h4>
                 </a>
@@ -352,7 +356,7 @@
             }],
             chart: {
                 height: 350,
-                type: 'area'
+                type: 'area',
             },
             dataLabels: {
                 enabled: false
@@ -362,7 +366,7 @@
             },
             xaxis: {
                 type: 'month',
-                categories: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+                categories: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             },
         };
 

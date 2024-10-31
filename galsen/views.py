@@ -117,6 +117,19 @@ def log_in(request):
 
     return render(request, 'auth/login.html')
 
+def login_admin(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        user = authenticate(request, username=request.user.username, password=password)
+        if user is not None:
+            # Mot de passe validé, redirige vers SuperAdmin
+            return redirect('SuperAdmin')
+        else:
+            # Mot de passe incorrect
+            messages.error(request, "Mot de passe incorrect. Veuillez réessayer.")
+
+    return render(request, 'auth/login_admin.html')
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -389,7 +402,6 @@ def boutique(request):
 
 
 ''' =========== Section Admin ========= '''
-@role_required(['admin'])
 def SuperAdmin(request):
     # Récupérer la date d'aujourd'hui en tenant compte du fuseau horaire
     today = timezone.now().date()
@@ -398,7 +410,7 @@ def SuperAdmin(request):
     traffic_count = Traffic.objects.filter(date=today).aggregate(total_visits=models.Sum('visits'))['total_visits'] or 0
 
     # Compter le nombre d'utilisateurs selon leur rôle
-    admin_count = CustomUser.objects.filter(rôle='admin').count()
+    admin_count = CustomUser.objects.filter(access='autorised').count()
     personnel_count = CustomUser.objects.filter(rôle='personnel').count()
     ecole_count = CustomUser.objects.filter(rôle='ecole').count()
     entreprise_count = CustomUser.objects.filter(rôle='entreprise').count()
@@ -1008,6 +1020,136 @@ def update_description_boutique(request):
     return render(request, 'formulaires/update/update_description_boutique.html')
 # break
 
+def update_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    medias_post = MediasPost.objects.filter(post=post).first()
+
+    if request.method == 'POST':
+        post.contenu_post = request.POST['contenu_post']
+        post.tag_post = request.POST['tag_post']
+        post.save()
+
+        # Récupérer les fichiers téléchargés
+        new_image_file = request.FILES.get('image')
+        new_video_file = request.FILES.get('video')
+
+        # Si un nouveau fichier image est fourni, supprimer l'ancienne image
+        if new_image_file:
+            if medias_post and medias_post.image and os.path.exists(medias_post.image.path):
+                medias_post.image.delete(save=False)
+            # Mettre à jour ou créer l'image associée
+            if medias_post:
+                medias_post.image = new_image_file
+                medias_post.save()
+            else:
+                MediasPost.objects.create(post=post, image=new_image_file)
+
+        # Si un nouveau fichier vidéo est fourni, supprimer l'ancienne vidéo
+        if new_video_file:
+            if post.video and os.path.exists(post.video.path):
+                post.video.delete(save=False)
+            post.video = new_video_file
+            post.save()
+
+        # Redirection après la mise à jour
+        user_role = request.user.rôle  
+        if user_role == 'admin':
+            return redirect('Ad_profile')
+        else:
+            return redirect('detail_profile')
+
+    return render(request, 'formulaires/update/update_post.html', {'post': post, 'medias_post': medias_post})
+
+def update_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    medias_product = MediasProduct.objects.filter(produit=product).first()
+
+    if request.method == 'POST':
+        product.nom_produit = request.POST['nom_produit']
+        product.description = request.POST['description']
+        product.prix = request.POST['prix']
+        product.category = request.POST['category']
+        product.save()
+
+        new_image_file = request.FILES.get('image')
+        new_video_file = request.FILES.get('video')
+
+        # Supprimer l'ancienne image seulement si une nouvelle est fournie
+        if new_image_file and medias_product and medias_product.image and os.path.exists(medias_product.image.path):
+            medias_product.image.delete(save=False)
+
+        # Supprimer l'ancienne vidéo seulement si une nouvelle est fournie
+        if new_video_file and product.video and os.path.exists(product.video.path):
+            product.video.delete(save=False)
+
+        # Mettre à jour les fichiers uniquement si de nouveaux fichiers sont fournis
+        if new_video_file:
+            product.video = new_video_file
+        product.save()
+
+        if medias_product:
+            if new_image_file:
+                medias_product.image = new_image_file
+            medias_product.save()
+        else:
+            if new_image_file:
+                MediasProduct.objects.create(produit=product, image=new_image_file)
+
+        # Rediriger en fonction du rôle de l'utilisateur
+        user_role = request.user.rôle  
+        if user_role == 'admin':
+            return redirect('Ad_profile')
+        else:
+            return redirect('En_Gestion_Boutique')
+    
+    return render(request, 'formulaires/update/update_product.html', {'product': product, 'medias_product': medias_product})
+
+def delete_product(request, id):
+    # Récupérer le produit à supprimer
+    product = get_object_or_404(Product, id=id)
+    
+    # Récupérer les médias associés
+    medias = MediasProduct.objects.filter(produit=product)
+
+    # Supprimer les fichiers d'image associés en local
+    for media in medias:
+        if media.image and os.path.exists(media.image.path):
+            os.remove(media.image.path)
+        # Supprimer l'enregistrement de l'image de la base de données
+        media.delete()
+
+    # Supprimer le fichier vidéo si nécessaire
+    if product.video and os.path.exists(product.video.path):
+        os.remove(product.video.path)
+
+    # Supprimer le produit de la base de données
+    product.delete()
+
+    # Rediriger l'utilisateur après la suppression
+    return redirect('En_Gestion_Boutique')
+
+def delete_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    medias_post = MediasPost.objects.filter(post=post).first()
+
+    if medias_post and medias_post.image and os.path.exists(medias_post.image.path):
+        medias_post.image.delete()
+
+    if post.video:
+        # Ajoutez une pause pour laisser le temps au système de libérer le fichier
+        time.sleep(1)
+        
+        if os.path.exists(post.video.path):
+            post.video.delete()
+
+    post.delete()
+
+    user_role = request.user.rôle  
+    if user_role == 'admin':
+        return redirect('Ad_profile')
+    else:
+        return redirect('detail_profile')
+
 ''' =========== Les Likes ========= '''       
 class AddLikes(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
@@ -1329,6 +1471,11 @@ def categorie_view(request, category):
         'category': category,
     }
     return render(request, 'Details/categories/categorie.html', context)
+
+def users_by_role(request, role):
+    users = CustomUser.objects.filter(rôle=role)
+    user_count = users.count()  # Compte le nombre d'utilisateurs pour le rôle donné
+    return render(request, 'admins/details/users.html', {'users': users, 'role': role, 'user_count': user_count})
 
 def get_or_none(model, **kwargs):
     try:

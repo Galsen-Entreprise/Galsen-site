@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 # ========== Authentification ===================
-from galsen.views import log_in, register, log_out, profile
+from galsen.views import log_in, register, log_out, profile, login_admin
 
 # ========== Les Pages ==================
 from galsen.views import home, personnel, entreprise, ecole, emplois, boutique
@@ -19,7 +19,7 @@ from galsen.views import create_post, create_job, AddPostule, create_boutique, c
 from galsen.views import update, update_profile, update_banner, a_propos, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation
 
 # ========== Les Updates ==================
-from galsen.views import update_logo_boutique, update_banner_boutique, update_description_boutique
+from galsen.views import update_logo_boutique, update_banner_boutique, update_description_boutique, update_post, update_product
 
 # ========== Les Followers: Les Likes, Les Postules, Les Commandes, postulants ===================
 from galsen.views import AddLikes
@@ -57,6 +57,7 @@ urlpatterns = [
     path('register', register, name = 'register'),
     path('logout', log_out, name = 'logout'),
     path('profil', profile, name = 'profil'),
+    path('login_admin', login_admin, name='login_admin'),
     
     
     # =========== reset password ================
@@ -101,6 +102,12 @@ urlpatterns = [
     path('update_logo_boutique', update_logo_boutique, name = 'update_logo_boutique'),
     path('update_banner_boutique', update_banner_boutique, name = 'update_banner_boutique'),
     path('update_description_boutique', update_description_boutique, name = 'update_description_boutique'),
+    path('update_post/<int:id>/', update_post, name='update_post'),
+    path('update_product/<int:id>/', update_product, name='update_product'),
+    
+    # ========== Supprimer: Posts, Jobs, Product ===================
+    path('delete_post/<int:id>/', views.delete_post, name='delete_post'),
+    path('delete_product/<int:id>/', views.delete_product, name='delete_product'),
     
     # ========== Les Followers: Les Likes, Les Shares, Suivre ===================
     path('post/<int:pk>/like', AddLikes.as_view(), name='likes'),
@@ -124,8 +131,8 @@ urlpatterns = [
     path('categorie/<str:category>/', views.categorie_view, name='categorie'),
     path('commande/<int:produit_id>/commander', produit_commande, name='produit_commande'),
     path('boutique/<int:boutique_id>/', views.boutique_detail, name='boutique_detail'),
+    path('users/role/<str:role>/', views.users_by_role, name='users_by_role'),
     
-    # ========== Les Supprimes ==================
     
     # ========== Les Paramétres ==================
     path('settings_profil', Settings_profil, name = 'settings_profil'),

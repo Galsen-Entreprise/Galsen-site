@@ -151,6 +151,12 @@
 
                 <div class="nab_list">
                     <div class="nab_items navtop">
+                        {% if request.user.access != 'no_autorised' %}
+                            <a href="login_admin" class="nab_link nabtop active" id="create">
+                                <img src="{% static 'assets/categories/detective.png' %}" class="nab_icon">
+                                <span class="nab_name"> Admin </span>
+                            </a>
+                        {% endif %}
 
                         <a href="post" class="nab_link nabtop active" id="create">
                             <img src="{% static 'assets/categories/publication.png' %}" class="nab_icon">

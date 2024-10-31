@@ -120,8 +120,8 @@
                             <th class="disparait">Titre</th>
                             <th>Prix</th>
                             <th class="disparait">Pays</th>
-                            <th>Suprimer</th>
                             <th>Editer</th>
+                            <th>Suprimer</th>
                         </tr>
                     </thead>
 
@@ -153,8 +153,9 @@
                                         {{ produit.boutique.user.pays }}
                                     </a>
                                 </td>
-                                <td><button class="danger">Supprimer</button></td>
-                                <td><button class="primary">Editer</button></td>
+                                <td><a href="{% url 'update_product' id=produit.id %}" class="primary">Editer</a></td>
+                                <td><a href="{% url 'delete_product' produit.id %}" class="danger">Supprimer</a></td>
+                                
                             </tr>
                         {% endfor %}
                     </tbody>

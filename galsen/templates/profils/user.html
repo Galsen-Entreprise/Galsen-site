@@ -196,6 +196,15 @@
                                     </div>
                                 </a> 
                             </div>
+
+                            <div class="menu">
+                                <i class="fa fa-ellipsis-h icon"></i>
+                                <ul class="menu-link">
+                                    <li class="current"><a href="{% url 'update_post' id=post.id %}">Modifier</a></li>
+                                    <li><a href="{% url 'delete_post' id=post.id %}">Supprimer</a></li>
+                                </ul>
+                            </div>
+
                             <form id="subscribe-form-{{ post.user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=post.user.id %}" method="post">
                                 {% csrf_token %}
                                 {% if user.is_authenticated and user != post.user %}

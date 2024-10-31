@@ -61,7 +61,7 @@ html
 
 body
 {
-    background: var(--body-color);
+    /* background: #222; */
     min-height: 100vh;
     color: var(--title-color);
 }
@@ -110,7 +110,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #042aeb;
     /* rgb(71, 7, 234) */
 }
 
@@ -131,7 +131,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #042aeb;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -168,7 +168,7 @@ small
     left: 0;
     height: 100%;
     border-radius: 1px;
-    background: var(--body-color);
+    background: #303030;
     z-index: 100;
     transition: 0.5s;
     border-right: 0.1px solid #37373b39;
@@ -180,7 +180,7 @@ small
 {
     border-radius: 5px;
     box-shadow: 0.02rem 0.02rem 0.02rem 0.02rem #111c22;
-    background: var(--body-color);
+    background: #303030;
     margin-bottom: 10px;
 }
 
@@ -190,7 +190,7 @@ small
     align-items: center;
     font-size: 25px;
     font-weight: 600;
-    color: #151426;
+    color: #fff;
     padding: 10px;
 }
 
@@ -208,14 +208,14 @@ small
 .calendar-week-day div {
     display: grid;
     place-items: center;
-    color: #79788c;
+    color: #a1a1a4;
 }
 
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
-    color: #151426;
+    color: #fff;
 }
 
 .calendar-days div {
@@ -243,7 +243,7 @@ small
 .calendar-days div span:nth-child(3) {
     width: 2px;
     height: 0;
-    background-color: #151426;
+    background-color: #042aeb;
 }
 
 .calendar-days div:hover span:nth-child(1),
@@ -265,7 +265,7 @@ small
 .calendar-days div span:nth-child(4) {
     width: 0;
     height: 2px;
-    background-color: #151426;
+    background-color: #042aeb;
 }
 
 .calendar-days div:hover span:nth-child(2),
@@ -297,7 +297,7 @@ small
 
 .calendar-days div.curr-date,
 .calendar-days div.curr-date:hover {
-    background-color: #299bd5;
+    background-color: #042aeb;
     color: #fff;
     font-weight: bold;
     border-radius: 50%;
@@ -422,6 +422,11 @@ small
     background: #F0F8FF;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-share-profile h2
+{
+    color: #fff;
 }
 
 

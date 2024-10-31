@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <title>Login</title>
+
+        <!-- Box Icone -->
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+        <!-- Style css -->
+        <link rel="stylesheet" href="{% static 'assets/ressources/styles/login_hash.css' %}">
+    </head>
+    <body>
+
+        <center>
+            <div class="box">
+                <form method="POST">
+                    {% csrf_token %}
+                    <h2>Login</h2>
+                    <div class="inputBx">
+                        <i class="fa fa-envelope icone"i></i>
+                        <span></span>
+                        <input type="email" name="email" id="" value="{{ user.email }}">
+                    </div>
+
+                    <div class="inputBx">
+                        <span></span>
+                        <i class="fa fa-lock icone"></i>
+                        <input type="password" name="password" id="password" placeholder="Password" class="password" required>
+                        <i class="fa fa-eye-slash right" id="pass-icon" onclick="pass()"></i>
+                    </div>
+
+                    <div class="inpuBx">
+                        <input type="submit" value="Sign in" class="Submit"> 
+                    </div>
+
+                    <div class="group success">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </form>
+                
+            </div>
+        </center>
+
+        <script src="{% static 'assets/ressources/scripts/login_hash.js' %}"></script>
+        <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    </body>
+</html>

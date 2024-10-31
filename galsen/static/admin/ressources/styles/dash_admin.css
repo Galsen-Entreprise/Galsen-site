@@ -54,7 +54,7 @@ body
     margin: var(--header-height);
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    background: rgba(0, 0, 0, 0.09);
+    background: #222;
     color: var(--text-color);
 }
 
@@ -88,7 +88,7 @@ img
     width: 100%;
     height: 50px;
     overflow: hidden;
-    background-color: var(--container-color);
+    background-color: #303030;
     z-index: var(--z-fixed);
     transition: .4s;
 }
@@ -117,6 +117,11 @@ img
     font-size: 2em;
 }
 
+.numbers-users h2
+{
+    color: #fff;
+}
+
 .infos-admin
 {
     margin-right: 10px;
@@ -137,7 +142,7 @@ img
     width: 240px;
     right: 0;
     margin-right: 10px;
-    background-color: var(--body-color);
+    background-color: #303030;
     border-radius: 10px;
     overflow: hidden;
     max-height: 0;
@@ -152,7 +157,7 @@ img
 
 .profil-dropdown-list hr
 {
-    border: 0.5px solid #299bd5;
+    border: 0.5px solid #042aeb;
 }
 
 .profil-dropdown-list-item
@@ -174,7 +179,7 @@ img
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
-    color: var(--title-color);
+    color: #fff;
 }
 
 .profil-dropdown-list-item a i
@@ -183,7 +188,7 @@ img
     font-size: 1.1rem;
     width: 2.3rem;
     height: 2.3rem;
-    background-color: #299bd5;
+    background-color: #042aeb;
     color: #fff;
     display: flex;
     align-items: center;
@@ -196,13 +201,14 @@ img
 .section_title
 {
     font-size: var(--h1-font-size);
-    color: var(--title-color);
+    color: #fff;
     text-align: center;
     margin-bottom: 0.5rem;
 }
 
 .data-users
 {
+    background: #303030;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
@@ -218,7 +224,7 @@ img
 
 .data-users:hover
 {
-    box-shadow: 5px 5px 20px #299bd5;
+    box-shadow: 5px 5px 20px #042aeb;
 }
 
 .data-users .circle
@@ -287,6 +293,8 @@ img
 
 .data-chart
 {
+    background: #a7a6a6;
+    color: #fff;
     width: 920px;
     padding: 5px;
     margin-top: 20px;
@@ -299,6 +307,7 @@ img
 
 .data-users-card
 {
+    background: #303030;
     width: 100%;
     padding: 1rem;
     box-shadow: 5px 5px 20px #4b4b4a;
@@ -316,6 +325,7 @@ img
 
 .data-card
 {
+    background: #a7a6a6;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
@@ -324,7 +334,7 @@ img
 
 .data-card:hover
 {
-    box-shadow: 5px 5px 20px #299bd5;
+    box-shadow: 5px 5px 20px #042aeb;
 }
 
 .data-card center .years
@@ -353,6 +363,7 @@ img
 
 .money-card
 {
+    background: #303030;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -364,24 +375,24 @@ img
 
 .money-card:hover
 {
-    box-shadow: 5px 5px 20px #299bd5;
+    box-shadow: 5px 5px 20px #042aeb;
 }
 
 .icone-data i
 {
-    color: #299bd5;
+    color: #042aeb;
     font-size: 20px;
     font-weight: bold;
 }
 
 .data-moneys h2
 {
-    color: #4b4b4aa1;
+    color: #fff;
 }
 
 .data-moneys p
 {
-    color: #222;
+    color: #a2a2a2;
     font-size: 25px;
     font-weight: bold;
     margin-top: 10px;

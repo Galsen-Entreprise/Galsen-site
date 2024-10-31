@@ -420,4 +420,53 @@ body
     margin-left: 5px;
     color: var(--title-color);
 }
+
+.menu
+{
+    position: relative;
+    right: -23%;
+}
+
+.menu .icon
+{
+    cursor: pointer;
+    margin-right: 15px;
+    color: var(--title-color);
+}
+
+.menu-link
+{
+    position: absolute;
+    top: calc(100% + -17px);
+    right: 20px;
+    width: 140px;
+    background: var(--body-color);
+    border-radius: 10px;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(172, 172, 172, 0.2);
+    padding: 10px 0;
+    z-index: 10;
+    display: none;
+    transition: all .3s ease;
+}
+
+.menu:hover .menu-link
+{
+    top: 100%;
+    display: block;
+    top: calc(100% + -37px);
+}
+
+.menu-link a
+{
+    display: block;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: var(--title-color);
+    transition: all .3s ease;
+}
+
+.menu-link a:hover
+{
+    background: var(--text-color-light);
+}
   

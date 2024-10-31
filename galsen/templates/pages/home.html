@@ -54,27 +54,6 @@
                 <div class="line_P" onclick="currentSlide(4)"></div>
             </div>
         </section>
-
-        <form class="happen">
-            <div class="what">
-                {% if user.profile_image and user.profile_image.url %}
-                    <img src="{{ user.profile_image.url }}">
-                {% else %}
-                    <img src="{% static 'assets/default/user.png' %}">
-                {% endif %}
-                <input type="text" placeholder="Quoi de neuf aujourd' hui Oumar Thioubou?">
-            </div>
-            <div class="button-forms">
-                <label for="#">
-                    <i class="fa fa-video-camera primary"></i>
-                    Video
-                </label>
-                <label for="#">
-                    <i class="fa fa-image primary"></i>
-                    Image
-                </label>
-            </div>
-        </form>
         
         {% if posts %}
             {% for post in posts %}
