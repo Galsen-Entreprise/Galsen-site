@@ -12,17 +12,21 @@
         padding: 0px;
         margin: 0;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background: #222;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     table {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        position: relative;
+        
         border-collapse: collapse;
         width: 800px;
         height: 200px;
         border: 1px solid #bdc3c7;
+        background: #303030;
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
     }
     
@@ -32,56 +36,63 @@
     }
     
     th,
-    td {
+    td, td a {
+        text-decoration: none;
         padding: 12px;
         text-align: left;
         border-bottom: 1px solid #ddd;
-    }
-    
-    #header {
-        background-color: #16a085;
         color: #fff;
     }
-    
-    h1 {
-        font-weight: 600;
-        text-align: center;
-        background-color: #16a085;
-        color: #fff;
-        padding: 10px 0px;
-    }
-    
+
     tr:hover {
         background-color: #f5f5f5;
         transform: scale(1.02);
         box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    tr:hover td, tr:hover td a {
+        color: #222;
+    }
+    
+    #header {
+        background-color: #042aeb;
+        color: #fff;
     }
     
     @media only screen and (max-width: 768px) {
         table {
             width: 424px;
         }
+
+        .gender {
+            display: none;
+        }
+
+        .col-1 {
+            border-right: 1px solid #fb5151;
+        }
     }
 </style>
 
 <body>
 
-    <h1>Utilisateurs - Rôle : {{ role|title }} - ({{ user_count }})</h1>
-    <hr>
-
     <table>
         <tr id="header">
-            <th>Pseudo</th>
+            <th class="col-1">{{ role|title }}s({{ user_count }})</th>
             <th>Email</th>
-            <th>Gender</th>
+            <th class="member">Membre depuis</th>
         </tr>
         
         <!-- Boucle Django pour afficher les utilisateurs -->
         {% for user in users %}
         <tr>
-            <td>{{ user.username }}</td>
+            {% if user.first_name and user.last_name %}
+                <td class="col-1"><a href="admin_user">{{ user.first_name }} {{ user.last_name }}</a></td>
+                {% else %}
+                <td class="col-1"><a href="admin_user">{{ user.username }}</a></td>
+            {% endif %}
             <td>{{ user.email }}</td>
-            <td>{{ user.genre }}</td>
+            <td class="member">le, {{ user.date_joined|date:"d F Y à H:i" }}</td>
         </tr>
         {% empty %}
         <tr>

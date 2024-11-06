@@ -25,7 +25,7 @@ from galsen.views import update_logo_boutique, update_banner_boutique, update_de
 from galsen.views import AddLikes
 
 # ========== Details ===================
-from galsen.views import detail_profile, job_detail, En_Gestion_Boutique, postulant, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande
+from galsen.views import detail_profile, job_detail, En_Gestion_Boutique, postulant, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande, admin_user
 
 # ========== Les Paramétres ==================
 from galsen.views import Settings_profil, settingEmail, settingNames, settingRole, settingPassWord, settingDelete
@@ -132,6 +132,7 @@ urlpatterns = [
     path('commande/<int:produit_id>/commander', produit_commande, name='produit_commande'),
     path('boutique/<int:boutique_id>/', views.boutique_detail, name='boutique_detail'),
     path('users/role/<str:role>/', views.users_by_role, name='users_by_role'),
+    path('admin_user', admin_user, name = 'admin_user'),
     
     
     # ========== Les Paramétres ==================

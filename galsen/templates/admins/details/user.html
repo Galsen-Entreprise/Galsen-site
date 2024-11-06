@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'admin/ressources/styles/admin-user.css' %}">
+
+    <title> Galsen </title>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registration</h2>
+        <form action="#">
+            <h3 class="success">Détail Personnel</h3>
+            <div class="content">
+                <div class="input-box">
+                    <label class="name">First_name</label>
+                    <input type="text" value="Oumar" placeholder="Entre le prénom de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Last_name</label>
+                    <input type="text" value="Thioubou" placeholder="Entre le nom de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Username</label>
+                    <input type="text" value="GH05t" placeholder="Entre le pseudo de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Email</label>
+                    <input type="email" value="oumarthioubou1196@gmail.com" placeholder="Entre le mail de l'utilisateur">
+                </div>
+
+            </div>
+
+            <h3 class="success">Contacts</h3>
+            <div class="content">
+                <div class="input-box">
+                    <label class="name">First_name</label>
+                    <input type="text" value="Oumar" placeholder="Entre le prénom de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Last_name</label>
+                    <input type="text" value="Thioubou" placeholder="Entre le nom de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Username</label>
+                    <input type="text" value="GH05t" placeholder="Entre le pseudo de l'utilisateur">
+                </div>
+
+                <div class="input-box">
+                    <label class="name">Email</label>
+                    <input type="email" value="oumarthioubou1196@gmail.com" placeholder="Entre le mail de l'utilisateur">
+                </div>
+
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="bg-success">Enregistrer</button>
+                <a href="#" class="bg-danger">Supprimer</a>
+                <a href="#" class="bg-primary">Annuler</a>
+            </div>
+
+        </form>
+    </div>
+    
+</body>
+</html>

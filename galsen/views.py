@@ -1477,6 +1477,10 @@ def users_by_role(request, role):
     user_count = users.count()  # Compte le nombre d'utilisateurs pour le rôle donné
     return render(request, 'admins/details/users.html', {'users': users, 'role': role, 'user_count': user_count})
 
+def admin_user(request):
+    return render(request, 'admins/details/user.html')
+    
+
 def get_or_none(model, **kwargs):
     try:
         return model.objects.get(**kwargs)
