@@ -199,19 +199,19 @@ body.dark-theme
 
     .center 
     {
-        width: 384px;
+        width: 100%;
         margin-left: -12px;
         padding-bottom: 40px;
     }
 
     .search, .search .form-group input
     {
-        width: 384px;
+        width: 100%;
     }
 
     .search .form-group button
     {
-        right: -130px;
+        right: 7px;
     }
 
     .happen

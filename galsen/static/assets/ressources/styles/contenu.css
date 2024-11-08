@@ -844,24 +844,6 @@ button.button-like
     }
 }
 
-@media (max-width: 360px) {
-    body, body.dark-theme
-    {
-        width: 100%;
-    }
-
-    main
-    {
-        width: 100%;
-    }
-
-    .center 
-    {
-        width: 100%;
-        padding-bottom: 40px;
-    }
-}
-
 @media screen and (max-width: 767px) {
 
     .media-wrapper
