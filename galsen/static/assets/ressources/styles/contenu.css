@@ -858,7 +858,7 @@ button.button-like
 
     .center 
     {
-        width: 100%;
+        width: auto;
         padding-bottom: 40px;
     }
 
