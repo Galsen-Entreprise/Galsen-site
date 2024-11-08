@@ -861,7 +861,9 @@ label.fa.nav_icon
     /* ====== Les Spans(Les Noms) ===== */
     .nav_name
     {
-        display: none;
+        font-size: 5px;
+        top: -20px;
+        position: relative;
     }
 
     label.fa.nav_icon
@@ -941,15 +943,7 @@ label.fa.nav_icon
 
 }
 
-@media screen and (max-width: 320px) {
-    /* ==================== Le Bas, Menus en Mode Fixe ==================== */
-    /* ====== Les Menus ===== */
-    /* ====== Les Spans(Les Noms) ===== */
-    .nav_name
-    {
-        display: none;
-    }
-}
+
 
 @media screen and (min-width: 576px) {
     /* ==================== Le Bas, Menus en Mode Fixe ==================== */

@@ -270,6 +270,13 @@ body.dark-theme
     }
 }
 
+@media  screen and (width: 390px) {
+    .nav_menu
+    {
+        zoom: 10%;
+    }
+}
+
 @media screen and (width: 412px) {
     .nav_menu
     {
