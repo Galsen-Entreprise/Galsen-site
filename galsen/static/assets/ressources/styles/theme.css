@@ -278,21 +278,35 @@ body.dark-theme
         zoom: 100%;
     }
 
+    body, body.dark-theme
+    {
+        width: 100%;
+    }
+
+    main
+    {
+        width: 100%;
+    }
+
     .center 
     {
-        width: 412px;
-        margin-left: -12px;
+        width: 100%;
         padding-bottom: 40px;
+    }
+
+    .search .form-group
+    {
+        width: 95%;
     }
 
     .search, .search .form-group input
     {
-        width: 412px;
+        width: 100%;
     }
 
     .search .form-group button
     {
-        right: -130px;
+        right: 7px;
     }
 
     .happen
@@ -359,21 +373,40 @@ body.dark-theme
         zoom: 100%;
     }
 
+    body, body.dark-theme
+    {
+        width: 100%;
+    }
+
+    main
+    {
+        width: 100%;
+    }
+
     .center 
     {
-        width: 414px;
-        margin-left: -12px;
+        width: 100%;
         padding-bottom: 40px;
+    }
+
+    form.search
+    {
+        width: 100%;
+    }
+
+    .search .form-group
+    {
+        width: 95%;
     }
 
     .search, .search .form-group input
     {
-        width: 414px;
+        width: 100%;
     }
 
     .search .form-group button
     {
-        right: -130px;
+        right: 7px;
     }
 
     .happen

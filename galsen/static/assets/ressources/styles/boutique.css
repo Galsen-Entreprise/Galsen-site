@@ -434,7 +434,7 @@ small
 @media screen and (max-width: 767px) {
     .content-boutique{
         width: auto;
-        /* margin-left: -3.5%; */
+        margin-left: -3.5%;
     }
 
     .products-grid

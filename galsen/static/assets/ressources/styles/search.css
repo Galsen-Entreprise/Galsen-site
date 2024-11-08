@@ -131,18 +131,33 @@ body {
 }
 
 @media screen and (max-width: 767px) {
+    body, body.dark-theme
+    {
+        width: 100%;
+    }
+
+    main
+    {
+        width: 100%;
+    }
+
     .search
     {
-        width: 650px;
+        width: 100%;
+    }
+
+    .search .form-group
+    {
+        width: 94%;
     }
 
     .search .form-group input
     {
-        width: 498px;
+        width: 100%;
     }
 
     .search .form-group button
     {
-        right: -59px;
+        right: 7px;
     }
 }
