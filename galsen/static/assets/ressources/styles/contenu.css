@@ -856,9 +856,14 @@ button.button-like
         width: 100%;
     }
 
+    main
+    {
+        width: 100%;
+    }
+
     .center 
     {
-        width: auto;
+        width: 100%;
         padding-bottom: 40px;
     }
 
