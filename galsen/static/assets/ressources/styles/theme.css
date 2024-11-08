@@ -472,19 +472,18 @@ body.dark-theme
 
     .center 
     {
-        width: 428px;
-        margin-left: -12px;
+        width: 100%;
         padding-bottom: 40px;
     }
 
     .search, .search .form-group input
     {
-        width: 428px;
+        width: 100%;
     }
 
     .search .form-group button
     {
-        right: -130px;
+        right: 7px;
     }
 
     .happen
