@@ -24,8 +24,7 @@ body.dark-theme
 
     .center 
     {
-        width: 320px;
-        margin-left: -12px;
+        width: 100%;
         padding-bottom: 40px;
     }
 
