@@ -878,7 +878,7 @@ label.fa.nav_icon
 
     .active-link
     {
-        height: 37px;
+        height: 3rem;
         border-bottom: 4px solid #299bd5;
         margin-top: -5px;
         padding-left: 15px;
