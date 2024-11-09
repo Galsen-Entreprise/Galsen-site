@@ -880,9 +880,10 @@ label.fa.nav_icon
     {
         height: 37px;
         border-bottom: 4px solid #299bd5;
+        margin-top: -6px;
         padding-left: 15px;
         padding-right: 15px;
-        padding-bottom: 15px;
+        padding-bottom: 36px;
         font-weight: bold;
     }
 
