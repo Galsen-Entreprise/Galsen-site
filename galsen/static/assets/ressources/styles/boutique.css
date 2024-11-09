@@ -432,9 +432,18 @@ small
 }
 
 @media screen and (max-width: 767px) {
+    body, body.dark-theme
+    {
+        width: 100%;
+    }
+
+    main
+    {
+        width: 100%;
+    }
+
     .content-boutique{
-        width: auto;
-        margin-left: -3.5%;
+        width: 100%;
     }
 
     .products-grid
