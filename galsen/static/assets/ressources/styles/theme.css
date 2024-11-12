@@ -12,7 +12,7 @@ body.dark-theme
 @media screen and (max-width: 767px) {
     html
     {
-        zoom: 70%;
+        zoom: 100%;
     }
 }
 
@@ -218,7 +218,7 @@ body.dark-theme
         width: 100%;
     }
 
-    .post-card
+    .post-card, .annonce-card
     {
         width: 100%;
         margin-bottom: 20px;
