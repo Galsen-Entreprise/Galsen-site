@@ -23,7 +23,7 @@
 {
       /*========== Colors ==========*/
 
-  --first-color: #3b3bbf;
+  --first-color: #2364f0;;
   --title-color: #363949;
   --text-color: #0a0a0a;
   --text-color-light: #9b9bb0;
@@ -159,7 +159,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -180,7 +180,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -284,7 +284,7 @@ header a
     position: absolute;
     height: 300%;
     width: 173px;
-    background: #299bd5;
+    background: #2364f0;
     top: -60px;
     left: -125px;
     z-index: 0;

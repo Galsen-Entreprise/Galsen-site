@@ -160,7 +160,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -181,7 +181,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -236,7 +236,7 @@ small
     background: var(--body-color);
     color: var(--title-color);
     font-size: 16px;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #299bd5;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #2364f0;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -324,7 +324,7 @@ small
 .activeBoutique, 
 .line-boutique:hover
 {
-    background-color: #299bd5;
+    background-color: #2364f0;
 }
 
 .slider-boutique
@@ -418,7 +418,7 @@ small
 
 .img-product .action li a:hover
 {
-    background: #299bd5;
+    background: #2364f0;
     color: var(--title-color);
 }
 
@@ -430,7 +430,7 @@ small
     transform: translateY(-50%) translateX(-20px);
     white-space: nowrap;
     padding: 10px 10px;
-    background: #299bd5;
+    background: #2364f0;
     color: var(--title-color);
     font-weight: bold;
     font-size: 15px;
@@ -494,7 +494,7 @@ small
 
 .product-card .content .product-price_rating .rating h3 i
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .link-product
@@ -504,7 +504,7 @@ small
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     display: flex;
     align-items: center;
     justify-content: center;

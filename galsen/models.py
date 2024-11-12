@@ -171,6 +171,12 @@ class Reponse(models.Model):
     contenu_text = models.TextField()
     image = models.ImageField(upload_to='response_images/')
     date_creation = models.DateTimeField(auto_now_add=True)
+
+class Annonce(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='annonce/')
+    contenu_text = models.TextField()
+    service = models.CharField(max_length=255, null=True, blank=True)
     
 class Job(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

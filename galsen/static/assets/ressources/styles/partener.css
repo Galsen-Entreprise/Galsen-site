@@ -3,7 +3,8 @@
     margin-left: 11px;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 98%;
+    /* width: 98%; */
+    width: 100%;
     height: var(--height);
     overflow: hidden;
     mask-image: linear-gradient(
@@ -12,7 +13,7 @@
         var(--title-color) 10% 90%,
         transparent
     );
-    border-bottom: 3px solid #299bd5;
+    border-bottom: 3px solid #2364f0;
 }
 
 .parteners .list

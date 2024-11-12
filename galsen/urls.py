@@ -7,7 +7,7 @@ from . import views
 from galsen.views import log_in, register, log_out, profile, login_admin
 
 # ========== Les Pages ==================
-from galsen.views import home, personnel, entreprise, ecole, emplois, boutique
+from galsen.views import home, personnel, entreprise, ecole, annonce, emplois, boutique
 
 # ========== Section Admin ==================
 from galsen.views import SuperAdmin
@@ -47,6 +47,8 @@ router.register(r'experiences', views.ExperienceViewSet, basename='experience')
 router.register(r'formations', views.FormationViewSet, basename='formation')
 router.register(r'notifications', views.NotificationViewSet, basename='notification')
 router.register(r'commandes', views.CommandeViewSet, basename='commande')
+router.register(r'facture', views.FactureViewSet, basename='facture')
+router.register(r'annonce', views.AnnonceViewSet, basename='annonce')
 
 urlpatterns = [
     
@@ -71,6 +73,7 @@ urlpatterns = [
     path('personnel', personnel, name='personnel'),
     path('entreprise', entreprise, name='entreprise'),
     path('ecole', ecole, name='ecole'),
+    path('annonce', annonce, name='annonce'),
     path('emplois', emplois, name='emplois'),
     path('boutique', boutique, name='boutique'),
     

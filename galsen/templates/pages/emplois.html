@@ -53,14 +53,16 @@
             </div>
         </section>
 
-        {% include 'PUB/partenaire.html' %}
+        <div class="puble">
+            {% include 'PUB/partenaire.html' %}
+        </div>
 
         <section class="emplois">
             {% for job in jobs %}
                 <div class="card-job">
                     <div  class="job-profil">
-                        {% if job.user.bannner_image and job.user.banner_image.url %}
-                                <img src="{{ job.user.banner_image.url}}">
+                        {% if job.user.banner_image and job.user.banner_image.url %}
+                                <img src="{{ job.user.banner_image.url }}">
                             {% else %}
                                 <img src="{% static 'assets/default/user.png' %}">
                         {% endif %}

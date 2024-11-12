@@ -111,7 +111,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -132,7 +132,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -259,7 +259,7 @@ small
     align-items: center;
     justify-content: center;
     padding-bottom: 5px;
-    border-bottom: 2px solid #299bd5;
+    border-bottom: 2px solid #2364f0;
 }
 
 .sidebar-share-profile a
@@ -329,18 +329,18 @@ small
     flex-grow: 1;
     padding: 10px 8px;
     font-size: 14px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     border-color: var(--color-danger);
     border-radius: 5px;
     outline: none;
-    color: #299bd5;
+    color: #2364f0;
     background: var(--body-color);
     cursor: pointer;
 }
 
 .copy-link-input:hover
 {
-    background: #299bd5;
+    background: #2364f0;
     color: var(--body-color);
 }
 
@@ -350,7 +350,7 @@ small
     flex-shrink: 0;
     width: 40px;
     height: 36px;
-    background: #299bd5;
+    background: #2364f0;
     cursor: pointer;
     box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
     font-size: 20px;

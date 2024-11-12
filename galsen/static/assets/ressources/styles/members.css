@@ -83,7 +83,7 @@ img
     background-color: var(--body-color);
     z-index: var(--z-fixed);
     transition: .4s;
-    box-shadow: 0 0.2px 0.5px #299bd5;
+    box-shadow: 0 0.2px 0.5px #2364f0;
 }
 
 /* ====== Le NavBar ===== */
@@ -111,7 +111,7 @@ img
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-    background: #299bd5;
+    background: #2364f0;
     width: 120px;
     padding: 6px;
     text-align: center;

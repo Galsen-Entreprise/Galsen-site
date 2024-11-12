@@ -4,7 +4,7 @@ body.dark-theme
 {
     --title-color: #edeffd;
     --text-color: #b8b8c7;
-    --body-color: #181a1e;
+    --body-color: rgb(24, 26, 30);
     --container-color: #171726;
     --clr-light: rgba(0, 0, 0, 0.4);
 }

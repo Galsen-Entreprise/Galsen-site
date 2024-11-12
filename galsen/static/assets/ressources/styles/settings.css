@@ -48,7 +48,7 @@ body {
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .bg
@@ -65,12 +65,12 @@ body {
     background: rgba(96, 96, 96, 0.551);
     backdrop-filter: blur(10px) saturate(180%);
     border-radius: 8px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     overflow: hidden;
 }
 
 header {
-    background-color: #299bd5;
+    background-color: #2364f0;
     color: #fff;
     padding: 16px;
     text-align: center;
@@ -83,7 +83,7 @@ header h1 {
 .param 
 {
     max-width: 600px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     border-radius: 10px;
     position: relative;
     cursor: pointer;
@@ -141,7 +141,7 @@ header h1 {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    background: #299bd5;
+    background: #2364f0;
     color: #fff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: background 0.3s, transform 0.3s;
@@ -220,7 +220,7 @@ header h1 {
     width: 20px;
     font-size: 2rem;
     margin-right: 1rem;
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .input-group > .right
@@ -244,7 +244,7 @@ div.input-group .bar::before
 {
     content: '';
     position: absolute;
-    background-color: #299bd5;
+    background-color: #2364f0;
     width: 0;
     height: 2px;
     transition: width 650ms;

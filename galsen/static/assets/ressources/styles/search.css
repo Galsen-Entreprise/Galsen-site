@@ -80,7 +80,7 @@ body {
     background: var(--body-color);
     color: var(--title-color);
     font-size: 16px;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #299bd5;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #2364f0;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -148,7 +148,7 @@ body {
 
     .search .form-group
     {
-        width: 94%;
+        width: 100%;
     }
 
     .search .form-group input

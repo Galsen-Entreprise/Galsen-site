@@ -19,7 +19,7 @@ from django.db.models import Case, When, Value, IntegerField
 
 ''' =========== Les API ========= '''
 from rest_framework import viewsets
-from .serializers import CustomUserSerializer, PostSerializer, MediasPostSerializer, JobSerializer, BoutiqueSerializer, CommentaireSerializer, ReponseSerializer, ProductSerializer, MediasProductSerializer, ProfilSerializer, ExperienceSerializer, FormationSerializer, NotificationSerializer, CommandeSerializer
+from .serializers import AnnonceSerializer, CustomUserSerializer, FactureSerializer, PostSerializer, MediasPostSerializer, JobSerializer, BoutiqueSerializer, CommentaireSerializer, ReponseSerializer, ProductSerializer, MediasProductSerializer, ProfilSerializer, ExperienceSerializer, FormationSerializer, NotificationSerializer, CommandeSerializer
 
 ''' =========== Les Models ========= '''
 from .models import CustomUser, Facture, Post, MediasPost, Job, Boutique, Commentaire, Reponse, Product, MediasProduct, Profil, Experience, Formation, Notification, Commande, Traffic
@@ -91,6 +91,14 @@ class NotificationViewSet(viewsets.ModelViewSet):
 class CommandeViewSet(viewsets.ModelViewSet):
     queryset = Commande.objects.all()
     serializer_class = CommandeSerializer
+    
+class FactureViewSet(viewsets.ModelViewSet):
+    queryset = Commande.objects.all()
+    serializer_class = FactureSerializer
+    
+class AnnonceViewSet(viewsets.ModelViewSet):
+    queryset = Commande.objects.all()
+    serializer_class = AnnonceSerializer
 
 
 def log_in(request):
@@ -305,6 +313,9 @@ def ecole(request):
         'result_count': CustomUsers.count()
     }
     return render(request, 'pages/ecole.html', context)
+
+def annonce(request):
+    return render(request, 'pages/annonces.html')
 
 @role_required(['admin','personnel', 'ecole', 'entreprise'])
 def emplois(request):

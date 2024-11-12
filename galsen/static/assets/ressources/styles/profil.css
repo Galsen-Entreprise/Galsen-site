@@ -160,7 +160,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -181,7 +181,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -309,7 +309,7 @@ body
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 5px;
     color: #fff;
     font-weight: 600;
@@ -343,13 +343,13 @@ body
     display: grid;
     text-align: center;
     text-decoration: none;
-    color: #299bd5;
+    color: #2364f0;
     font-weight: bold;
 }
 
 .profile-nav ul li a:hover 
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .buttons-1
@@ -368,7 +368,7 @@ body
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 5px;
     color: #fff;
     font-weight: 600;

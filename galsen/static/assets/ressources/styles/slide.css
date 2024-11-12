@@ -104,7 +104,7 @@ body
 .activeP, 
 .line_P:hover
 {
-    background-color: #299bd5;
+    background-color: #2364f0;
 }
 
 .sliderP
@@ -132,7 +132,7 @@ body
     {
         width: 100%;
         height: 200px;
-        top: -8px;
+        margin-top: 100px;
         position: relative;
     }
 
@@ -145,7 +145,8 @@ body
 
     .PageLines
     {
-        top: 31%;
+        margin-top: -15px;
+        font-size: 20px;
         left: 38%;
         display: flex;
     }

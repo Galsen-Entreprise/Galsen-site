@@ -161,7 +161,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -182,7 +182,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -226,7 +226,7 @@ header{
     background-color: var(--body-color);
     z-index: var(--z-fixed);
     transition: .4s;
-    box-shadow: 0 0.2px 0.5px #299bd5;
+    box-shadow: 0 0.2px 0.5px #2364f0;
 }
 
 header nav
@@ -353,7 +353,7 @@ header nav .infos-vendeur span
 
 .img-product .action li a:hover
 {
-    background: #299bd5;
+    background: #2364f0;
     color: var(--title-color);
 }
 
@@ -365,7 +365,7 @@ header nav .infos-vendeur span
     transform: translateY(-50%) translateX(-20px);
     white-space: nowrap;
     padding: 10px 10px;
-    background: #299bd5;
+    background: #2364f0;
     color: var(--title-color);
     font-weight: bold;
     font-size: 15px;
@@ -429,7 +429,7 @@ header nav .infos-vendeur span
 
 .product-card .content .product-price_rating .rating h3 i
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .product-grid
@@ -460,7 +460,7 @@ header nav .infos-vendeur span
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -494,7 +494,7 @@ header nav .infos-vendeur span
     background: var(--body-color);
     color: var(--title-color);
     font-size: 16px;
-    box-shadow: 0 0 0 0.4px #299bd5;
+    box-shadow: 0 0 0 0.4px #2364f0;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -517,7 +517,7 @@ header nav .infos-vendeur span
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 5px;
     color: #fff;
     font-weight: 600;
@@ -537,7 +537,7 @@ header nav .infos-vendeur span
 
 .facture button:hover i
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .buttons
@@ -557,7 +557,7 @@ header nav .infos-vendeur span
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 5px;
     color: #fff;
     font-weight: 600;
@@ -577,7 +577,7 @@ header nav .infos-vendeur span
 
 .buttons a:hover i
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .popup-commande
@@ -591,7 +591,7 @@ header nav .infos-vendeur span
     background-color: var(--body-color);
     box-shadow: 0.8rem 0.8rem 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     padding: 20px;
     overflow: hidden;
     z-index: 1000;
@@ -630,7 +630,7 @@ header nav .infos-vendeur span
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 5px;
     color: #fff;
     font-weight: 600;

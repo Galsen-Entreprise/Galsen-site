@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Profil, Experience, Formation, Post, MediasPost, Commentaire, Share, Reponse, Job, ShareJob, Boutique, Client, Product, Commande, ReponseCommande, MediasProduct, Notification
+from .models import CustomUser, Profil, Experience, Formation, Post, MediasPost, Commentaire, Share, Reponse, Job, ShareJob, Boutique, Client, Product, Commande, ReponseCommande, MediasProduct, Notification, Facture, Annonce
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,6 +46,11 @@ class ReponseSerializer(serializers.ModelSerializer):
         model = Reponse
         fields = '__all__'
         
+class AnnonceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Annonce
+        fields = '__all__'
+        
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
@@ -81,6 +86,11 @@ class ProductSerializer(serializers.ModelSerializer):
 class CommandeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Commande
+        fields = '__all__'
+        
+class FactureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Facture
         fields = '__all__'
         
 class ReponseCommandeSerializer(serializers.ModelSerializer):

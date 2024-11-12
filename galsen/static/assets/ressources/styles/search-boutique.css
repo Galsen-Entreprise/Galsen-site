@@ -160,7 +160,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -181,7 +181,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -236,7 +236,7 @@ small
     background: var(--body-color);
     color: var(--title-color);
     font-size: 16px;
-    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #299bd5;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.4px #2364f0;
     border-radius: 5px;
     border: none;
     outline: none;
@@ -276,7 +276,7 @@ small
 @media screen and (max-width: 767px) {
     .search-product
     {
-        width: 95%;
+        width: 100%;
         margin-left: -23px;
     }
 }

@@ -66,7 +66,7 @@
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -87,7 +87,7 @@
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -140,7 +140,7 @@ body
 
 .black
 {
-    color: #299bd5;
+    color: #2364f0;
     font-weight: bold;
 }
 
@@ -167,7 +167,7 @@ body
 .profile
 {
     width: 100%;
-    background: #299bd5;
+    background: #2364f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -199,7 +199,7 @@ body
     box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.778),
                 inset -3px -3px 5px rgba(0, 0, 0, 0.5);
-    border: 2.5px solid #299bd5;
+    border: 2.5px solid #2364f0;
     object-fit: cover;
 }
 
@@ -287,7 +287,7 @@ body
     box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.778),
                 inset -3px -3px 5px rgba(0, 0, 0, 0.5);
-    border: 2.5px solid #299bd5;
+    border: 2.5px solid #2364f0;
     object-fit: cover;
 }
 
@@ -312,7 +312,7 @@ body
 .chat-footer .forms
 {
     width: 100%;
-    background: #299bd5;
+    background: #2364f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -408,10 +408,10 @@ body
     max-height: 330px;
     caret-color: 21px solid var(--color-danger);
     border: 1px solid #bfbfbf;
-    background: #299bd5;
+    background: #2364f0;
     color: var(--body-color);
     font-weight: bold;
-    border: 2.5px solid #299bd5;
+    border: 2.5px solid #2364f0;
 }
 
 .chat-footer .left textarea::placeholder
