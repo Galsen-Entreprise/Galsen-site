@@ -1056,9 +1056,14 @@ button.button-like
         width: 100%;
     }
 
+    .perturbateur {
+        width: 96%;
+        margin-left: 11px;
+    }
+
     .center 
     {
-        width: 100%;
+        max-width: 100%;
         padding: 0;
         padding-bottom: 40px;
     }

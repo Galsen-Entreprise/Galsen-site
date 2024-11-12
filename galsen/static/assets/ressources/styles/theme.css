@@ -12,7 +12,7 @@ body.dark-theme
 @media screen and (max-width: 767px) {
     html
     {
-        zoom: 100%;
+        zoom: 70%;
     }
 }
 
