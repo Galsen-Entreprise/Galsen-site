@@ -1068,7 +1068,7 @@ button.button-like
         width: 100%;
     }
 
-    .post-card
+    .post-card, .annonces, .emplois, .user-grid
     {
         width: 100%;
         margin-bottom: 20px;
