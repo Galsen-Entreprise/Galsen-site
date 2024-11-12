@@ -141,9 +141,14 @@ body {
         width: 100%;
     }
 
+    .except
+    {
+        width: 96%;
+    }
+
     .search
     {
-        width: 100%;
+        max-width: 100%;
     }
 
     .search .form-group
