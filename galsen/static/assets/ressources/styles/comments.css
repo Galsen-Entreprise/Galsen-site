@@ -442,11 +442,30 @@ body
 }
 
 @media (max-width: 600px) {
+    body, body.dark-theme
+    {
+        height: 100%;
+    }
+
+    .container{
+        height: 143vh;
+    }
+
+    .chat
+    {
+        height: 100%;
+    }
+
     .chat-footer .left textarea {
         width: 62%;
-        left: 41%;
+        left: 44%;
         max-width: 95%;
         padding-right: 20px;
+    }
+
+    .chat-footer .forms
+    {
+        bottom: 0;
     }
 }
 
