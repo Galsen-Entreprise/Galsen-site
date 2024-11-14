@@ -166,6 +166,14 @@
                             <span class="nab_name"> Créer un Post </span>
                         </a>
 
+                        {% if request.user.rôle != 'ecole' %}
+                            <a href="create_annonce" class="nab_link nabtop active">
+                                <img src="{% static 'assets/categories/annonce.png' %}" class="nab_icon">
+                                <span class="nab_name"> Poster une Annonce </span>
+                            </a>
+
+                        {% endif %}
+
                         {% if request.user.rôle != 'personnel' %}
                             <a href="job" class="nab_link nabtop active">
                                 <img src="{% static 'assets/categories/emplois.png' %}" class="nab_icon">
@@ -178,6 +186,7 @@
                             </a>
 
                         {% endif %}
+
 
                         {% if request.user.rôle != 'personnel' and request.user.rôle != 'ecole' %}
                             <a href="en_Gestion_Boutique" class="nab_link nabtop">
@@ -224,7 +233,7 @@
                 <div class="">
                     <p class="footer__signature">
                         &#169; 2024  
-                        <br><a href="#" class="danger">Bour Studios</a>
+                        <br><a href="#" class="danger"><span class="primary">Bour</span>Studios</a>
                         
                     </p>
                 </div>

@@ -155,6 +155,11 @@ img
     box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 
+div.apexcharts-tooltip.apexcharts-theme-light.apexcharts-active
+{
+    color: black;
+}
+
 .profil-dropdown-list hr
 {
     border: 0.5px solid #042aeb;

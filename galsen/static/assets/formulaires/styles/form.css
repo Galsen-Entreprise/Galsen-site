@@ -63,7 +63,7 @@
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -84,7 +84,7 @@
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -269,9 +269,10 @@ form .inputfield
 form .inputfield label
 {
     width: 112px;
-    color: #299bd5;
+    color: #FFF;
+    font-weight: bold;
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 form .inputfield label i
@@ -280,6 +281,8 @@ form .inputfield label i
     margin-left: 5px;
     margin-right: 8px;
     font-size: 2rem;
+    font-weight: 400;
+    color: #2364f0;
 }
 
 .inputfield input
@@ -300,12 +303,12 @@ form .inputfield label i
 
 .inputfield input:hover
 {
-    border: 2px solid #299bd5;
+    border: 2px solid #2364f0;
 }
 
 .inputfield input:focus
 {
-    box-shadow: 0 0 0 2px #299bd5;
+    box-shadow: 0 0 0 2px #2364f0;
 }
 
 .inputfield p
@@ -335,7 +338,7 @@ form .inputfield label i
 {
     width: 15px;
     height: 15px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     display: block;
     position: relative;
 }
@@ -356,7 +359,7 @@ form .inputfield label i
 
 .inputfield .check input[type="checkbox"]:checked ~ .checkmark
 {
-    background: #299bd5;
+    background: #2364f0;
 }
 
 .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before
@@ -378,7 +381,7 @@ form .inputfield label i
 {
     content: '';
     position: absolute;
-    background-color: #299bd5;
+    background-color: #2364f0;
     width: 0;
     height: 2px;
     transition: width 650ms;
@@ -479,7 +482,7 @@ select.form-control
     width: 20px;
     font-size: 2rem;
     margin-right: 1rem;
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .input-group > .right
@@ -503,7 +506,7 @@ select.form-control
 {
     content: '';
     position: absolute;
-    background-color: #299bd5;
+    background-color: #2364f0;
     width: 0;
     height: 2px;
     transition: width 650ms;
@@ -516,13 +519,13 @@ select.form-control
 
 .input-group button
 {
-    background: #299bd5;
+    background: #2364f0;
     cursor: pointer;
     box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
     width: 100%;
     font-size: 20px;
     font-weight: bold;
-    color: #292929;
+    color: #fff;
     border-radius: 2px;
     border: none;
     padding: 10px;
@@ -567,8 +570,8 @@ select.form-control
 .switch-login a span:hover
 {
     padding-bottom: 2px;
-    border-bottom: 2px solid #299bd5;
-    color: #299bd5;
+    border-bottom: 2px solid #2364f0;
+    color: #2364f0;
 }
 
 .select-btn, li

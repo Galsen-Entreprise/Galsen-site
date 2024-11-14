@@ -144,7 +144,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -165,7 +165,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -202,7 +202,7 @@ small
     background: var(--body-color);
     border-radius: 10px;
     transition: height 0.2s ease;
-    /* box-shadow: 0 12px 28px #299bd5; */
+    /* box-shadow: 0 12px 28px #2364f0; */
     margin-top: 10px;
 }
 
@@ -231,7 +231,7 @@ small
 .temoin .divider
 {
     width: 50%;
-    border: 0.5px solid #299bd5;
+    border: 0.5px solid #2364f0;
     border-radius: 10px;
     margin: 1rem 0;
 }
@@ -264,7 +264,7 @@ small
 
 .lieux span
 {
-    color: #299bd5;
+    color: #2364f0;
 }
 
 .lieux span b
@@ -357,7 +357,7 @@ form .button button
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #299bd5;
+    background: #2364f0;
     margin-top: 10px;
     margin-bottom: 10px;
 }

@@ -168,7 +168,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -189,7 +189,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }

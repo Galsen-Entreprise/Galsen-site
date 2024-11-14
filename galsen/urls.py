@@ -13,7 +13,7 @@ from galsen.views import home, personnel, entreprise, ecole, annonce, emplois, b
 from galsen.views import SuperAdmin
 
 # ========== Formulaires ===================
-from galsen.views import create_post, create_job, AddPostule, create_boutique, create_product, facture
+from galsen.views import create_post, create_job, create_annonce, AddPostule, create_boutique, create_product, facture
 
 # ====== CV: Update profile, Create experience, Update experience, Create Formation, Update Formation =====
 from galsen.views import update, update_profile, update_banner, a_propos, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation
@@ -83,6 +83,7 @@ urlpatterns = [
     # ========== Les Formulaires ==================
     path('post', create_post, name = 'post'),
     path('job', create_job, name = 'job'),
+    path('create_annonce', create_annonce, name = 'create_annonce'),
     path('job/<int:pk>/postule', AddPostule.as_view(), name='postule'),
     path('create_boutique', create_boutique, name = 'create_boutique'),
     path('product', create_product, name = 'product'),

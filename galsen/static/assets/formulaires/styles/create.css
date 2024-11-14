@@ -168,7 +168,7 @@ small
 
 .primary
 {
-    color: #299bd5;
+    color: #2364f0;
     /* rgb(71, 7, 234) */
 }
 
@@ -189,7 +189,7 @@ small
 
 .bg-primary
 {
-    background: #299bd5;
+    background: #2364f0;
     /* rgb(71, 7, 234) */
     box-shadow: 0 0.8rem 0.8rem rgba(71, 7, 234, 0.2);
 }
@@ -291,7 +291,7 @@ header a
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #299bd5;
+    background: #2364f0;
     box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.778),
                 inset -3px -3px 5px rgba(0, 0, 0, 0.5);
@@ -322,7 +322,7 @@ div button
     margin: 2rem auto;
     padding: 0.2rem 5rem;
     border-radius: 5px;
-    background: #299bd5;
+    background: #2364f0;
     border: none;
     color: var(--title-color);
     font-size: 2.5rem;
@@ -359,7 +359,7 @@ progress {
     width: 100%;
     margin-bottom: 10px;
     height: 20px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     border-radius: 4px;
 }
 
@@ -403,7 +403,7 @@ button {
     max-width: 100px;
     max-height: 100px;
     padding: 10px;
-    border: 1px solid #299bd5;
+    border: 1px solid #2364f0;
     border-radius: 4px;
     margin-right: 5px;
     overflow: hidden;
@@ -419,7 +419,7 @@ button {
 
 /* Style personnalisé pour la barre de progression image */
 #imageProgress {
-    background-color: #299bd5;
+    background-color: #2364f0;
     box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.778),
                 inset -3px -3px 5px rgba(0, 0, 0, 0.5);
@@ -485,7 +485,7 @@ button {
     /* margin-left: 5px; */
     margin-right: 28px;
     font-size: 2rem;
-    color: #299bd5;
+    color: #2364f0;
 }
 
 /* Ajouter une règle media query pour un écran plus petit */

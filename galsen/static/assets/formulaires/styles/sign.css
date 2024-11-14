@@ -121,7 +121,7 @@ main img
     left: 0;
     width: 100%;
     height: 30rem;
-    background: #299bd5;
+    background: #2364f0;
     border-bottom-right-radius: 100%;
     border-bottom-left-radius: 100%;
     z-index: -1;
@@ -144,7 +144,7 @@ main img
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(90px) saturate(180%);
     border-radius: 1rem;
-    box-shadow: 0 0 1rem #299bd5;
+    box-shadow: 0 0 1rem #2364f0;
 }
 
 .input-group
@@ -175,10 +175,10 @@ main img
 .input-group .link .active-Profile
 {
     position: relative;
-    color: #299bd5;
+    color: #2364f0;
     font-size: 15px;
     font-weight: bold;
-    box-shadow: 0 2px 5px #299bd5;
+    box-shadow: 0 2px 5px #2364f0;
     transition: .3s;
 }
 
@@ -200,8 +200,8 @@ main img
     width: 4px;
     height: 4px;
     font-size: 20px;
-    background-color: #299bd5;
-    box-shadow: 0 2px 5px #299bd5;
+    background-color: #2364f0;
+    box-shadow: 0 2px 5px #2364f0;
     border-radius: 50%;
 }
 
@@ -288,7 +288,7 @@ select.form-control
 {
     margin: 2rem auto;
     padding: 1rem 5rem;
-    background: #299bd5;
+    background: #2364f0;
     box-shadow: 0 0 1rem black;
     border: none;
     color: var(--color-white);
@@ -326,7 +326,7 @@ select.form-control
 .switch-login a span:hover
 {
     padding-bottom: 2px;
-    border-bottom: 2px solid #299bd5;
+    border-bottom: 2px solid #2364f0;
 }
 
 .select-btn, li
@@ -361,9 +361,9 @@ select.form-control
     position: absolute;
     display: none;
     margin-top: 15px;
-    background: #299bd5;
+    background: #2364f0;
     border-radius: 7px;
-    box-shadow: 0 10px 25px #299bd5;
+    box-shadow: 0 10px 25px #2364f0;
     z-index: 100;
 }
 

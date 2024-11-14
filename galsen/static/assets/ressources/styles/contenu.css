@@ -406,6 +406,7 @@ small
 .media-wrapper {
     width: 100%;
     height: 600px;
+    border-radius: 5px;
     display: flex;
     transition: transform 0.3s ease;
 }
@@ -606,6 +607,7 @@ button.button-like
     border-radius: 1rem;
     box-shadow: 0.1px 0.1px 5px 2px var(--clr-light);
     transition: 0.3s;
+    overflow: hidden;
 }
 
 .annonce-card img
@@ -976,13 +978,13 @@ button.button-like
     .profil-grid, .user-grid, .annonces
     {
         padding: 5px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     .annonce-card img
     {
         width: 100%;
-        height: 100px;
+        height: 200px;
     }
 
     .annonces .content .profil
@@ -1084,7 +1086,7 @@ button.button-like
         width: 510px;
     }
 
-    .profil-grid, .user-grid, .annonces
+    .profil-grid, .user-grid
     {
         width: 100%;
         grid-template-columns: repeat(2, 1fr);

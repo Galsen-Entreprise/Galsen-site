@@ -36,45 +36,45 @@
                 <ul class="profil-dropdown-list">
                     <li class="profil-dropdown-list-item">
                         <a href="detail_profile">
-                            <i class="fa fa-user"></i>
-                            Votre Profil
+                            <i class="fa fa-briefcase"></i>
+                            Editer l'entreprise
                         </a>
                     </li>
 
                     <li class="profil-dropdown-list-item">
                         <a href="#">
-                            <i class="fa fa-map"></i>
-                            Votre Localisation
+                            <i class="fa fa-envelope"></i>
+                            Messages
                         </a>
                     </li>
 
                     <li class="profil-dropdown-list-item">
                         <a href="#">
-                            <i class="fa fa-line-chart"></i>
-                            Analyser votre Compte
+                            <i class="fa fa-handshake-o"></i>
+                            Partenaires
+                        </a>
+                    </li>
+
+                    <li class="profil-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            Sponsors
                         </a>
                     </li>
 
                     <li class="profil-dropdown-list-item">
                         <a href="#">
                             <i class="fa fa-sliders"></i>
-                            Paramétres
-                        </a>
-                    </li>
-
-                    <li class="profil-dropdown-list-item">
-                        <a href="#">
-                            <i class="fa fa-question-circle"></i>
-                            Aide Support
+                            Banniéres
                         </a>
                     </li>
 
                     <hr>
 
                     <li class="profil-dropdown-list-item">
-                        <a href="{% url 'logout' %}">
-                            <i class="fa fa-sign-out"></i>
-                            Déconnexion
+                        <a href="home">
+                            <i class="fa fa-home"></i>
+                            Home
                         </a>
                     </li>
 
@@ -349,10 +349,12 @@
         var options = {
             series: [{
                 name: '{{ today.year }}',
-                data: currentYearData
+                data: currentYearData,
+                color: '#2364f0'
             }, {
                 name: '{{ previous_year }}',  // Utilisez la variable précédente
-                data: previousYearData
+                data: previousYearData,
+                color: '#fb5151'
             }],
             chart: {
                 height: 350,
@@ -362,11 +364,11 @@
                 enabled: false
             },
             stroke: {
-                curve: 'smooth'
+                curve: 'smooth',
             },
             xaxis: {
                 type: 'month',
-                categories: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                categories: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
             },
         };
 

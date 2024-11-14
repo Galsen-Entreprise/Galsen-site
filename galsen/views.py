@@ -22,7 +22,7 @@ from rest_framework import viewsets
 from .serializers import AnnonceSerializer, CustomUserSerializer, FactureSerializer, PostSerializer, MediasPostSerializer, JobSerializer, BoutiqueSerializer, CommentaireSerializer, ReponseSerializer, ProductSerializer, MediasProductSerializer, ProfilSerializer, ExperienceSerializer, FormationSerializer, NotificationSerializer, CommandeSerializer
 
 ''' =========== Les Models ========= '''
-from .models import CustomUser, Facture, Post, MediasPost, Job, Boutique, Commentaire, Reponse, Product, MediasProduct, Profil, Experience, Formation, Notification, Commande, Traffic
+from .models import Annonce, CustomUser, Facture, Post, MediasPost, Job, Boutique, Commentaire, Reponse, Product, MediasProduct, Profil, Experience, Formation, Notification, Commande, Traffic
 
 ''' =========== Authentication ========= '''
 from django.contrib.auth import authenticate, login, logout
@@ -315,7 +315,20 @@ def ecole(request):
     return render(request, 'pages/ecole.html', context)
 
 def annonce(request):
-    return render(request, 'pages/annonces.html')
+    user = request.user
+    
+    annonces = Annonce.objects.select_related('user').order_by('-date_creation')
+    
+    if request.method == "GET":
+        title = request.GET.get('service')
+        if title is not None:
+            annonces = annonces.filter(title__icontains=title)
+            
+    context = {
+        'annonces': annonces,
+        'user': user
+    }
+    return render(request, 'pages/annonces.html', context)
 
 @role_required(['admin','personnel', 'ecole', 'entreprise'])
 def emplois(request):
@@ -541,6 +554,31 @@ def create_job(request):
             return redirect('emplois')
         
     return render(request, 'formulaires/job.html')
+
+def create_annonce(request):
+    if request.method == 'POST':
+        contenu_text = request.POST.get('contenu_text')
+        service = request.POST.get('service')
+        prix = request.POST.get('prix')
+        image = request.FILES.get('image')
+
+        # Créez un nouveau post avec les informations de session
+        new_annonce = Annonce.objects.create(
+            user=request.user,
+            contenu_text=contenu_text,
+            service=service,
+            prix=prix,
+            image=image,
+        )
+    
+        user_role = request.user.rôle
+        messages.success(request, 'Annonce créé avec succès!')
+
+        if user_role == 'admin':
+            return redirect('Ad_posts')
+        else:
+            return redirect('home')
+    return render(request, 'formulaires/annonce.html')
 
 class AddPostule(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):

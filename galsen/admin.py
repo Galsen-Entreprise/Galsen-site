@@ -17,6 +17,7 @@ from .models import Notification
 from .models import Commande
 from .models import ReponseCommande
 from .models import Traffic
+from .models import Annonce
 
 # Register your models here.
 
@@ -58,3 +59,4 @@ admin.site.register(Notification)
 admin.site.register(Commande)
 admin.site.register(ReponseCommande)
 admin.site.register(Traffic)
+admin.site.register(Annonce)

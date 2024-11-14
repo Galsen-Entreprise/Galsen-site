@@ -101,6 +101,18 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+class Entreprise(models.Model):
+    logo = models.ImageField(upload_to='logo_images/', null=True, blank=True)
+    banner = models.ImageField(upload_to='banner_images/', null=True, blank=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
+    number_phone = models.CharField(max_length=15, null=True, blank=True)
+    number_whatsapp = models.CharField(max_length=15, null=True, blank=True)
+    number_telegram = models.CharField(max_length=15, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    instagram_link = models.URLField(null=True, blank=True)
+    twitter_link = models.URLField(null=True, blank=True)
+    youtube_link = models.URLField(null=True, blank=True)
+    website_link = models.URLField(null=True, blank=True)
   
 class Profil(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -170,13 +182,15 @@ class Reponse(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     contenu_text = models.TextField()
     image = models.ImageField(upload_to='response_images/')
-    date_creation = models.DateTimeField(auto_now_add=True)
+    date_creation_annonce = models.DateTimeField(auto_now_add=True)
 
 class Annonce(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='annonce/')
     contenu_text = models.TextField()
     service = models.CharField(max_length=255, null=True, blank=True)
+    prix = models.DecimalField(max_digits=10, decimal_places=0)
+    date_creation = models.DateTimeField(auto_now_add=True)
     
 class Job(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -232,7 +246,7 @@ class Product(models.Model):
     video = models.FileField(upload_to='product_videos/')
     nom_produit = models.CharField(max_length=255)
     description = models.TextField()
-    prix = models.DecimalField(max_digits=10, decimal_places=2)
+    prix = models.DecimalField(max_digits=10, decimal_places=0)
     quantite_stock = models.IntegerField(null=True, blank=True)
     fournisseur = models.CharField(max_length=255)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='electronics')
