@@ -281,15 +281,7 @@ html, body, body.dark-theme {
 }
 
 @media  screen and (width: 390px) {
-    .nav_menu
-    {
-        zoom: 10%;
-    }
-
-    .nav_name
-    {
-        font-size: 1px;
-    }
+    
 
     .center
     {
