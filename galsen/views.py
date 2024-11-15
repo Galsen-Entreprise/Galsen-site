@@ -577,7 +577,7 @@ def create_annonce(request):
         if user_role == 'admin':
             return redirect('Ad_posts')
         else:
-            return redirect('home')
+            return redirect('annonce')
     return render(request, 'formulaires/annonce.html')
 
 class AddPostule(LoginRequiredMixin, View):

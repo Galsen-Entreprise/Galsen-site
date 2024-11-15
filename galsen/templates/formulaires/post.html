@@ -2,49 +2,47 @@
 
 {% block Base %}
 {% load static %}
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
-<form method="post" action="{% url 'post' %}" enctype="multipart/form-data" id="mediaForm">
+<form method="post" action="{% url 'post' %}" enctype="multipart/form-data" id="mediaForm" class="post-form">
     {% csrf_token %}
 
-    <header>
-        <a href="#" id="boutonRetour">
-            <i class="fa fa-arrow-left arrow"></i>
-        </a>
-        Créer un poste
-    </header>
+    <h2>Créer un Post</h2>
 
-    <label for="videoFile" class="button">Choisissez des vidéos :</label>
-
-    <input type="file" id="videoFile" accept="video/*" class="file" name="video">
-    <progress id="videoProgress" value="0" max="100"></progress>
-    <span id="videoProgressText">0%</span>
-    <div id="videoContainer"></div>
-
-    <label for="imageFile" class="button">Choisissez des images :</label>
-
-    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
-    <progress id="imageProgress" value="0" max="100"></progress>
-    <span id="imageProgressText">0%</span>
-    <div id="imageContainer"></div>
-
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-edit"></i>
-            <input id="tag" type="text" class="form-control" name="tag_post" required autocomplete="name" placeholder="citer des tags séparés par des ;">
-            <span class="bar"></span>
+    <!-- Champ Image -->
+    <div class="form-group">
+        <label for="image"><i class="fa fa-image"></i> Image</label>
+        <input type="file" id="image" name="image" accept="image/*" multiple>
+        <div class="image-preview" id="imagePreview">
+            <p>Aucune image sélectionnée</p>
         </div>
     </div>
 
-    <textarea name="contenu_post" id="" cols="30" rows="10" required></textarea>
+    <!-- Champ Vidéo -->
+    <div class="form-group">
+        <label for="video"><i class="fa fa-video-camera"></i> Vidéo</label>
+        <input type="file" id="video" name="video" accept="video/*">
+        <div class="video-preview" id="videoPreview">
+            <p>Aucune vidéo sélectionnée</p>
+        </div>
+    </div>
+
+    <!-- Contenu du post avec CKEditor -->
+    <div class="form-group">
+        <label for="contenu_post"><i class="fa fa-pencil"></i> Contenu du Post</label>
+        <textarea id="contenu_post" name="contenu_post"></textarea>
+    </div>
+
+    <!-- Tags -->
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-tag"></i> Tags</label>
+        <input type="text" id="tag_post" name="tag_post" placeholder="Entrez des tags séparés par des virgules">
+    </div>
 
     <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace("contenu_post");
     </script>
 
-    <div>
-        <button type="submit"> POSTER </button>
-    </div>
+    <button type="submit">Publier</button>
 
 </form>
 {% endblock %}

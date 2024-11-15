@@ -2,59 +2,40 @@
 
 {% block Base %}
 {% load static %}
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
 <form method="post" action="{% url 'create_annonce' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <header>
-        <a href="#" id="boutonRetour">
-            <i class="fa fa-arrow-left arrow"></i>
-        </a>
-        Poster votre annonce
-    </header>
+    <h2>Créer une annonce</h2>
 
-    <div style="display: none;">
-        <label for="videoFile" class="button">Choisissez des vidéos :</label>
-
-        <input type="file" id="videoFile" accept="video/*" class="file" name="video">
-        <progress id="videoProgress" value="0" max="100"></progress>
-        <span id="videoProgressText">0%</span>
-        <div id="videoContainer"></div>
-    </div>
-
-    <label for="imageFile" class="button">Choisissez des images :</label>
-
-    <input type="file" id="imageFile" accept="image/*" class="file" name="image">
-    <progress id="imageProgress" value="0" max="100"></progress>
-    <span id="imageProgressText">0%</span>
-    <div id="imageContainer"></div>
-
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-edit"></i>
-            <input id="title" type="text" class="form-control" name="service" required placeholder="Le titre de votre(ex: Marketing Digital)">
-            <span class="bar"></span>
+    <div class="form-group">
+        <label for="image"><i class="fa fa-image"></i> Image</label>
+        <input type="file" id="image" name="image" accept="image/*" multiple>
+        <div class="image-preview" id="imagePreview">
+            <p>Aucune image sélectionnée</p>
         </div>
     </div>
 
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-money"></i>
-            <input id="prix" type="number" class="form-control" name="prix" required placeholder="Le prix de votre service">
-            <span class="bar"></span>
-        </div>
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-tag"></i> Le titre de votre service </label>
+        <input type="text" id="service" name="service" placeholder="Le titre de votre service(ex: Marketing Digital)">
     </div>
 
-    <textarea name="contenu_text" id="" cols="30" rows="10" required></textarea>
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-money"></i> Le prix de votre offre </label>
+        <input type="number" id="prix" name="prix" placeholder="Le prix de votre service">
+    </div>
+
+    <div class="form-group">
+        <label for="contenu_text"><i class="fa fa-pencil"></i> Description de votre service</label>
+        <textarea id="contenu_text" name="contenu_text"></textarea>
+    </div>
 
     <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace("contenu_text");
     </script>
 
-    <div>
-        <button type="submit"> POSTER </button>
-    </div>
+    <button type="submit">Publier</button>
 
 </form>
 {% endblock %}
