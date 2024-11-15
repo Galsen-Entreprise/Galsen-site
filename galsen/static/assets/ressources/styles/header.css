@@ -861,7 +861,7 @@ label.fa.nav_icon
     /* ====== Les Spans(Les Noms) ===== */
     .nav_name
     {
-        font-size: 10px;
+        font-size: 20px;
         top: -20px;
         position: relative;
     }
