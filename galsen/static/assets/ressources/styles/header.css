@@ -836,7 +836,7 @@ label.fa.nav_icon
         background-color: var(--body-color);
         box-shadow: 0 0.2px 3px #2364f0;
         width: 100%;
-        height: 5rem;
+        height: 6rem;
         /* padding: 0 1rem; */
         display: grid;
         align-content: center;
@@ -860,14 +860,14 @@ label.fa.nav_icon
     /* ====== Les Spans(Les Noms) ===== */
     .nav_name
     {
-        font-size: 8px;
+        font-size: 11px;
         top: -20px;
         position: relative;
     }
 
     label.fa.nav_icon
     {
-        font-size: 15px;
+        font-size: 20px;
         margin-top: 5px;
         width: 30px;
         align-items: center;
