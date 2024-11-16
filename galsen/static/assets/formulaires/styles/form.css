@@ -130,6 +130,12 @@ html
     font-size: 10px;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #2364f0, #2575fc);
+    
+}
+
 main img
 {
     position: fixed;
@@ -182,11 +188,34 @@ main img
     align-items: center;
 }
 
+.logo
+{
+    position: absolute;
+    top: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: #fff;
+    border-bottom: 5px solid #fff;
+}
+
+.logo::before
+{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 55.5px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
 .form-container
 {
     width: 100%;
     max-width: 40rem;
-    background: rgba(96, 96, 96, 0.415);
+    background: rgba(43, 43, 43, 0.244);
     backdrop-filter: blur(0px) saturate(180%);
     position: relative;
     padding: 5rem 0;
@@ -202,9 +231,8 @@ main img
     left: 0;
     width: 100%;
     height: 30rem;
-    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
-                inset 2px 2px 5px rgba(255, 255, 255, 0.778),
-                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+    background: #2364f0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     border-bottom-right-radius: 100%;
     border-bottom-left-radius: 100%;
     z-index: -1;
@@ -224,11 +252,8 @@ form
 {
     transform: translateX(10rem);
     padding: 1rem 0;
-    background: rgba(96, 96, 96, 0.244);
-    backdrop-filter: blur(0px) saturate(180%);
-    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.25),
-                inset 0 0 1rem #949ca0,
-                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+    background: #1c1c1c;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(90px) saturate(180%);
     border-radius: 1rem;
 }
@@ -482,7 +507,7 @@ select.form-control
     width: 20px;
     font-size: 2rem;
     margin-right: 1rem;
-    color: #2364f0;
+    color: #fff;
 }
 
 .input-group > .right
@@ -506,7 +531,7 @@ select.form-control
 {
     content: '';
     position: absolute;
-    background-color: #2364f0;
+    background-color: #fff;
     width: 0;
     height: 2px;
     transition: width 650ms;
@@ -570,8 +595,8 @@ select.form-control
 .switch-login a span:hover
 {
     padding-bottom: 2px;
-    border-bottom: 2px solid #2364f0;
-    color: #2364f0;
+    border-bottom: 2px solid #fff;
+    color: #03ff42;
 }
 
 .select-btn, li

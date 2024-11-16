@@ -183,6 +183,8 @@ def profile(request):
         quartier = request.POST.get('quartier')
         indicatif = request.POST.get('indicatif')
         phone = request.POST.get('phone')
+        number_whatsapp = request.POST.get('number_whatsapp')
+        number_telegram = request.POST.get('number_telegram')
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         birthday = request.POST.get('birthday')
@@ -193,6 +195,8 @@ def profile(request):
         user.quartier = quartier
         user.indicatif_pays = indicatif
         user.number_phone = phone
+        user.number_whatsapp = number_whatsapp
+        user.number_telegram = number_telegram
 
         # Vérifier si les champs first_name et last_name sont fournis, sinon les définir sur None
         user.first_name = firstname if firstname else None
@@ -1353,7 +1357,6 @@ def product_detail(request, product_id):
         'In_commande': in_commande        # Ajouter la logique pour commande
     }
     return render(request, 'Details/product.html', context)
-
 
 def vos_commande(request):
     # Récupérer les commandes de l'utilisateur connecté

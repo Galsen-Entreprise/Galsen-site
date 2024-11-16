@@ -2,25 +2,21 @@
 
 {% block Base %}
 {% load static %}
-<form method="post" action="update_description_boutique" enctype="multipart/form-data">
+<form method="post" action="update_description_boutique" enctype="multipart/form-data" class="enterprise-form">
     {% csrf_token %}
 
-    <header>
-        <a href="#" id="boutonRetour">
-            <i class="fa fa-arrow-left arrow"></i>
-        </a>
-        Mettre à jours votre description
-    </header>
+    <h2>Mettre à jours votre Description</h2>
 
-    <textarea name="description" id="description" cols="30" rows="10" class="texta" required></textarea>
+    <div class="form-group">
+        <label for="description"><i class="fa fa-pencil"></i> Description</label>
+        <textarea id="description" name="description"></textarea>
+    </div>
 
     <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace("description");
     </script>
 
-    <div>
-        <button type="submit"> Mettre à jours </button>
-    </div>
+    <button type="submit"> Mettre à jours </button>
 </form>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block Base %}
 {% load static %}
-<form method="post" action="{% url 'create_annonce' %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'create_annonce' %}" enctype="multipart/form-data" class="enterprise-form">
     {% csrf_token %}
 
     <h2>Créer une annonce</h2>

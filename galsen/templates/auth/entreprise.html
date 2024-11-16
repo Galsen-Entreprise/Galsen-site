@@ -1,85 +1,66 @@
-{% extends 'auth/layouts/forms.html' %}
+{% extends 'auth/layouts/profils.html' %}
 
 {% load static %}
 
-{% block Authentification %}
-<img src="{% static 'assets/logo/school.png' %}">
+{% block inscript %}
+<form class="enterprise-form" id="enterpriseForm" method="POST" action="/profil">
+    {% csrf_token %}
+    <h2>Votre Profil</h2>
 
-<div id="wrapper">
-    <div class="form-container">
-        <span class="form-heading"> Profil </span>
-        
-        <form method="POST" action="/profil">
-            {% csrf_token %}
-
-
-            <div class="input-group wrapper">
-                <i class="fa fa-map-marker"></i>
-                <div autocomplete="off">
-                    <div>
-                        <input type="text" class="form-control" id="countryInput" name="pays" placeholder="Votre pays" onchange="updateIndicatif()" autocomplete="off" required/>
-
-                      <span class="bar"></span>
-                    </div>
-                    <ul class="list"></ul>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-map"></i>
-                <input id="ville" type="text" class="form-control" name="ville" required placeholder="Votre ville" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-home"></i>
-                <input id="quartier" type="text" class="form-control" name="quartier" required placeholder="Votre quartier" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-flag"></i>
-                <input id="indicatif" type="number" class="form-control" name="indicatif" required placeholder="Votre indicatif pays" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-phone"></i>
-                <input id="phone" type="number" class="form-control" name="phone" value="" required placeholder="Votre numéro de téléphone" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-user"></i>
-                <input id="firstname" type="text" class="form-control" name="firstname" required placeholder="Prénom du Chef d'entreprise" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-user"></i>
-                <input id="lastname" type="text" class="form-control" name="lastname" required placeholder="Nom du Chef d'entreprise" autocomplete="off">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-calendar"></i>
-                <input type="date" name="birthday" id="date" min="1960-01-01" style="font-weight: bold;" required>
-                <span class="bar"></span>
-            </div><br>
-            <h3 class="danger" style="margin-left: 10px;">Date de naissance ^</h3>
-
-
-            <div class="input-group">
-                <button type="submit" name="inscription" value="Valider">
-                    Valider
-                </button>
-            </div>
-
-            
-
-        </form>
-
+    <div class="row">
+        <div class="form-group">
+            <label for="countryInput"><i class="fa fa-flag-checkered"></i> Votre Pays </label>
+            <input type="text" id="countryInput" name="pays" onchange="updateIndicatif()" placeholder="Votre pays" autocomplete="off" required>
+            <ul class="list"></ul>
+        </div>
+        <div class="form-group">
+            <label for="indicatif"><i class="fa fa-flag"></i> Indicatif pays </label>
+            <input type="number" id="indicatif" name="indicatif" placeholder="Votre indicatif pays">
+        </div>
+        <div class="form-group">
+            <label for="ville"><i class="fa fa-map"></i> Ville </label>
+            <input type="text" id="ville" name="ville" placeholder="Votre ville" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="quartier"><i class="fa fa-home"></i> Quartier </label>
+            <input type="text" id="quartier" name="quartier" placeholder="Votre quarier" autocomplete="off" required>
+        </div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="form-group">
+            <label for="number_phone"><i class="fa fa-phone"></i> Téléphone</label>
+            <input type="tel" id="number_phone" name="number_phone" placeholder="Numéro de téléphone" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="number_whatsapp"><i class="fa fa-whatsapp"></i> WhatsApp</label>
+            <input type="tel" id="number_whatsapp" name="number_whatsapp" placeholder="Numéro WhatsApp" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="number_telegram"><i class="fa fa-telegram"></i> Telegram</label>
+            <input type="tel" id="number_telegram" name="number_telegram" placeholder="Numéro Telegram" autocomplete="off">
+        </div>
+    </div>
+
+    <span class="indic success"> <i class="fa fa-warning"></i> Le prénom et le nom du chef de l'entreprise, vous pourriez toujours les modifier dans les paramétres.</span>
+    <div class="row">
+        <div class="form-group">
+            <label for="firstname"><i class="fa fa-user"></i> Le Prénom du chef de l'entreprise</label>
+            <input id="firstname" type="text" class="form-control" name="firstname" required placeholder="Le Prénom du chef de l'entreprise" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="lastname"><i class="fa fa-user"></i> Le Nom du chef de l'entreprise </label>
+            <input id="lastname" type="text" class="form-control" name="lastname" required placeholder="Le nom du chef de l'entreprise" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="date"><i class="fa fa-birthday-cake"></i> Date de naissance de l'entreprise</label>
+            <input type="date" name="birthday" id="date" min="1960-01-01" style="font-weight: bold;" required autocomplete="off">
+        </div>
+    </div>
+
+    <button type="submit">Envoyer</button>
+</form>
 
 {% endblock %}

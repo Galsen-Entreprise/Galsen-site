@@ -4,9 +4,10 @@
 
 {% block Authentification %}
 
-<img src="{% static 'assets/logo/school.png' %}">
-
 <div id="wrapper">
+
+    <h2 class="logo">GALSEN</h2>
+
     <div class="form-container">
         <span class="form-heading"> Connexion </span>
         <h3 class="danger">{{ error }}</h3>
@@ -31,7 +32,7 @@
                 <i class="fa fa-lock icone"></i>
                 <input id="password" type="password" class="form-control" name="password" required autocomplete="new-password" placeholder="Votre Mot de Passe">
                 <span class="bar"></span>
-                <i class="fa fa-eye-slash right danger" id="pass-icon" onclick="pass()"></i>
+                <i class="fa fa-eye-slash right success" id="pass-icon" onclick="pass()"></i>
             </div>
 
             

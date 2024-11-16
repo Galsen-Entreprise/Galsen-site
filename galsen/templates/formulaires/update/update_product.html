@@ -2,86 +2,74 @@
 
 {% block Base %}
 {% load static %}
-<img src="{% static 'assets/logo/boutique.jpg' %}" class="bg">
-<form method="post" action="{% url 'update_product' id=product.id %}" enctype="multipart/form-data" id="mediaForm">
+<form method="post" action="{% url 'update_product' id=product.id %}" enctype="multipart/form-data" id="mediaForm" class="enterprise-form">
     {% csrf_token %}
 
-    <header>
-        <a href="#" id="boutonRetour">
-            <i class="fa fa-arrow-left arrow"></i>
-        </a>
-        Créer un poste
-    </header>
+    <h2>Editer votre produit</h2>
 
-    <label for="imageFile" class="button">Choisissez des images :</label>
-    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
-    <progress id="imageProgress" value="0" max="100"></progress>
-    <span id="imageProgressText">0%</span>
-    <div id="imageContainer">
-        <div class="media-container-item">
-            {% for media in product.mediasproduct_set.all %}
-                {% if media.image %}
-                    <img src="{{ media.image.url }}">
-                {% endif %}
-            {% endfor %}
-            <button class="delete-button">X</button>
-        </div>
-    </div>
-
-    <label for="videoFile" class="button">Choisissez des vidéos :</label>
-    <input type="file" id="videoFile" accept="video/*" class="file" name="video">
-    <progress id="videoProgress" value="0" max="100"></progress>
-    <span id="videoProgressText">0%</span>
-    <div id="videoContainer">
-        <div class="media-container-item">
-            {% if product.video %}
-                <video src="{{ product.video.url }}"></video>
-            {% endif %}
-            <button class="delete-button">X</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-edit"></i>
-            <input id="nom_produit" type="text" class="form-control" name="nom_produit" required value="{{ product.nom_produit }}" autocomplete="nom_produit" placeholder="Le titre du produit">
-            <span class="bar"></span>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-money"></i>
-            <input id="prix" type="number" class="form-control" name="prix" value="{{ product.prix|floatformat:2 }}" required placeholder="Le prix du produit">
-            <span class="bar"></span>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-list-alt"></i>
-            <div class="custom_select">
-                <select id="category" class="form-control" name="category" required>
-                    <option value="">-- {{ product.category }} --</option>
-                    <option value="electronics">Électronique</option>
-                    <option value="fashion">Mode et Vêtements</option>
-                    <option value="home_garden">Maison et Jardin</option>
-                    <option value="beauty_health">Beauté et Santé</option>
-                    <option value="food_drink">Alimentation et Boissons</option>
-                    <option value="sports_leisure">Sport et Loisirs</option>
-                    <option value="books_media">Livres et Médias</option>
-                    <option value="toys_kids">Jouets et Enfants</option>
-                    <option value="automotive_tools">Automobile et Outils</option>
-                    <option value="pets">Animaux</option>
-                    <option value="services">Services et Abonnements</option>
-                    <option value="special_offers">Offres spéciales / Promotions</option>
-                </select>
+    <div class="row">
+            <!-- Champ Image -->
+        <div class="form-group">
+            <label for="image"><i class="fa fa-image"></i> Image</label>
+            <input type="file" id="image" name="image" accept="image/*" multiple>
+            <div class="image-preview" id="imagePreview">
+                {% for media in product.mediasproduct_set.all %}
+                    {% if media.image %}
+                        <img src="{{ media.image.url }}">
+                    {% endif %}
+                {% endfor %}
             </div>
-            
+        </div>
+
+        <!-- Champ Vidéo -->
+        <div class="form-group">
+            <label for="video"><i class="fa fa-video-camera"></i> Vidéo</label>
+            <input type="file" id="video" name="video" accept="video/*">
+            <div class="video-preview" id="videoPreview">
+                {% if product.video %}
+                    <video src="{{ product.video.url }}"></video>
+                    {% else %}
+                    <p>Aucune vidéo disponible</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 
-    <textarea name="description" id="" cols="30" rows="10" required> {{ product.description }} </textarea>
+    <div class="row">
+        <div class="form-group">
+            <label for="nom_produit"><i class="fa fa-tag"></i> Le titre du produit </label>
+            <input id="nom_produit" type="text" class="form-control" name="nom_produit" required value="{{ product.nom_produit }}" autocomplete="nom_produit" placeholder="Le titre du produit">
+        </div>
+    
+        <div class="form-group">
+            <label for="prix"><i class="fa fa-money"></i> Le prix du produit </label>
+            <input id="prix" type="number" class="form-control" name="prix" required value="{{ product.prix }}" placeholder="Le prix du produit">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="category"><i class="fa fa-list-alt"></i> Choisir une catégorie </label>
+        <select id="category" class="form-control" name="category" required>
+            <option value="">-- {{ product.category }} --</option>
+            <option value="electronics">Électronique</option>
+            <option value="fashion">Mode et Vêtements</option>
+            <option value="home_garden">Maison et Jardin</option>
+            <option value="beauty_health">Beauté et Santé</option>
+            <option value="food_drink">Alimentation et Boissons</option>
+            <option value="sports_leisure">Sport et Loisirs</option>
+            <option value="books_media">Livres et Médias</option>
+            <option value="toys_kids">Jouets et Enfants</option>
+            <option value="automotive_tools">Automobile et Outils</option>
+            <option value="pets">Animaux</option>
+            <option value="services">Services et Abonnements</option>
+            <option value="special_offers">Offres spéciales / Promotions</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="description"><i class="fa fa-pencil"></i> Description de votre produit</label>
+        <textarea id="description" name="description">{{ product.description }}</textarea>
+    </div>
 
     <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
     <script>

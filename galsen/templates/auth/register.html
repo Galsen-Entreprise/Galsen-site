@@ -1,112 +1,143 @@
-{% extends 'auth/layouts/forms.html' %}
+{% extends 'auth/layouts/sign.html' %}
 {% load static %}
 
-{% block Authentification %}
-<img src="{% static 'assets/logo/school.png' %}">
+{% block inscript %}
+<form class="enterprise-form" id="enterpriseForm" method="POST" action="/register">
+    {% csrf_token %}
+    <h2>Inscription</h2>
 
-<div id="wrapper">
-    <div class="form-container">
-        <span class="form-heading">Inscription</span>
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong class="danger">🫡 ERREUR!</strong> 
-                <i>
-                    Veuillez corriger les erreurs ci-dessous!
-                </i>
-                <ul class="messages-error">
-                    {% for field, error in form.errors.items %}
-                        {% for message in error %}
-                            <li>-👉 {{ message }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-        <form method="POST" action="/register">
+    <div class="row">
 
-            {% csrf_token %}
+        <div class="form-group">
+            <label for="id_langue"><i class="fa fa-flag"></i> Langue </label>
+            <select name="langue" autocomplete="off" id="id_langue">
+                <option value="français" selected="">Français</option>
+            
+                <option value="anglais">Anglais</option>
+            
+                <option value="spagnol">Espagnol</option>
+            
+                <option value="italien">Italien</option>
+            
+                <option value="arabe">Arabe</option>
+            
+            </select>
+        </div>
 
-            <div class="inputfield">
-                <label><i class="fa fa-flag"></i>Langue</label>
-                <div class="custom_select">
-                    {{ form.langue}}
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="id_rôle"><i class="fa fa-briefcase"></i> Type </label>
+            <select name="rôle" autocomplete="off" id="id_rôle">
+                <option value="personnel" selected="">Personnel(le)</option>
+            
+                <option value="ecole">Ecole</option>
+            
+                <option value="entreprise">Entreprise</option>
+            
+            </select>
+        </div>
 
-            <div class="inputfield">
-                <label><i class="fa fa-briefcase"></i>Type</label>
-                <div class="custom_select">
-                    {{ form.rôle }}
-                </div>
-            </div>
-
-            <div class="inputfield">
-                <label><i class="fa fa-transgender"></i>Gender</label>
-                <div class="custom_select">
-                    {{ form.genre }}
-                </div>
-            </div>
-
-            <div class="inputfield">
-                <label><i class="fa fa-user-secret"></i>Pseudo</label>
-                {{ form.username }}
-                <span class="bar"></span>
-            </div>
-
-            <div class="inputfield" id="etablissement_field" style="display: none;">
-                <label><i class="fa fa-briefcase"></i>Nom Complet de Votre Etablissement</label>
-                {{ form.etablissement }}
-                <span class="bar"></span>
-            </div>            
-
-            <div class="inputfield">
-                <label><i class="fa fa-envelope"></i>Email</label>
-                <input type="email" name="email" autocomplete="off" maxlength="320" required="" id="id_email" placeholder="ddd">
-                <!-- {{ form.email }} -->
-                <span class="bar"></span>
-            </div>
-
-            <div class="inputfield">
-                <label><i class="fa fa-unlock"></i>Password</label>
-                {{ form.password1 }}
-                <span class="bar"></span>
-            </div>
-
-            <div class="inputfield">
-                <label><i class="fa fa-lock"></i>Confirm</label>
-                {{ form.password2 }}
-                <span class="bar"></span>
-            </div>
-
-            <div class="inputfield terms">
-                <label class="check">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <p>Vous acceptez 
-                    <a href="#" class="primary" style="font-weight: bold;"> les termes et condtions</a> 
-                    pour l'inscription!
-                </p>
-            </div>
-
-            <div class="input-group">
-                <button type="submit" name="inscription" value="S'inscrire">
-                    S'inscrire
-                </button>
-            </div>
-
-            <div class="switch-login">
-                <a href="/">
-                    <p class="danger">Déjà un Compte?
-                        <span class="white"> Se Connecter </span>
-                    </p>
-                </a>
-            </div>
-
-        </form>
-
+        <div class="form-group">
+            <label for="id_rôle"><i class="fa fa-transgender"></i> Genre </label>
+            <select name="genre" autocomplete="off" id="id_genre">
+                <option value="homme">Homme</option>
+            
+                <option value="femme">Femme</option>
+            
+            </select>
+        </div>
     </div>
-</div>
+
+    <div class="form-group">
+        <label for="id_username"><i class="fa fa-user-secret"></i> Votre pseudo
+            {% if form.username.errors %}
+                <span class="danger"> 
+                    <i class="fa fa-warning"></i> 
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </label>
+        <input type="text" name="username" autocomplete="off" autofocus="" required="" id="id_username" placeholder="Votre pseudo">
+    </div>
+
+    <div class="form-group" id="etablissement_field" style="display: none;">
+        <label for="id_etablissement"><i class="fa fa-briefcase"></i> Nom Complet de Votre Etablissement
+            {% if form.etablissement.errors %}
+                <span class="danger"> 
+                    <i class="fa fa-warning"></i> 
+                    {% for error in form.etablissement.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </label>
+        <input type="text" name="etablissement" autocomplete="off" id="id_etablissement" required="required" placeholder="Le nom Complet de Votre Etablissement">
+    </div>
+
+    <div class="form-group">
+        <label for="email"><i class="fa fa-envelope"></i> Email 
+            {% if form.email.errors %}
+                <span class="danger"> 
+                    <i class="fa fa-warning"></i> 
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </label>
+        <input type="email" name="email" autocomplete="off" maxlength="320" required="" id="id_email" placeholder="Votre mail">
+    </div>
+
+    <div class="form-group">
+        <label for="id_password1"><i class="fa fa-unlock"></i> Votre mot de passe
+            {% if form.password2.errors %}
+                <span class="danger"> 
+                    <i class="fa fa-warning"></i> 
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </label>
+        <input type="password" name="password1" autocomplete="off" required="" id="id_password1" placeholder="Votre mot de passe">
+    </div>
+
+    <div class="form-group">
+        <label for="id_password2"><i class="fa fa-lock"></i> Confirmer Votre mot de passe
+            {% if form.password2.errors %}
+                <span class="danger"> 
+                    <i class="fa fa-warning"></i> 
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </label>
+        <input type="password" name="password2" autocomplete="off" required="" id="id_password2" placeholder="Confirmer votre mot de passe">
+    </div>
+
+    <div class="inputfield terms">
+        <label class="check">
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <p>Vous acceptez 
+            <a href="#" class="primary" style="font-weight: bold;"> les termes et condtions</a> 
+            pour l'inscription!
+        </p>
+    </div>
+
+    <button type="submit">S'inscrire</button>
+
+    <div class="switch-login">
+        <a href="/">
+            <p class="success">Déjà un Compte?
+                <span class="white"> Se Connecter </span>
+            </p>
+        </a>
+    </div>
+</form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

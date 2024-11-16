@@ -2,65 +2,58 @@
 
 {% block Base %}
 {% load static %}
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
-<form method="post" action="{% url 'update_post' id=post.id %}" enctype="multipart/form-data" id="mediaForm">
+<form method="post" action="{% url 'update_post' id=post.id %}" enctype="multipart/form-data" id="mediaForm" class="enterprise-form">
     {% csrf_token %}
 
-    <header>
-        <a href="#" id="boutonRetour">
-            <i class="fa fa-arrow-left arrow"></i>
-        </a>
-        Modifier votre poste
-    </header>
+    <h2>Mettre à jours votre poste</h2>
 
-    <label for="videoFile" class="button">Mettre à jours la vidéo :</label>
-
-    <input type="file" id="videoFile" accept="video/*" class="file" name="video">
-    <progress id="videoProgress" value="0" max="100"></progress>
-    <span id="videoProgressText">0%</span>
-    <div id="videoContainer">
-        <div class="media-container-item">
-            {% if post.video %}
-                <video src="{{ post.video.url }}"></video>
-            {% endif %}
-            <button class="delete-button">X</button>
+    <div class="row">
+            <!-- Champ Image -->
+        <div class="form-group">
+            <label for="image"><i class="fa fa-image"></i> Image</label>
+            <input type="file" id="image" name="image" accept="image/*" multiple>
+            <div class="image-preview" id="imagePreview">
+                {% for media in post.mediaspost_set.all %}
+                    {% if media.image %}
+                        <img src="{{ media.image.url }}">
+                        {% else %}
+                        <p>Aucune image disponible</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
 
-    <label for="imageFile" class="button">Mettre à jours les images :</label>
-
-    <input type="file" id="imageFile" accept="image/*" multiple class="file" name="image">
-    <progress id="imageProgress" value="0" max="100"></progress>
-    <span id="imageProgressText">0%</span>
-    <div id="imageContainer">
-        <div class="media-container-item">
-            {% for media in post.mediaspost_set.all %}
-                {% if media.image %}
-                    <img src="{{ media.image.url }}">
+        <!-- Champ Vidéo -->
+        <div class="form-group">
+            <label for="video"><i class="fa fa-video-camera"></i> Vidéo</label>
+            <input type="file" id="video" name="video" accept="video/*">
+            <div class="video-preview" id="videoPreview">
+                {% if post.video %}
+                    <video src="{{ post.video.url }}"></video>
+                    {% else %}
+                    <p>Aucune vidéo disponible</p>
                 {% endif %}
-            {% endfor %}
-            <button class="delete-button">X</button>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="input-group">
-            <i class="fa fa-edit"></i>
-            <input id="tag" type="text" class="form-control" name="tag_post" required autocomplete="name" value="post.tag_post" placeholder="citer des tags séparés par des ;">
-            <span class="bar"></span>
-        </div>
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-tag"></i> Tags</label>
+        <input type="text" id="tag_post" name="tag_post" value="{{ post.tag_post }}" placeholder="Entrez des tags séparés par des virgules">
     </div>
 
-    <textarea name="contenu_post" id="" cols="30" rows="10" required>{{ post.contenu_post }}</textarea>
+    <!-- Contenu du post avec CKEditor -->
+    <div class="form-group">
+        <label for="contenu_post"><i class="fa fa-pencil"></i> Contenu du Post</label>
+        <textarea id="contenu_post" name="contenu_post">{{ post.contenu_post }}</textarea>
+    </div>
 
     <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
     <script>
         CKEDITOR.replace("contenu_post");
     </script>
 
-    <div>
-        <button type="submit"> Mettre à jours </button>
-    </div>
+    <button type="submit"> Mettre à jours </button>
 
 </form>
 {% endblock %}
