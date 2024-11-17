@@ -358,74 +358,54 @@ def boutique(request):
     # Récupérer l'utilisateur connecté
     user = request.user
 
-    # Récupérer les informations de localisation de l'utilisateur
-    user_pays = user.pays
-    user_ville = user.ville
-    user_quartier = user.quartier
+    # Récupérer les IDs des produits déjà commandés
+    produits_commandes = Commande.objects.filter(user=user).exclude(product__isnull=True).values_list('product', flat=True)
 
-    # Récupérer les produits commandés par l'utilisateur connecté
-    produits_commandes = Commande.objects.filter(user=user).values_list('product', flat=True)
+    # Filtrer les produits disponibles (non commandés)
+    produits_disponibles = Product.objects.exclude(id__in=produits_commandes)
 
-    # Filtrer d'abord les produits par localisation
-    produits_filtrés = Product.objects.select_related('boutique').filter(
-        boutique__user__pays=user_pays,
-        boutique__user__ville=user_ville,
-        boutique__user__quartier=user_quartier
-    ).exclude(id__in=produits_commandes)
-
-    # Si aucun produit ne correspond à la localisation, afficher tous les produits disponibles
-    if not produits_filtrés.exists():
-        produits_filtrés = Product.objects.exclude(id__in=produits_commandes)
-
-    # Gestion du filtre de recherche
+    # Gestion de la recherche
     nom_produit = request.GET.get('boutique')
     if nom_produit:
-        produits_filtrés = produits_filtrés.filter(nom_produit__icontains=nom_produit)
-
-        # Imprimer les produits trouvés pour déboguer
-        print("Produits trouvés :", produits_filtrés)
-
-        # Si une recherche est faite, ne pas limiter le nombre de résultats
+        produits_recherches = produits_disponibles.filter(
+            nom_produit__icontains=nom_produit
+        )
         context = {
             'user': user,
-            'produits_recherches': produits_filtrés,
-            'recherche_active': True,  # Utilisé dans le template pour conditionner l'affichage
+            'produits_recherches': produits_recherches,
+            'recherche_active': True,
         }
         return render(request, 'pages/boutique.html', context)
 
-    # S'il n'y a pas de recherche, limiter les produits à 4 par catégorie
-    produits_recents = produits_filtrés.order_by('-date_creation')[:4]
-    electronics = produits_filtrés.filter(category='electronics')[:4]
-    fashion = produits_filtrés.filter(category='fashion')[:4]
-    produits_maison_jardin = produits_filtrés.filter(category='home_garden')[:4]
-    beauty_health = produits_filtrés.filter(category='beauty_health')[:4]
-    food_drink = produits_filtrés.filter(category='food_drink')[:4]
-    sports_leisure = produits_filtrés.filter(category='sports_leisure')[:4]
-    books_media = produits_filtrés.filter(category='books_media')[:4]
-    toys_kids = produits_filtrés.filter(category='toys_kids')[:4]
-    automotive_tools = produits_filtrés.filter(category='automotive_tools')[:4]
-    pets = produits_filtrés.filter(category='pets')[:4]
-    services = produits_filtrés.filter(category='services')[:4]
-    special_offers = produits_filtrés.filter(category='special_offers')[:4]
+    # Limiter les produits à 4 par catégorie
+    categories = [
+        ('electronics', 'electronics'),
+        ('fashion', 'fashion'),
+        ('home_garden', 'produits_maison_jardin'),
+        ('beauty_health', 'beauty_health'),
+        ('food_drink', 'food_drink'),
+        ('sports_leisure', 'sports_leisure'),
+        ('books_media', 'books_media'),
+        ('toys_kids', 'toys_kids'),
+        ('automotive_tools', 'automotive_tools'),
+        ('pets', 'pets'),
+        ('services', 'services'),
+        ('special_offers', 'special_offers'),
+    ]
 
-    # Contexte pour l'affichage par défaut (pas de recherche)
+    # Générer les produits par catégorie
+    context_categories = {
+        category_context: produits_disponibles.filter(category=category_key)[:4]
+        for category_key, category_context in categories
+    }
+
+    # Ajouter les informations au contexte global
     context = {
         'user': user,
-        'produits_recents': produits_recents,
-        'electronics': electronics,
-        'fashion': fashion,
-        'produits_maison_jardin': produits_maison_jardin,
-        'beauty_health': beauty_health,
-        'food_drink': food_drink,
-        'sports_leisure': sports_leisure,
-        'books_media': books_media,
-        'toys_kids': toys_kids,
-        'automotive_tools': automotive_tools,
-        'pets': pets,
-        'services': services,
-        'special_offers': special_offers,
-        'recherche_active': False,  # Pour indiquer qu’il n’y a pas de recherche active
+        'recherche_active': False,
     }
+    context.update(context_categories)
+
     return render(request, 'pages/boutique.html', context)
 
 
@@ -836,52 +816,83 @@ def update(request):
     user_role = request.user.rôle
 
     if user_role == 'entreprise':
-        # Charger le modèle de mise à jour pour l'entreprise
+        # Charger le modèle de mise à jour
         if request.method == 'POST':
             # Récupérer les données du formulaire POST
-            metier = request.POST.get('metier')
+            etablissement = request.POST.get('etablissement')
             pays = request.POST.get('pays')
+            indicatif = request.POST.get('indicatif')
             ville = request.POST.get('ville')
             quartier = request.POST.get('quartier')
-            indicatif = request.POST.get('indicatif')
-            phone = request.POST.get('phone')
+            number_phone = request.POST.get('number_phone')
+            number_whatsapp = request.POST.get('number_whatsapp')
+            number_telegram = request.POST.get('number_telegram')
+            metier = request.POST.get('metier')
+            birthday = request.POST.get('birthday')
+            instagram_link = request.POST.get('instagram_link')
+            twitter_link = request.POST.get('twitter_link')
+            youtube_link = request.POST.get('youtube_link')
+            website_link = request.POST.get('website_link')
 
             # Mettre à jour les champs appropriés
             user = request.user
-            user.metier = metier
+            user.etablissement = etablissement
             user.pays = pays
+            user.indicatif_pays = indicatif
             user.ville = ville
             user.quartier = quartier
-            user.indicatif_pays = indicatif
-            user.number_phone = phone  
+            user.number_phone = number_phone
+            user.number_whatsapp = number_whatsapp
+            user.number_telegram = number_telegram
+            user.metier = metier
+            user.birthday = birthday
+            user.instagram_link = instagram_link
+            user.twitter_link = twitter_link
+            user.youtube_link = youtube_link
+            user.website_link = website_link
             user.save()
 
-            # Rediriger vers le profil de l'entreprise
+            # Rediriger vers 
             return redirect('detail_profile')
 
         # Charger le modèle de mise à jour pour l'entreprise
-        return render(request, 'formulaires/update/admin_statut.html')
+        return render(request, 'formulaires/update/entreprise_statut.html')
     
     elif user_role == 'personnel':
         # Charger le modèle de mise à jour pour le personnel
         if request.method == 'POST':
             # Récupérer les données du formulaire POST
-            metier = request.POST.get('metier')
             pays = request.POST.get('pays')
+            indicatif = request.POST.get('indicatif')
             ville = request.POST.get('ville')
             quartier = request.POST.get('quartier')
-            indicatif = request.POST.get('indicatif')
-            phone = request.POST.get('phone')
+            number_phone = request.POST.get('number_phone')
+            number_whatsapp = request.POST.get('number_whatsapp')
+            number_telegram = request.POST.get('number_telegram')
+            metier = request.POST.get('metier')
+            birthday = request.POST.get('birthday')
+            instagram_link = request.POST.get('instagram_link')
+            twitter_link = request.POST.get('twitter_link')
+            youtube_link = request.POST.get('youtube_link')
+            website_link = request.POST.get('website_link')
 
             # Mettre à jour les champs appropriés
             user = request.user
-            user.metier = metier
             user.pays = pays
+            user.indicatif_pays = indicatif
             user.ville = ville
             user.quartier = quartier
-            user.indicatif_pays = indicatif
-            user.number_phone = phone  
+            user.number_phone = number_phone
+            user.number_whatsapp = number_whatsapp
+            user.number_telegram = number_telegram
+            user.metier = metier
+            user.birthday = birthday
+            user.instagram_link = instagram_link
+            user.twitter_link = twitter_link
+            user.youtube_link = youtube_link
+            user.website_link = website_link
             user.save()
+            
             return redirect('detail_profile')
         
         return render(request, 'formulaires/update/personnel_statut.html')
@@ -890,21 +901,37 @@ def update(request):
         # Charger le modèle de mise à jour pour l'école
         if request.method == 'POST':
             # Récupérer les données du formulaire POST
-            metier = request.POST.get('metier')
+            etablissement = request.POST.get('etablissement')
             pays = request.POST.get('pays')
+            indicatif = request.POST.get('indicatif')
             ville = request.POST.get('ville')
             quartier = request.POST.get('quartier')
-            indicatif = request.POST.get('indicatif')
-            phone = request.POST.get('phone')
+            number_phone = request.POST.get('number_phone')
+            number_whatsapp = request.POST.get('number_whatsapp')
+            number_telegram = request.POST.get('number_telegram')
+            metier = request.POST.get('metier')
+            birthday = request.POST.get('birthday')
+            instagram_link = request.POST.get('instagram_link')
+            twitter_link = request.POST.get('twitter_link')
+            youtube_link = request.POST.get('youtube_link')
+            website_link = request.POST.get('website_link')
 
             # Mettre à jour les champs appropriés
             user = request.user
-            user.metier = metier
+            user.etablissement = etablissement
             user.pays = pays
+            user.indicatif_pays = indicatif
             user.ville = ville
             user.quartier = quartier
-            user.indicatif_pays = indicatif
-            user.number_phone = phone  
+            user.number_phone = number_phone
+            user.number_whatsapp = number_whatsapp
+            user.number_telegram = number_telegram
+            user.metier = metier
+            user.birthday = birthday
+            user.instagram_link = instagram_link
+            user.twitter_link = twitter_link
+            user.youtube_link = youtube_link
+            user.website_link = website_link
             user.save()
             
             return redirect('detail_profile')
@@ -1113,6 +1140,62 @@ def update_post(request, id):
 
     return render(request, 'formulaires/update/update_post.html', {'post': post, 'medias_post': medias_post})
 
+def update_annonce(request, annonce_id):
+    annonce = get_object_or_404(Annonce, id=annonce_id)
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        image = request.FILES.get('image')
+        contenu_text = request.POST.get('contenu_text')
+        service = request.POST.get('service')
+        prix = request.POST.get('prix')
+
+        # Mettre à jour les données de l'expérience
+        if image:
+            # Supprimer l'ancienne image de la base de données et localement
+            if annonce.image:
+                old_image_path = annonce.image.path
+                annonce.image.delete(save=False)
+                
+        annonce.image = image
+        annonce.contenu_text = contenu_text
+        annonce.service = service
+        annonce.prix = prix
+        annonce.save()
+
+        user_role = request.user.rôle  
+        if user_role == 'admin':
+            return redirect('Ad_profile')
+        else:
+            return redirect('annonce')
+        
+    # Charger les données de l'expérience dans le formulaire
+    context = {'annonce': annonce}
+    
+    return render(request, 'formulaires/update/update_annonce.html', context)
+
+def update_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        title = request.POST.get('title')
+        contenu_job = request.POST.get('contenu_job')
+
+        # Mettre à jour les données de l'expérience
+        job.title = title
+        job.contenu_job = contenu_job
+        job.save()
+
+        user_role = request.user.rôle  
+        if user_role == 'admin':
+            return redirect('Ad_profile')
+        else:
+            return redirect('emplois')
+        
+    # Charger les données de l'expérience dans le formulaire
+    context = {'job': job}
+    
+    return render(request, 'formulaires/update/update_job.html', context)
+
 def update_product(request, id):
     product = get_object_or_404(Product, id=id)
     medias_product = MediasProduct.objects.filter(produit=product).first()
@@ -1203,6 +1286,35 @@ def delete_post(request, id):
     else:
         return redirect('detail_profile')
 
+def delete_job(request, id):
+    job = get_object_or_404(Job, id=id)
+
+    job.delete()
+
+    user_role = request.user.rôle
+    if user_role == 'admin':
+        return redirect('Ad_profile')
+    else:
+        return redirect('emplois')
+    
+def delete_annonce(request, id):
+    annonce = get_object_or_404(Annonce, id=id)
+
+    # Supprimer l'image si elle existe
+    if annonce.image:
+        if os.path.exists(annonce.image.path):
+            annonce.image.delete()  # Appeler la méthode delete()
+
+    # Supprimer l'annonce
+    annonce.delete()
+
+    # Rediriger en fonction du rôle de l'utilisateur
+    user_role = request.user.rôle
+    if user_role == 'admin':
+        return redirect('Ad_profile')
+    else:
+        return redirect('emplois')
+
 ''' =========== Les Likes ========= '''       
 class AddLikes(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
@@ -1274,6 +1386,10 @@ def user_detail(request, user_id):
     posts = Post.objects.filter(user=profile_user)  # Récupère tous les posts de cet utilisateur
     return render(request, 'profils/users_public.html', {'profile_user': profile_user, 'posts': posts})
 
+def annonce_detail(request, annonce_id):
+    annonce = get_object_or_404(Annonce, pk=annonce_id)
+    return render(request, 'Details/annonce.html', {'annonce': annonce})
+
 def job_detail(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
     return render(request, 'Details/job.html', {'job': job})
@@ -1284,13 +1400,13 @@ def En_Gestion_Boutique(request):
         # Récupérer la boutique associée à l'utilisateur connecté
         user_boutique = Boutique.objects.get(user=request.user)
         
-        # Récupérer les produits associés à cette boutique
-        produits = Product.objects.filter(boutique=user_boutique)
+        # Récupérer TOUS les produits associés à cette boutique
+        produits = Product.objects.filter(boutique=user_boutique).order_by('-date_creation')
 
         # Afficher les informations dans la page profil boutique
         return render(request, 'profils/boutique.html', {
             'user_boutique': user_boutique,
-            'produits': produits
+            'produits': produits,
         })
     
     except Boutique.DoesNotExist:
@@ -1308,9 +1424,34 @@ def postulant(request):
 
     context = {
         'postulants': postulants,
+        'user_jobs' : user_jobs,
     }
     
     return render(request, 'Details/postulant.html', context)
+
+def mon_job(request):
+    jobs = Job.objects.filter(user=request.user)
+    
+    context = {
+        'jobs' : jobs
+    }
+    return render(request, 'Details/mon_job.html', context)
+
+def mon_annonce(request):
+    annonces = Annonce.objects.filter(user=request.user)
+    
+    context = {
+        'annonces' : annonces
+    }
+    return render(request, 'Details/mon_annonce.html', context)
+
+def mon_job_detail(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    return render(request, 'Details/mon_job_detail.html', {'job': job})
+
+def mon_annonce_detail(request, annonce_id):
+    annonce = get_object_or_404(Annonce, pk=annonce_id)
+    return render(request, 'Details/mon_annonce_detail.html', {'annonce': annonce})
 
 def vos_postule(request):
     # Récupérer les postulations de l'utilisateur connecté

@@ -1,0 +1,45 @@
+{% extends 'formulaires/layouts/base.html' %}
+
+{% block Base %}
+{% load static %}
+<form method="post" action="{% url 'update_annonce' annonce.id %}" enctype="multipart/form-data" class="enterprise-form">
+    {% csrf_token %}
+
+    <h2>Créer une annonce</h2>
+
+    <div class="form-group">
+        <label for="image"><i class="fa fa-image"></i> Image</label>
+        <input type="file" id="image" name="image" accept="image/*" multiple>
+        <div class="image-preview" id="imagePreview">
+            {% if annonce.image and annonce.image.url %}
+                <img src="{{ annonce.image.url}}" class="enligne">
+            {% else %}
+                <p>Aucune image disponible</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-tag"></i> Le titre de votre service </label>
+        <input type="text" id="service" name="service" value="{{ annonce.service }}" placeholder="Le titre de votre service(ex: Marketing Digital)">
+    </div>
+
+    <div class="form-group">
+        <label for="tag_post"><i class="fa fa-money"></i> Le prix de votre offre </label>
+        <input type="number" id="prix" name="prix" value="{{ annonce.prix }}" placeholder="Le prix de votre service">
+    </div>
+
+    <div class="form-group">
+        <label for="contenu_text"><i class="fa fa-pencil"></i> Description de votre service</label>
+        <textarea id="contenu_text" name="contenu_text">{{ annonce.contenu_text }}</textarea>
+    </div>
+
+    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+    <script>
+        CKEDITOR.replace("contenu_text");
+    </script>
+
+    <button type="submit">Publier</button>
+
+</form>
+{% endblock %}

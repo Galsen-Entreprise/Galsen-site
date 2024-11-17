@@ -26,8 +26,8 @@
                     <h1>{{ user.username }}</h1>
                     <p>{{ user.metier }}</p> 
                 {% else %}
-                <h1>{{ user.etablissement }}</h1>
-                <p>{{ user.rôle }}</p>
+                {% if user.etablissement%} <h1>{{ user.etablissement }}</h1> {% endif %}
+                {% if user.metier %}    <p>{{ user.metier }}</p> {% endif %}
             {% endif %}
         </div>
     </header>
@@ -85,11 +85,11 @@
     {% endif %}
 
     <footer>
-        <p>Contact: {{ user.email }} | Téléphone: {{ user.number_phone }} | Site Web: {{ user.website_link }}</p> <!-- Afficher les informations de contact -->
+        <p>email: {{ user.email }} | Téléphone: {{ user.number_phone }} | {% if user.website_link %} Site Web: {{ user.website_link }} {% endif %} </p> <!-- Afficher les informations de contact -->
     </footer>
 </div>
 
 <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
-<!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
+<script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 </body>
 </html>

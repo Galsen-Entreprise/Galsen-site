@@ -19,13 +19,13 @@ from galsen.views import create_post, create_job, create_annonce, AddPostule, cr
 from galsen.views import update, update_profile, update_banner, a_propos, update_cv_profil, create_cv_experience, update_cv_experience, create_cv_formation, update_cv_formation
 
 # ========== Les Updates ==================
-from galsen.views import update_logo_boutique, update_banner_boutique, update_description_boutique, update_post, update_product
+from galsen.views import update_logo_boutique, update_banner_boutique, update_description_boutique, update_post, update_annonce, update_job, update_product
 
 # ========== Les Followers: Les Likes, Les Postules, Les Commandes, postulants ===================
 from galsen.views import AddLikes
 
 # ========== Details ===================
-from galsen.views import detail_profile, job_detail, En_Gestion_Boutique, postulant, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande, admin_user
+from galsen.views import detail_profile, annonce_detail, job_detail, En_Gestion_Boutique, postulant, mon_job, mon_job_detail, mon_annonce, mon_annonce_detail, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande, admin_user
 
 # ========== Les Paramétres ==================
 from galsen.views import Settings_profil, settingEmail, settingNames, settingRole, settingPassWord, settingDelete
@@ -107,11 +107,15 @@ urlpatterns = [
     path('update_banner_boutique', update_banner_boutique, name = 'update_banner_boutique'),
     path('update_description_boutique', update_description_boutique, name = 'update_description_boutique'),
     path('update_post/<int:id>/', update_post, name='update_post'),
+    path('update_annonce/<int:annonce_id>/', update_annonce, name='update_annonce'),
+    path('update_job/<int:job_id>/', update_job, name='update_job'),
     path('update_product/<int:id>/', update_product, name='update_product'),
     
     # ========== Supprimer: Posts, Jobs, Product ===================
     path('delete_post/<int:id>/', views.delete_post, name='delete_post'),
     path('delete_product/<int:id>/', views.delete_product, name='delete_product'),
+    path('delete_job/<int:id>/', views.delete_job, name='delete_job'),
+    path('delete_annonce/<int:id>/', views.delete_annonce, name='delete_annonce'),
     
     # ========== Les Followers: Les Likes, Les Shares, Suivre ===================
     path('post/<int:pk>/like', AddLikes.as_view(), name='likes'),
@@ -120,10 +124,15 @@ urlpatterns = [
     # ========== Les Détails(Mon Profil, Profil Public, Post, Emplois, Boutique, Postulant) ==================
     path('detail_profile', detail_profile, name= 'detail_profile'),
     path('profiles/<int:user_id>/', views.user_detail, name='user_detail'),
+    path('annonce/<int:annonce_id>/', annonce_detail, name='annonce_detail'),
     path('job/<int:job_id>/', job_detail, name='job_detail'),
     path('en_Gestion_Boutique', En_Gestion_Boutique, name = 'En_Gestion_Boutique'),
     path('postulant', postulant, name='postulant'),
     path('vos_postule', vos_postule, name='vos_postule'),
+    path('mon_job', mon_job, name='mon_job'),
+    path('mon_annonce', mon_annonce, name='mon_annonce'),
+    path('mon_job/<int:job_id>/', mon_job_detail, name='mon_job_detail'),
+    path('mon_annonce/<int:annonce_id>/', mon_annonce_detail, name='mon_annonce_detail'),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('vos_commande', vos_commande, name='vos_commande'),
     path('les_commandes', les_commandes, name='les_commandes'),

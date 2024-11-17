@@ -124,7 +124,9 @@ body {
     background: #222;
     border: 2px dashed #444;
     border-radius: 8px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    grid-gap: 5px;
     align-items: center;
     justify-content: center;
     overflow: hidden;

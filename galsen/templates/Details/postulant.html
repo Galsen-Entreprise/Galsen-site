@@ -42,8 +42,15 @@
                         <div class="user-card-img">
                             <img src="{% static 'assets/categories/postule.png' %}">
                         </div>
-                        <p> De votre offre, <i> {{ job.title }} </i>
-                            <br> <span> <b> {{ postulant.first_name }} {{ postulant.last_name }} </b> a postulé à cette offre </sapn> 
+                        <p> De votre offre, <i> {% for job in user_jobs %} {{ job.title }} {% endfor %} </i>,
+                            <br> <span> 
+                                <b>
+                                    {% if postulant.rôle == "personnel" %}
+                                            {{ postulant.user.first_name }} {{ postulant.user.last_name }}
+                                        {% else %} 
+                                            {{ postulant.user.etablissement }}
+                                    {% endif %}
+                                </b>  a postulé à cette offre </sapn> 
                         </p>
                     </a>
                 {% endfor %}

@@ -50,7 +50,7 @@
                 {% if user.rôle == "personnel" %}
                     {{ user.first_name }} {{ user.last_name }}
                 {% else %}
-                    {{ user.etablissement }}
+                    {% if user.etablissement  %}    {{ user.etablissement }} {% endif %}
                 {% endif %}
             </h1>
             <p>{{ user.email }}</p>
@@ -64,9 +64,9 @@
         <!-- Navigation Links -->
         <div class="profile-nav">
           <ul>
-            <li><a href="#"><span>{{ user.following_users.count }}</span>Abonnements</a></li>
-            <li><a href="#"><span>{{ user.followers.count }}</span>Abonnés</a></li>
-            <li><a href="#"><span>{{ user.total_likes_received }}</span>Aimes</a></li>
+            <li><a href="#"><span class="tempo">{{ user.following_users.count }}</span>Abonnements</a></li>
+            <li><a href="#"><span class="tempo">{{ user.followers.count }}</span>Abonnés</a></li>
+            <li><a href="#"><span class="tempo">{{ user.total_likes_received }}</span>Aimes</a></li>
           </ul>
         </div>
     
@@ -113,33 +113,37 @@
 
                 
                 {% if user.rôle == "personnel" %}
-                        <li>
-                            <i class="fa fa-briefcase primary"></i>
-                            <p>J'ai comme métier:
-                                <span>{{ user.metier }}</span> 
-                            </p>
-                        </li>
+                    <li>
+                        <i class="fa fa-briefcase primary"></i>
+                        <p>J'ai comme métier:
+                            <span>{{ user.metier }}</span> 
+                        </p>
+                    </li>
                     {% else %}
 
                 {% endif %}
 
-                <li>
-                    <a href="tel:+{{ user.indicatif_pays }}{{ user.number_phone }}">
-                        <i class="fa fa-phone primary"></i>
-                        <p>Mon numéro de téléphone est: 
-                            <span>+{{ user.indicatif_pays }} {{ user.number_phone }}</span> 
-                        </p>
-                    </a>
-                </li>
+                {% if user.number_phone %}
+                    <li>
+                        <a href="tel:+{{ user.indicatif_pays }}{{ user.number_phone }}">
+                            <i class="fa fa-phone primary"></i>
+                            <p>Mon numéro de téléphone est: 
+                                <span>+{{ user.indicatif_pays }} {{ user.number_phone }}</span> 
+                            </p>
+                        </a>
+                    </li>
+                {% endif %}
 
-                <li>
-                    <a href="https://wa.me/+{{ user.indicatif_pays }}{{ user.number_phone }}">
-                        <i class="fa fa-whatsapp primary"></i>
-                        <p>Mon numéro whatsapp est: 
-                            <span>+{{ user.indicatif_pays }} {{ user.number_phone }}</span> 
-                        </p>
-                    </a>
-                </li>
+                {% if user.number_whatsapp %}
+                    <li>
+                        <a href="https://wa.me/+{{ user.indicatif_pays }}{{ user.number_whatsapp }}">
+                            <i class="fa fa-whatsapp primary"></i>
+                            <p>Mon numéro whatsapp est: 
+                                <span>+{{ user.indicatif_pays }} {{ user.number_whatsapp }}</span> 
+                            </p>
+                        </a>
+                    </li>
+                {% endif %}
 
                 <li>
                     <a href="mailto:{{ user.email }}">
@@ -154,7 +158,30 @@
                     <label class="fa fa-edit danger"></label>
                     <span class="danger"> Modifier votre Statut... </span>
                 </a>
+                <br>
+
+                <center>
+                    <h1>Partager Votre profil sur:</h1>
+                </center>
+
+                <div class="links profil-links">
+                    <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-whatsapp whatsapp"></a>
+        
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-facebook facebook"></a>
+        
+                    <a href="https://t.me/share/url={% url 'user_detail' user_id=user.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"></a>
+
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-linkedin linkedin"></a>
+
+                    <a href="https://www.pinterest.com/pin/create/button/?url={% url 'user_detail' user_id=user.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"></a>
+                </div>
+
             </ul>
+
+            <div class="buttons-1">
+                <a href="mon_annonce" class="button"> <i class="fa fa-bullhorn"></i> Vos Annonces </a>
+                <a href="mon_job" class="button"> <i class="fa fa-handshake-o"></i> Vos Offres </a>
+            </div>
 
             {% if posts %}
                 {% for post in posts %}
@@ -174,7 +201,7 @@
                                             {% if post.user.rôle == "personnel" %}
                                                 <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
                                             {% else %}
-                                                <h3> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} 
+                                                <h3> <i class="fa fa-briefcase primary"></i> {% if post.user.etablissement %} {{ post.user.etablissement }} {% endif %}
                                                     <span class="danger">
                                                         ({{ post.user.rôle|upper }})
                                                     </span> 

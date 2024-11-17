@@ -73,7 +73,7 @@
                                         {% if post.user.rôle == "personnel" %}
                                             <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
                                         {% else %}
-                                            <h3> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} 
+                                            <h3> <i class="fa fa-briefcase primary"></i> {% if post.user.etablissement %} {{ post.user.etablissement }} {% endif %}
                                                 <span class="danger">
                                                     ({{ post.user.rôle|upper }})
                                                 </span> 

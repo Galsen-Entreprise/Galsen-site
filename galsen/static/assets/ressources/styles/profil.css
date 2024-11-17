@@ -210,6 +210,11 @@ small
     box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
 }
 
+.tempo
+{
+    color: var(--title-color);
+}
+
 .normal
 {
     color: var(--body-color);
@@ -419,6 +424,20 @@ body
 {
     margin-left: 5px;
     color: var(--title-color);
+}
+
+.profil-links
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.profil-links a
+{
+    font-size: 30px;
 }
 
 .menu

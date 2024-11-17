@@ -58,7 +58,7 @@
 
         <section class="annonces">
             {% for annonce in annonces %}
-                <a href="#" class="annonce-card">
+                <a href="{% url 'annonce_detail' annonce_id=annonce.id %}" class="annonce-card">
                     {% if annonce.image and annonce.image.url %}
                             <img src="{{ annonce.image.url }}">
                         {% else %}

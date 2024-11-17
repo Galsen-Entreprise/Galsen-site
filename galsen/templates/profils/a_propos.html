@@ -26,7 +26,7 @@
                     <h1>{{ user.username }}</h1>
                     <p>{{ user.metier }}</p> 
                 {% else %}
-                <h1>{{ user.etablissement }}</h1>
+                {% if user.etablissement %} <h1>{{ user.etablissement }}</h1> {% endif %}
             {% endif %}
         </div>
     </header>
@@ -105,7 +105,7 @@
     {% endif %}
 
     <footer>
-        <p>Contact: {{ user.email }} | Téléphone: {{ user.number_phone }} | Site Web: {{ user.website_link }}</p> <!-- Afficher les informations de contact -->
+        <p>Email: {{ user.email }} | Téléphone: {{ user.number_phone }} | Site Web: {{ user.website_link }}</p> <!-- Afficher les informations de contact -->
     </footer>
 </div>
 

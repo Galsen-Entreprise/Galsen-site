@@ -1,84 +1,87 @@
-{% extends 'auth/layouts/forms.html' %}
+{% extends 'auth/layouts/profils.html' %}
 
 {% load static %}
 
-{% block Authentification %}
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
-<div id="wrapper">
-    <div class="form-container">
-        <span class="form-heading" style="font-size: 15px;"> Mettre à jours Votre Statut</span>
-        <h3 class="danger">{{ error }}</h3>
-        
-        {% for message in messages %}
-            <h2 class="danger"> {{ message }} </h2>
-        {% endfor %}
-        <form method="post" action="update">
-            {% csrf_token %}
+{% block inscript %}
+<form class="enterprise-form" id="enterpriseForm" method="POST" action="update">
+    {% csrf_token %}
+    <h2>Votre profil</h2>
 
-            <h3 class="danger"> {{ error }} </h3>
-            
-            <div class="input-group">
-                <i class="fa fa-graduation-cap"></i>
-                <input id="metier" type="text" class="form-control" name="metier" value="{% if user.metier %} {{ user.metier }} {% endif %}"  autocomplete="metier" placeholder="Votre métier">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group wrapper">
-                <i class="fa fa-map-marker"></i>
-                <div autocomplete="off">
-                    <div>
-                        <input type="text" class="form-control" id="countryInput" value=" {% if user.pays %} {{ user.pays }} {% endif %}" name="pays" placeholder="Votre pays" onchange="updateIndicatif() " />
-
-                      <span class="bar"></span>
-                    </div>
-                    <ul class="list"></ul>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-map"></i>
-                <input id="ville" type="text" class="form-control" name="ville" value="{% if user.ville %} {{ user.ville }} {% endif %}"  autocomplete="ville" placeholder="Votre ville">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-home"></i>
-                <input id="quartier" type="text" class="form-control" name="quartier" value=" {% if user.quartier %} {{ user.quartier }} {% endif %}"  autocomplete="quartier" placeholder="Votre quartier">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-flag"></i>
-                <input id="indicatif" type="number" class="form-control" name="indicatif" value=""  autocomplete="indicatif" placeholder="Votre indicatif pays">
-                <span class="bar"></span>
-            </div>
-
-            <div class="input-group">
-                <i class="fa fa-phone"></i>
-                <input id="phone" type="number" class="form-control" name="phone" value="{{ user.number_phone }}"  autocomplete="phone" placeholder="Votre numéro de téléphone">
-                <span class="bar"></span>
-            </div>
-
-           
-
-            <div class="input-group">
-                <button type="submit">
-                    Mettre à Jours
-                </button>
-            </div>
-
-            <div class="switch-login">
-                
-
-                <a href="#" class="primary" id="boutonRetour"> 
-                    <span>
-                        Annuler
-                    </span> 
-                </a>
-            </div>
-
-        </form>
+    <h4 class="success"> <i class="fa fa-address-card white" style="width: 30px; font-size: 25px;"></i> &nbsp; Adresse</h4>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="countryInput"><i class="fa fa-flag-checkered"></i> Votre Pays </label>
+            <input type="text" id="countryInput" name="pays" onchange="updateIndicatif()" value=" {% if user.pays %} {{ user.pays }} {% endif %}" placeholder="Votre pays" autocomplete="off" required>
+            <ul class="list"></ul>
+        </div>
+        <div class="form-group">
+            <label for="indicatif"><i class="fa fa-flag"></i> Indicatif pays </label>
+            <input type="number" id="indicatif" name="indicatif" value="{% if user.indicatif %} {{ user.indicatif }} {% endif %}" placeholder="Votre indicatif pays">
+        </div>
+        <div class="form-group">
+            <label for="ville"><i class="fa fa-map"></i> Ville </label>
+            <input type="text" id="ville" name="ville" placeholder="Votre ville" value="{% if user.ville %} {{ user.ville }} {% endif %}" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="quartier"><i class="fa fa-home"></i> Quartier </label>
+            <input type="text" id="quartier" name="quartier" placeholder="Votre quarier" value=" {% if user.quartier %} {{ user.quartier }} {% endif %}" autocomplete="off" required>
+        </div>
     </div>
-</div>
+
+    <h4 class="success"> <i class="fa fa-mobile-phone white" style="width: 30px; font-size: 25px;"></i> &nbsp; Contacts</h4>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="number_phone"><i class="fa fa-phone"></i> Téléphone</label>
+            <input type="tel" id="number_phone" name="number_phone" value="{% if user.number_phone %} {{ user.number_phone }} {% endif %}" placeholder="Numéro de téléphone" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="number_whatsapp"><i class="fa fa-whatsapp"></i> WhatsApp</label>
+            <input type="tel" id="number_whatsapp" name="number_whatsapp" value="{% if user.number_whatsapp %} {{ user.number_whatsapp }} {% endif %}" placeholder="Numéro WhatsApp" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="number_telegram"><i class="fa fa-telegram"></i> Telegram</label>
+            <input type="tel" id="number_telegram" name="number_telegram" value="{% if user.number_telegram %} {{ user.number_telegram }} {% endif %}" placeholder="Numéro Telegram" autocomplete="off">
+        </div>
+    </div>
+
+    <h4 class="success"> <i class="fa fa-question white" style="width: 30px; font-size: 25px;"></i> &nbsp; Votre métier et date de naissance</h4>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="metier"><i class="fa fa-graduation-cap"></i> Votre métier </label>
+            <input id="metier" type="text" class="form-control" name="metier" value="{% if user.metier %} {{ user.metier }} {% endif %}" required placeholder="Votre métier" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="date"><i class="fa fa-birthday-cake"></i>Née le {% if user.birthday %} {{ user.birthday }} {% endif %}</label>
+            <input type="date" name="birthday" id="date" min="190-01-01" style="font-weight: bold;" autocomplete="off">
+        </div>        
+    </div>
+
+    <h4 class="success"> <i class="fa fa-link white" style="width: 30px; font-size: 25px;"></i> &nbsp; Vos Links sociaux</h4>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="instagram_link"><i class="fa fa-instagram"></i> Instagram</label>
+            <input type="url" id="instagram_link" name="instagram_link" value="{% if user.instagram_link %} {{ user.instagram_link }} {% endif %}" placeholder="Lien Instagram" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="twitter_link"><i class="fa fa-twitter"></i> Twitter</label>
+            <input type="url" id="twitter_link" name="twitter_link" value="{% if user.twitter_link %} {{ user.twitter_link }} {% endif %}" placeholder="Lien Twitter" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="youtube_link"><i class="fa fa-youtube"></i> YouTube</label>
+            <input type="url" id="youtube_link" name="youtube_link" value="{% if user.youtube_link %} {{ user.youtube_link }} {% endif %}" placeholder="Lien YouTube" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="website_link"><i class="fa fa-globe"></i> Site Web</label>
+            <input type="url" id="website_link" name="website_link" value="{% if user.website_link %} {{ user.website_link }} {% endif %}" placeholder="Lien du site web" autocomplete="off">
+        </div>
+    </div>
+
+    <button type="submit">Mettre à jours</button>
+</form>
 
 {% endblock %}

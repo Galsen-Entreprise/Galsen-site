@@ -799,6 +799,7 @@ button.button-like
 {
     margin-left: 10px;
     margin-right: 10px;
+    overflow: hidden;
 }
 
 .job-infos-date h4
@@ -829,15 +830,24 @@ button.button-like
     font-size: 15px;
 }
 
-.job-buttons
+.job-buttons, .job-buttons-edit
 {
-    position: absolute;
+    position: relative;
+    bottom: 0;
     width: 60.5%;
     margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    bottom: 0;
+}
+
+.job-buttons-edit a
+{
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .job-buttons a, .job-buttons .postuler
@@ -1155,7 +1165,7 @@ button.button-like
         font-weight: 600;
     }
 
-    .job-buttons
+    .job-buttons, .job-buttons-edit
     {
         position: relative;
         width: 100%;

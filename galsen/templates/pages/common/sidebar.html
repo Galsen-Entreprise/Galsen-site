@@ -20,7 +20,9 @@
                         <h5> {{ user.metier }} </h5>
                     {% endif %}
                 {% else %}
-                    <h1> {{ user.etablissement }} </h1>
+                    {% if user.etablissement %}
+                        <h1> {{ user.etablissement }} </h1>
+                    {% endif %}
                     {% if user.metier %}
                         <h5> {{ user.metier }} </h5>
                     {% endif %}

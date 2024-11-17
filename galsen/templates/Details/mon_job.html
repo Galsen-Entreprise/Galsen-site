@@ -5,23 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
-    <title> Vos postulationss </title>
+    
+    <title> GALSEN </title>
+
     <!-- Box Icone -->
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/details.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
-    <title>Vos postulationss</title>
+
+    <title>Vos Postulants</title>
 </head>
 <body>
-    <img src="{% static 'assets/logo/school.png' %}" class="bg">
+
+    
+<img src="{% static 'assets/logo/school.png' %}" class="bg">
     <section class="listes">
         <header>
             <a href="#" id="boutonRetour">
                 <i class="fa fa-arrow-left arrow"></i>
             </a>
-            Vos postulations
+            Liste de vos Postulants
         </header>
 
         <div class="temoin">
@@ -30,36 +36,32 @@
         </div>
 
         <section>
-            {% if postulations %}
-                {% for postulation in postulations %}
-                    
-                    <a href="{% url 'job_detail' job_id=postulation.id %}" class="user-card">
+            {% if jobs %}
+                {% for job in jobs %}
+                    <a href="{% url 'mon_job_detail' job_id=job.id %}" class="user-card">
                         <div class="user-card-img">
-                            {% if user.profile_image and user.profile_image.url %}
-                                <img src="{{ postulation.user.profile_image.url }}">
-                                {% else %}
-                                <img src="{% static 'assets/default/user.png' %}">
-                            {% endif %}
+                            <img src="{% static 'assets/categories/postule.png' %}">
                         </div>
-                        <div class="user-card-info">
-                            <h2> {{ postulation.title }} </h2>
-                            <p> {{ postulation.date_creation_post }} </p>
-                            <p> {{ postulation.contenu_job|safe|truncatewords_html:6 }} </p>
-                            <p> {{ postulation.precision }} </p>
-                        </div>
+                        <p> De votre offre, <i> {{ job.title }} </i>,
+                            <br> <span> 
+                                <b>
+                                    
+                                </b>  a postulé à cette offre </sapn> 
+                        </p>
                     </a>
-                    <hr class="divider">
                 {% endfor %}
-            {% else %}
+                {% else %}
                 <center>
                     <p class="success">
-                        Vous n'avez passé aucune postulations.
+                        Vous n'avez passer aucune offre.
                     </p>
                 </center>
             {% endif %}
         </section>
+        
     </section>
 
+    
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
 </body>

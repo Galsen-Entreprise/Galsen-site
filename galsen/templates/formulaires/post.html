@@ -12,6 +12,9 @@
         <label for="image"><i class="fa fa-image"></i> Image</label>
         <input type="file" id="image" name="image" accept="image/*" multiple>
         <div class="image-preview" id="imagePreview">
+            {% if img %}
+                <img src="data:" alt="Image Preview">
+            {% endif %}
             <p>Aucune image sélectionnée</p>
         </div>
     </div>

@@ -72,7 +72,8 @@
                         <div class="job-infos-date">
                             <h4>
                                 <span> <i class="fa fa-calendar primary"></i> {{ job.date_creation_post|date:"d F Y à H:i" }} </span>
-                                <span> <i class="fa fa-user primary"></i>  ({{ job.user.rôle|upper }}), {{ job.user.etablissement }} </span>
+                                <span> <i class="fa fa-user primary"></i>  ({{ job.user.rôle|upper }}), 
+                                    {% if job.user.etablissement %} {{ job.user.etablissement }} {% endif %} </span>
                                 <span> <i class="fa fa-envelope primary"></i> {{ job.user.email }} </span>
                                 <span> <i class="fa fa-phone primary"></i> +{{ job.user.indicatif_pays }} {{ job.user.number_phone }} </span>
                             </h4>

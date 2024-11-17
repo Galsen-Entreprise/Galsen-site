@@ -83,7 +83,9 @@
                             </span>
                         </h4>
       
-                        <h2 class="type"> {{ CustomUser.metier }} </h2>
+                        {% if CustomUser.metier %}
+                            <h2 class="type"> {{ CustomUser.metier }} </h2>
+                        {% endif %}
                     </div>
                 </a>
             {% endfor %}
