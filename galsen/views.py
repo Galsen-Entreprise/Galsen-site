@@ -1511,14 +1511,25 @@ def vos_commande(request):
     return render(request, 'Details/Vos_commandes.html', context)
 
 def les_commandes(request):
-    # Récupérer toutes les commandes de l'utilisateur connecté
-    commandes = Commande.objects.filter(user=request.user)
+    try:
+        # Récupérer la boutique associée à l'utilisateur connecté
+        user_boutique = Boutique.objects.get(user=request.user)
+
+        # Récupérer les produits de la boutique
+        produits_boutique = Product.objects.filter(boutique=user_boutique)
+
+        # Récupérer les commandes associées à ces produits
+        commandes = Commande.objects.filter(product__in=produits_boutique).select_related('user', 'product')
+
+        context = {
+            'user_boutique': user_boutique,
+            'commandes': commandes
+        }
+        return render(request, 'Details/commandes.html', context)
     
-    context = {
-        'commandes': commandes,
-    }
-    
-    return render(request, 'Details/commandes.html', context)
+    except Boutique.DoesNotExist:
+        # Si la boutique n'existe pas, rediriger vers la création de boutique
+        return redirect('create_boutique')
 
 def amis(request):
     # Récupérer l'utilisateur connecté

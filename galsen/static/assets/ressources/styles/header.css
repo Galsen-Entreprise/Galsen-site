@@ -825,6 +825,67 @@ label.fa.nav_icon
 }
 
 @media screen and (max-width: 767px) {
+    .fabs
+    {
+        position: fixed;
+        right: 20px;
+        bottom: 100px;
+        z-index: 1000000;
+    }
+
+    .fabs .actions {
+        width: 60px; /* Taille du bouton */
+        height: 60px;
+        border-radius: 50%; /* Forme circulaire */
+        background: conic-gradient(
+            from 0deg,
+            #ff3f3f,
+            #36ff92,
+            #2364f0,
+            #ff9f00,
+            #363949,
+            #ff3f3f
+        );
+        background-size: 300% 300%; /* Étendre la surface pour un effet fluide */
+        animation: siriEffect 3s infinite linear; /* Animation fluide et continue */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Ombre subtile pour la profondeur */
+    }
+    
+    /* Animation des couleurs Siri */
+    @keyframes siriEffect {
+        0% {
+            background-position: 0% 50%;
+        }
+        25% {
+            background-position: 50% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        75% {
+            background-position: 50% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    
+    .fabs .actions:hover
+    {
+        background-color: var(--color-danger);
+    }
+
+    .actions a
+    {
+        position: absolute;
+        color: #fff;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 25px;
+        cursor: pointer;
+    }
+
     /* ==================== Le Bas, Menus en Mode Fixe ==================== */
     /* ====== Les Menus ===== */
     .nav_menu
@@ -842,6 +903,12 @@ label.fa.nav_icon
         align-content: center;
         border-radius: 1.25rem 1.25rem 0 0;
         transition: .4s;
+    }
+
+    .detail_profile
+    {
+        position: absolute;
+        left: 0;
     }
 
     .alter_post

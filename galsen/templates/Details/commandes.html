@@ -1,0 +1,27 @@
+<h2>Commandes pour vos produits</h2>
+{% if commandes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Client</th>
+                <th>Commande</th>
+                <th>Précision</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.product.nom_produit }}</td>
+                    <td>{{ commande.user.username }}</td>
+                    <td>{{ commande.commande }}</td>
+                    <td>{{ commande.precision }}</td>
+                    <td>{{ commande.date_creation }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucune commande pour le moment.</p>
+{% endif %}

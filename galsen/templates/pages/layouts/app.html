@@ -39,16 +39,12 @@
         <nav class="nav contenu">
             <!-- ===== Le Logo ===== -->
             <!-- ===== Img Profile ===== -->
-            <a href="detail_profile"> 
+            <a href="detail_profile" class="detail_profile"> 
                 {% if user.profile_image and user.profile_image.url %}
                     <img src="{{ user.profile_image.url }}" class="nav_img enligne">
                 {% else %}
                     <img src="{% static 'assets/default/user.png' %}"class="nav_img enligne">
                 {% endif %}
-            </a>
-
-            <a href="post" class="alter_post danger"> 
-                 |<img src="{% static 'assets/categories/publication.png' %}"class="nav_img">
             </a>
 
             <!-- ===== Les Menus ===== -->
@@ -247,7 +243,7 @@
     <!-- Contenu -->
     <main class="middle">
 
-        {% if messages %}
+        <!-- {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
@@ -255,12 +251,18 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% endif %}
+        {% endif %} -->
         
         {% block app %}
         
         
         {% endblock %}
+
+        <div class="fabs">
+            <div class="actions">
+                <a href="post" class="fa fa-pencil"></a>
+            </div>
+        </div>
     </main>
 
     <script>
