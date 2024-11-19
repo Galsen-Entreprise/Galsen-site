@@ -192,6 +192,7 @@ html, body, body.dark-theme {
     {
         width: 100%;
         padding-bottom: 40px;
+        margin-left: 0;
     }
 
     .search, .search .form-group input
