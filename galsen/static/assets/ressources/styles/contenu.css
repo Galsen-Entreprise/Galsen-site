@@ -1077,7 +1077,7 @@ button.button-like
     {
         max-width: 100%;
         padding: 0;
-        padding-bottom: 40px;
+        margin-bottom: 20px;
     }
 
     .happen
