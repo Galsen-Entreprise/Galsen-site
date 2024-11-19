@@ -60,9 +60,9 @@
         </div>
 
         <div class="form-group">
-            <label for="date"><i class="fa fa-birthday-cake"></i>Née le {% if user.birthday %} {{ user.birthday }} {% endif %}</label>
-            <input type="date" name="birthday" id="date" min="190-01-01" style="font-weight: bold;" autocomplete="off">
-        </div>        
+            <label for="date"><i class="fa fa-birthday-cake"></i> Née le </label>
+            <input type="date" name="birthday" id="date" min="1900-01-01" style="font-weight: bold;" value="{% if user.birthday %}{{ user.birthday|date:'Y-m-d' }}{% endif %}" autocomplete="off">
+        </div>      
     </div>
 
     <h4 class="success"> <i class="fa fa-link white" style="width: 30px; font-size: 25px;"></i> &nbsp; Vos Links sociaux</h4>
