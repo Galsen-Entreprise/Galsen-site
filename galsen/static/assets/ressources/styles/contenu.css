@@ -1058,7 +1058,7 @@ button.button-like
         height: 300px;
     }
 
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         padding: 0;
     }

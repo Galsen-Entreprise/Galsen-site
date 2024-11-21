@@ -9,7 +9,7 @@ body.dark-theme
     --clr-light: rgba(0, 0, 0, 0.4);
 }
 
-html, body, body.dark-theme {
+html, body, body.dark-theme, body.ligth-theme {
     overflow-x: hidden;
 }
 
@@ -272,7 +272,7 @@ html, body, body.dark-theme {
 
 @media screen and (width: 360px) {
 
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         width: 100%;
     }
@@ -363,7 +363,7 @@ html, body, body.dark-theme {
 
 @media screen and (width: 412px) {
 
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         width: 100%;
     }
@@ -454,7 +454,7 @@ html, body, body.dark-theme {
 
 @media screen and (width: 414px) {
 
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         width: 100%;
     }

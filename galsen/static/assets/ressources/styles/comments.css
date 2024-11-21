@@ -442,7 +442,7 @@ body
 }
 
 @media (max-width: 600px) {
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         height: 100%;
     }

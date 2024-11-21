@@ -131,7 +131,7 @@ body {
 }
 
 @media screen and (max-width: 767px) {
-    body, body.dark-theme
+    body, body.dark-theme, body.ligth-theme
     {
         width: 100%;
     }
