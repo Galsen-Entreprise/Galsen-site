@@ -1542,35 +1542,11 @@ def amis(request):
     # Trouver les amis mutuels (ceux que l'utilisateur suit et qui le suivent)
     mutual_friends = set(following).intersection(set(followers))
 
-    # Récupérer la valeur du champ de recherche
-    search_query = request.GET.get('search', '')
-
-    if search_query:
-        # Appliquer le filtre sur les utilisateurs suivis (following)
-        following = following.filter(
-            Q(first_name__icontains=search_query) |
-            Q(last_name__icontains=search_query) |
-            Q(etablissement__icontains=search_query)
-        )
-
-        # Appliquer le filtre sur les utilisateurs qui suivent l'utilisateur (followers)
-        followers = followers.filter(
-            Q(first_name__icontains=search_query) |
-            Q(last_name__icontains=search_query) |
-            Q(etablissement__icontains=search_query)
-        )
-
-        # Filtrer les amis mutuels manuellement (car intersection() convertit en set)
-        mutual_friends = [friend for friend in mutual_friends if
-                          search_query.lower() in friend.first_name.lower() or
-                          search_query.lower() in friend.last_name.lower() or
-                          search_query.lower() in (friend.etablissement or '').lower()]
-
+    
     context = {
         'following': following,
         'followers': followers,
         'mutual_friends': mutual_friends,
-        'search_query': search_query,
     }
 
     return render(request, 'Details/amis.html', context)

@@ -91,7 +91,7 @@
                         </div>
                         <div class="job-buttons">
                             <a href="{% url 'job_detail' job_id=job.id %}"> Plus de détails </a>
-                            <form id="postule-form-{{ job.pk }}" method="POST" action="{% url 'postule' job.pk %}">
+                            <form id="postule-form-{{ job.pk }}" method="job" action="{% url 'postule' job.pk %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="next" value="{{ request.path }}">
                                 <button class="postuler" type="submit">
@@ -103,10 +103,36 @@
                                     <b class="number-like danger">{{ job.postule_job.count }}</b>
                                 </button>
                             </form>
-                            <button> <i class="fa fa-share-alt"></i> </button>
+                            <button onclick="openPopup('{{ job.id }}')"> <i class="fa fa-share-alt"></i> </button>
                         </div>
                     </div>
                 </div>
+
+                {% for job in jobs %}
+                        <section class="popup popup-{{ job.id }}">
+                            <div class="content-popup">
+                                <span class="close" onclick="closePopup('{{ job.id }}')">&times;</span>
+                        
+                                <h2>Partager sur:</h2>
+
+                                <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                        
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                        
+                                <a href="https://t.me/share/url={% url 'job_detail' job_id=job.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+
+                                <a href="https://www.pinterest.com/pin/create/button/?url={% url 'job_detail' job_id=job.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+
+                        
+                                <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                        
+                            </div>
+                        
+                        </section>
+                    {% endfor %}
+
             {% endfor %}
         </section>
 

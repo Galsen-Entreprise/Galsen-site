@@ -1,27 +1,99 @@
-<h2>Commandes pour vos produits</h2>
-{% if commandes %}
-    <table>
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Client</th>
-                <th>Commande</th>
-                <th>Précision</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for commande in commandes %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- S  tyle -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/commandes.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
+</head>
+<body>
+
+    <div class="table-container">
+        <div class="table-header">Commandes pour vos produits</div>
+        <div class="search-bar-container">
+            <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un client..." onkeyup="searchTable()">
+            <div class="result-count" id="resultCount">5 résultats trouvés</div>
+        </div>
+        {% if commandes %}
+            <table id="userTable">
+            <thead>
                 <tr>
-                    <td>{{ commande.product.nom_produit }}</td>
-                    <td>{{ commande.user.username }}</td>
-                    <td>{{ commande.commande }}</td>
-                    <td>{{ commande.precision }}</td>
-                    <td>{{ commande.date_creation }}</td>
+                    <th>Produit</th>
+                    <th>Client</th>
+                    <th>Commande</th>
+                    <th>Précision</th>
+                    <th>Date</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Aucune commande pour le moment.</p>
-{% endif %}
+            </thead>
+                <tbody>
+                    {% for commande in commandes %}
+                        <tr>
+                            <td> <a href="{% url 'product_detail' product_id=commande.product.id %}" class="user-link">{{ commande.product.nom_produit }} <a href="#" class="user-link"></a> </td>
+                            <td> <a href="{% url 'user_detail' user_id=commande.user.id %}" class="user-link"> {{ commande.user.username }} </a> </td>
+                            <td>{{ commande.commande }}</td>
+                            <td>{{ commande.precision|safe }}</td>
+                            <td>{{ commande.date_creation }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p>Aucune commande pour le moment.</p>
+        {% endif %}
+    </div>
+    
+
+    
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+
+    <script>
+        function searchTable() {
+          const input = document.getElementById("searchInput");
+          const filter = input.value.toLowerCase();
+          const table = document.getElementById("userTable");
+          const tr = table.getElementsByTagName("tr");
+          let count = 0;
+    
+          for (let i = 1; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName("td");
+            let rowContainsFilter = false;
+    
+            for (let j = 0; j < td.length; j++) {
+              if (td[j]) {
+                const cellValue = td[j].textContent || td[j].innerText;
+                if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                  rowContainsFilter = true;
+                  break;
+                }
+              }
+            }
+    
+            if (rowContainsFilter) {
+              tr[i].style.display = "";
+              count++; // Compte chaque ligne affichée
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+    
+          // Met à jour le nombre de résultats
+          document.getElementById("resultCount").textContent = count + " résultat(s) trouvé(s)";
+        }
+    
+        // Initialisation du nombre de résultats
+        searchTable();
+    </script>
+</body>
+</html>

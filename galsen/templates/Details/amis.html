@@ -14,130 +14,165 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/members.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slide.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
-
 </head>
 <body>
 
-    
-    <section class="header" id="header">
-        <nav class="nav contenu">
-            <form method="GET" action="{% url 'amis' %}" class="search">
-                <div class="form-group">
-                    <input type="text" name="search" placeholder="Rechercher un ami" value="{{ search_query }}">
-                    <button type="submit">Rechercher</button>
-                </div>
-            </form>
-            
-        </nav>
-    </section>
+    <div class="members">
 
-    <section class="slider members">
-        <div class="sliderP">
-            <a href="#">
-                <img src="{% static 'assets/default/banner.png' %}">
-            </a>
+        <div class="tab-navigation">
+            <ul class="tab-menu">
+                <li class="tab-btn moi active">Mes Abonnements</li>
+                <li class="tab-btn eux">Mes Abonnés</li>
+            </ul>
         </div>
     
-        <div class="sliderP">
-            <a href="#">
-                <img src="{% static 'assets/default/banner3.jpeg' %}">
-            </a>
+        <!-- Premier tableau : Mes Abonnements -->
+        <div class="table-container active">
+            <div class="table-header bg-danger">Mes Abonnements</div>
+            <div class="search-bar-container">
+                <input type="text" class="search-bar" id="searchInput1" placeholder="Rechercher un abonnement..." onkeyup="searchTable('userTable1', 'resultCount1', 'searchInput1')">
+                <div class="result-count" id="resultCount1">0 résultat(s) trouvé(s)</div>
+            </div>
+            {% if following %}
+                <table id="userTable1">
+                    <thead>
+                        <tr>
+                            <th class="bg-danger">Utilisateur(s)</th>
+                            <th class="disparait bg-danger">Pseudo</th>
+                            <th class="bg-danger">Type</th>
+                            <th class="disparait bg-danger">Email</th>
+                            <th class="disparait bg-danger">Membre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in following %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'user_detail' user_id=user.id %}" class="user-link">
+                                        {% if user.rôle == "personnel" %}
+                                            {{ user.first_name }} {{ user.last_name }}
+                                        {% else %}
+                                            {% if user.etablissement %} {{ user.etablissement }} {% endif %}
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="disparait">{{ user.username }}</td>
+                                <td>{{ user.rôle }}</td>
+                                <td class="disparait">{{ user.email }}</td>
+                                <td class="disparait">{{ user.date_joined|date:"d F Y à H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Vous ne suivez personne pour le moment.</p>
+            {% endif %}
         </div>
     
-        <div class="sliderP">
-            <a href="#">
-                <img src="{% static 'assets/default/banner4.jpeg' %}">
-            </a>
+        <!-- Deuxième tableau : Mes Abonnés -->
+        <div class="table-container">
+            <div class="table-header bg-primary">Mes Abonnés</div>
+            <div class="search-bar-container">
+                <input type="text" class="search-bar" id="searchInput2" placeholder="Rechercher un abonné..." onkeyup="searchTable('userTable2', 'resultCount2', 'searchInput2')">
+                <div class="result-count" id="resultCount2">0 résultat(s) trouvé(s)</div>
+            </div>
+            {% if followers %}
+                <table id="userTable2">
+                    <thead>
+                        <tr>
+                            <th class="bg-primary">Utilisateur(s)</th>
+                            <th class="disparait bg-primary">Pseudo</th>
+                            <th class="bg-primary">Type</th>
+                            <th class="disparait bg-primary">Email</th>
+                            <th class="disparait bg-primary">Membre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in followers %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'user_detail' user_id=user.id %}" class="user-link">
+                                        {% if user.rôle == "personnel" %}
+                                            {{ user.first_name }} {{ user.last_name }}
+                                        {% else %}
+                                            {% if user.etablissement %} {{ user.etablissement }} {% endif %}
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="disparait">{{ user.username }}</td>
+                                <td>{{ user.rôle }}</td>
+                                <td class="disparait">{{ user.email }}</td>
+                                <td class="disparait">{{ user.date_joined|date:"d F Y à H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Vous n'avez aucun abonné pour le moment.</p>
+            {% endif %}
         </div>
     
-        <div class="sliderP">
-            <a href="#">
-                <img src="{% static 'assets/default/banner5.jpg' %}">
-            </a>
-        </div>
-    
-        
-    </section>
-    
-    <section class="profiles">
-        <h2>Utilisateurs que je suis</h2>
-        <div class="profiles-grid">
-
-            {% for user in following %}
-
-                <a href="{% url 'user_detail' user_id=user.id %}" class="profile-card">
-                    {% if user.banner_image and user.banner_image.url %}
-                            <img src="{{ user.banner_image.url}}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                        {% endif %}
-                    <div class="infos">
-                        <div class="subject"><h3>{{ user.rôle|upper }}</h3></div>
-                        {% if user.profile_image and user.profile_image.url %}
-                            <img src="{{ user.profile_image.url}}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                        {% endif %}
-                    </div>
-                    {% if user.rôle == "personnel" %}
-                            <h2 class="profile-name"><i class="fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
-                        {% else %}
-                            <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
-                    {% endif %}
-                    <div class="profile-date">
-                        <span> <i class="fa fa-clock-o"></i> {{ user.date_joined|date:"d F Y à H:i" }} </span>
-                    </div>
-                </a>
-                {% empty %}
-                <li>Vous ne suivez personne pour le moment.</li>
-            {% endfor %} 
-        </div>
-
-        
-        <h2>Utilisateurs qui me suivent</h2>
-        <div class="profiles-grid">
-
-            {% for user in followers %}
-
-                <a href="{% url 'user_detail' user_id=user.id %}" class="profile-card">
-                    {% if user.banner_image and user.banner_image.url %}
-                            <img src="{{ user.banner_image.url}}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                        {% endif %}
-                    <div class="infos">
-                        <div class="subject"><h3>{{ user.rôle|upper }}</h3></div>
-                        {% if user.profile_image and user.profile_image.url %}
-                            <img src="{{ user.profile_image.url}}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                        {% endif %}
-                    </div>
-                    {% if user.rôle == "personnel" %}
-                            <h2 class="profile-name"><i class="fa fa-user primary"></i> {{ user.first_name }} {{ user.last_name }} </h2>
-                        {% else %}
-                            <h2><i class="fa fa-briefcase primary"></i> {{ user.etablissement }} </h2>
-                    {% endif %}
-                    <div class="profile-date">
-                        <span> <i class="fa fa-clock-o"></i> {{ user.date_joined|date:"d F Y à H:i" }} </span>
-                    </div>
-                </a>
-                {% empty %}
-                <li>Personne ne vous suit pour le moment.</li>
-            {% endfor %} 
-        </div>
-    </section>
-
-    {% include 'pages/common/sidebar.html' %}
-
+    </div>
     
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/banner-slide.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+
+    <script>
+        function searchTable(tableId, resultCountId, searchInputId) {
+            const input = document.getElementById(searchInputId);
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById(tableId);
+            const tr = table.getElementsByTagName("tr");
+            let count = 0;
+    
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td");
+                let rowContainsFilter = false;
+    
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        const cellValue = td[j].textContent || td[j].innerText;
+                        if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                            rowContainsFilter = true;
+                            break;
+                        }
+                    }
+                }
+    
+                if (rowContainsFilter) {
+                    tr[i].style.display = "";
+                    count++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+    
+            // Update the result count
+            document.getElementById(resultCountId).textContent = count + " résultat(s) trouvé(s)";
+        }
+
+        const tabs = document.querySelectorAll(".table-container");
+        const tabBtns = document.querySelectorAll(".tab-btn");
+
+        const tab_nav = function(tabBtnClick) {
+            tabBtns.forEach((tabBtn) => {
+                tabBtn.classList.remove("active");
+            });
+
+            tabs.forEach((tab) => {
+                tab.classList.remove("active")
+            });
+
+            tabBtns[tabBtnClick].classList.add("active");
+            tabs[tabBtnClick].classList.add("active");
+        };
+
+        tabBtns.forEach((tabBtn, i) => {
+            tabBtn.addEventListener("click", () => {
+                tab_nav(i);
+            });
+        });
+    </script>
 </body>
 </html>
