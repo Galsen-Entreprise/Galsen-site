@@ -5,62 +5,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
-    <title> Vos postulationss </title>
+    
+    <title> GALSEN </title>
+
     <!-- Box Icone -->
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
     <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/postulants.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
-    <title>Vos postulationss</title>
 </head>
 <body>
-    <img src="{% static 'assets/logo/school.png' %}" class="bg">
-    <section class="listes">
-        <header>
-            <a href="#" id="boutonRetour">
-                <i class="fa fa-arrow-left arrow"></i>
-            </a>
-            Vos postulations
-        </header>
-
-        <div class="temoin">
-            <br>
-            <hr class="divider">
-        </div>
-
-        <section>
-            {% if postulations %}
-                {% for postulation in postulations %}
-                    
-                    <a href="{% url 'job_detail' job_id=postulation.id %}" class="user-card">
-                        <div class="user-card-img">
-                            {% if user.profile_image and user.profile_image.url %}
-                                <img src="{{ postulation.user.profile_image.url }}">
-                                {% else %}
-                                <img src="{% static 'assets/default/user.png' %}">
-                            {% endif %}
-                        </div>
-                        <div class="user-card-info">
-                            <h2> {{ postulation.title }} </h2>
-                            <p> {{ postulation.date_creation_post }} </p>
-                            <p> {{ postulation.contenu_job|safe|truncatewords_html:6 }} </p>
-                            <p> {{ postulation.precision }} </p>
-                        </div>
-                    </a>
-                    <hr class="divider">
-                {% endfor %}
-            {% else %}
-                <center>
-                    <p class="success">
-                        Vous n'avez passé aucune postulations.
-                    </p>
-                </center>
-            {% endif %}
-        </section>
-    </section>
-
+        <!-- Deuxième tableau : Mes Abonnés -->
+    <div class="table-container">
+        <div class="table-header bg-primary">Liste de vos Postules</div>
+            <div class="search-bar-container">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un postule..." onkeyup="searchTable()">
+                <div class="result-count" id="resultCount">5 résultats trouvés</div>
+            </div>
+        {% if postulations %}
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th class="bg-primary">Recruteurs</th>
+                        <th class="disparait bg-primary">Type</th>
+                        <th class="bg-primary">Offre</th>
+                        <th class="disparait bg-primary">Email</th>
+                        <th class="disparait bg-primary">Membre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for postulation in postulations %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'job_detail' job_id=postulation.id %}" class="user-link">
+                                            {{ postulation.user.etablissement }}
+                                </a>
+                            </td>
+                            <td class="disparait">{{ postulation.user.rôle }} </td>
+                            <td>{{ postulation.title }}</td>
+                            <td class="disparait">{{ postulation.user.email }}</td>
+                            <td class="disparait">{{ postulation.date_creation_post|date:"d F Y à H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="sinon">Vous n'avez aucune postulation.</p>
+        {% endif %}
+    </div>
+    
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+
+    <script>
+        function searchTable() {
+          const input = document.getElementById("searchInput");
+          const filter = input.value.toLowerCase();
+          const table = document.getElementById("userTable");
+          const tr = table.getElementsByTagName("tr");
+          let count = 0;
+    
+          for (let i = 1; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName("td");
+            let rowContainsFilter = false;
+    
+            for (let j = 0; j < td.length; j++) {
+              if (td[j]) {
+                const cellValue = td[j].textContent || td[j].innerText;
+                if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                  rowContainsFilter = true;
+                  break;
+                }
+              }
+            }
+    
+            if (rowContainsFilter) {
+              tr[i].style.display = "";
+              count++; // Compte chaque ligne affichée
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+    
+          // Met à jour le nombre de résultats
+          document.getElementById("resultCount").textContent = count + " résultat(s) trouvé(s)";
+        }
+    
+        // Initialisation du nombre de résultats
+        searchTable();
+    </script>
 </body>
 </html>

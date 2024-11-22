@@ -5,68 +5,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
-    
-    <title> GALSEN </title>
+    <title>GALSEN</title>
 
-    <!-- Box Icone -->
-    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <!-- Styles et icônes -->
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
-
-    <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/postulants.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
-
-    <title>Vos Postulants</title>
 </head>
 <body>
-
-    
-<img src="{% static 'assets/logo/school.png' %}" class="bg">
-    <section class="listes">
-        <header>
-            <a href="#" id="boutonRetour">
-                <i class="fa fa-arrow-left arrow"></i>
-            </a>
-            Liste de vos Postulants
-        </header>
-
-        <div class="temoin">
-            <br>
-            <hr class="divider">
+    <div class="table-container">
+        <div class="table-header bg-primary">Liste de vos Postulants</div>
+        <div class="search-bar-container">
+            <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un utilisateur..." onkeyup="searchTable()">
+            <div class="result-count" id="resultCount">0 résultat(s) trouvé(s)</div>
         </div>
-
-        <section>
-            {% if postulants %}
-                {% for postulant in postulants %}
-                    <a href="{% url 'user_detail' user_id=postulant.id %}" class="user-card">
-                        <div class="user-card-img">
-                            <img src="{% static 'assets/categories/postule.png' %}">
-                        </div>
-                        <p> De votre offre, <i> {% for job in user_jobs %} {{ job.title }} {% endfor %} </i>,
-                            <br> <span> 
-                                <b>
-                                    {% if postulant.rôle == "personnel" %}
-                                            {{ postulant.user.first_name }} {{ postulant.user.last_name }}
-                                        {% else %} 
-                                            {{ postulant.user.etablissement }}
+        {% if postulants_data %}
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th class="bg-primary">Utilisateur</th>
+                        <th class="disparait bg-primary">Type</th>
+                        <th class="bg-primary">Offre postulée</th>
+                        <th class="disparait bg-primary">Email</th>
+                        <th class="disparait bg-primary">Date de candidature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in postulants_data %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'user_detail' user_id=data.user.id %}" class="user-link">
+                                    {% if data.user.rôle == "personnel" %}
+                                        {{ data.user.first_name }} {{ data.user.last_name }}
+                                    {% else %}
+                                        {{ data.user.etablissement }}
                                     {% endif %}
-                                </b>  a postulé à cette offre </sapn> 
-                        </p>
-                    </a>
-                {% endfor %}
-                {% else %}
-                <center>
-                    <p class="success">
-                        Vous n'avez aucune postulants.
-                    </p>
-                </center>
-            {% endif %}
-        </section>
-        
-    </section>
+                                </a>
+                            </td>
+                            <td class="disparait">{{ data.user.rôle }}</td>
+                            <td>{{ data.job.title }}</td>
+                            <td class="disparait">{{ data.user.email }}</td>
+                            <td class="disparait">{{ data.job.date_creation_post|date:"d F Y à H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="sinon">Vous n'avez aucun postulant.</p>
+        {% endif %}
+    </div>
 
-    
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/Retour.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+    
+    <script>
+        function searchTable() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("userTable");
+            const tr = table.getElementsByTagName("tr");
+            let count = 0;
+
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td");
+                let rowContainsFilter = false;
+
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        const cellValue = td[j].textContent || td[j].innerText;
+                        if (cellValue.toLowerCase().indexOf(filter) > -1) {
+                            rowContainsFilter = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (rowContainsFilter) {
+                    tr[i].style.display = "";
+                    count++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            document.getElementById("resultCount").textContent = count + " résultat(s) trouvé(s)";
+        }
+
+        // Initialisation du nombre de résultats
+        searchTable();
+    </script>
 </body>
 </html>

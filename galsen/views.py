@@ -1414,19 +1414,25 @@ def En_Gestion_Boutique(request):
         return redirect('create_boutique')
 
 def postulant(request):
-    # Récupérer toutes les offres postées par l'utilisateur connecté
-    user_jobs = Job.objects.filter(user=request.user)  # Assurez-vous que `user` est le champ qui stocke l'utilisateur qui a posté l'offre
+    # Vérifiez que l'utilisateur est connecté
+    if not request.user.is_authenticated:
+        return redirect('login')  # Redirigez vers la page de connexion si nécessaire
+    
+    # Récupérez toutes les offres créées par l'utilisateur connecté
+    user_jobs = Job.objects.filter(user=request.user)
 
-    # Récupérer tous les postulants pour les offres de l'utilisateur connecté
-    postulants = {}
+    # Créez une liste combinée des postulants pour chaque offre
+    postulants_data = []
     for job in user_jobs:
-        postulants[job] = job.postule_job.all()
+        for postulant in job.postule_job.all():
+            postulants_data.append({
+                'user': postulant,
+                'job': job,
+            })
 
     context = {
-        'postulants': postulants,
-        'user_jobs' : user_jobs,
+        'postulants_data': postulants_data,
     }
-    
     return render(request, 'Details/postulant.html', context)
 
 def mon_job(request):
