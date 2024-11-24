@@ -8,65 +8,35 @@
                 <img src="{% static 'assets/default/user.png' %}" class="couverture">
             {% endif %}
             <div class="sidebar-profile-info">
-                {% if user.profile_image and user.profile_image.url %}
-                    <img src="{{ user.profile_image.url }}">
-                {% else %}
-                    <img src="{% static 'assets/default/user.png' %}">
-                {% endif %}
+                <div class="infos_profil">
+                    {% if user.profile_image and user.profile_image.url %}
+                        <img src="{{ user.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                    {% endif %}
 
-                {% if user.rôle == "personnel" %}
-                    <h1> {{ user.first_name|truncatewords_html:1 }} {{ user.last_name }} </h1>
-                    {% if user.metier %}
-                        <h5> {{ user.metier }} </h5>
-                    {% endif %}
-                {% else %}
-                    {% if user.etablissement %}
-                        <h1> {{ user.etablissement }} </h1>
-                    {% endif %}
-                    {% if user.metier %}
-                        <h5> {{ user.metier }} </h5>
-                    {% endif %}
-                {% endif %}
+                    <div class="namer_profil">
+                        {% if user.rôle == "personnel" %}
+                            <h1> {{ user.first_name|truncatewords_html:1 }} {{ user.last_name }} </h1>
+                            {% if user.metier %}
+                                <h5> {{ user.metier }} </h5>
+                            {% endif %}
+                        {% else %}
+                            {% if user.etablissement %}
+                                <h1> {{ user.etablissement }} </h1>
+                            {% endif %}
+                            {% if user.metier %}
+                                <h5> {{ user.metier }} </h5>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
 
                 <ul>
-                    <li> {{ user.pays }} ({{ user.ville }}) <span class="fa fa-map-marker primary"></span></li>
-                    <li>{{ user.quartier }} <span class="fa fa-home primary"></span></li>
-                    <li>{{ user.email }} <span class="fa fa-envelope primary"></span></li>
-                    <li>+{{ user.indicatif_pays }} {{ user.number_phone }} <span class="fa fa-phone primary"></span></li>
+                    <li>Vos Nombres d'abonnements <span class="primary">{{ user.following_users.count }}</span></li>
+                    <li>Vos Nombres d'abonnés <span class="primary">{{ user.followers.count }}</span></li>
+                    <li>Vos nombres de j'aimes <span class="primary">{{ user.total_likes_received }}</span></li>
                 </ul>
-
-            </div>
-        </div>
-
-        <div class="sidebar-profile-box">
-            <div class="sidebar-share-profile">
-                <h2>Vos Folowers:</h2>
-
-                <div class="sidebar-profile-info">
-                    <ul>
-                        <li>Vos Nombres d'abonnements <span class="danger">{{ user.following_users.count }}</span></li>
-                        <li>Vos Nombres d'abonnés <span class="danger">{{ user.followers.count }}</span></li>
-                        <li>Vos nombres de j'aimes <span class="danger">{{ user.total_likes_received }}</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="sidebar-profile-box">
-            <div class="sidebar-share-profile">
-                <h2>Partager votre compte sur:</h2>
-
-                <div class="links">
-                    <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-whatsapp whatsapp"></a>
-        
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-facebook facebook"></a>
-        
-                    <a href="https://t.me/share/url={% url 'user_detail' user_id=user.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"></a>
-
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'user_detail' user_id=user.id %}" target="_blank" class="fa fa-linkedin linkedin"></a>
-
-                    <a href="https://www.pinterest.com/pin/create/button/?url={% url 'user_detail' user_id=user.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"></a>
-                </div>
 
                 <div class="sidebar-share-link">
                     <input type="text" class="copy-link-input" value="http://127.0.0.1:8181{% url 'user_detail' user_id=user.id %}" readonly>
@@ -74,7 +44,41 @@
                         <span class="fa fa-copy"></span>
                     </button>
                 </div>
+
             </div>
         </div>
+
+        <hr>
+        
+        <div class="sidebar-profile-box follower-box">
+            <h1 class="title-side danger">
+                Amis (<span class="primary">{{ request.user.get_amis|length }}</span>)
+            </h1>
+            {% for ami in request.user.get_amis %}
+                <a href="{% url 'user_detail' user_id=ami.id %}" class="amis_side">
+                    <div class="amis-img">
+                        {% if ami.profile_image and ami.profile_image.url %}
+                            <img src="{{ ami.profile_image.url }}">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}">
+                        {% endif %}
+                    </div>
+                    <div class="amis-name">
+                        {% if ami.rôle == "personnel" %}
+                            <h3>{{ ami.first_name }} {{ ami.last_name }}</h3>
+                        {% else %}
+                            {% if ami.etablissement %}
+                                <h3>{{ ami.etablissement }}</h3>
+                            {% endif %}
+                        {% endif %}
+                        <i>Membre depuis {{ ami.date_joined|date:"d M Y" }}</i>
+                    </div>
+                </a>
+            {% empty %}
+                <p>Vous n'avez aucun ami pour le moment.</p>
+            {% endfor %}
+        </div>
+        
+        
     </div>
 </section>

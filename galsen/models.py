@@ -1,4 +1,5 @@
 from django.db import models
+from itertools import chain
 
 from django.contrib.auth.models import AbstractUser as BaseAbstractUser, BaseUserManager, Permission, Group
 from django.conf import settings
@@ -97,6 +98,22 @@ class CustomUser(AbstractUser):
         for post in self.post_set.all():
             total_likes += post.like_post.count()
         return total_likes
+    
+    def get_amis(self):
+        """Retourne une liste fusionnée des abonnements et abonnés."""
+        following = self.get_following()  # Les utilisateurs que je suis
+        followers = self.get_followers()  # Les utilisateurs qui me suivent
+        amis = chain(following, followers)  # Fusionne les deux listes
+        return set(amis)  # Élimine les doublons
+    
+    def amis_en_commun(self, autre_utilisateur):
+        """
+        Retourne le nombre d'amis en commun avec un autre utilisateur.
+        """
+        mes_amis = self.followers.all() | self.get_following()
+        amis_autre = autre_utilisateur.followers.all() | autre_utilisateur.get_following()
+        amis_en_commun = mes_amis & amis_autre  # Intersection des QuerySets
+        return amis_en_commun.count()
     
     def __str__(self):
         return self.username

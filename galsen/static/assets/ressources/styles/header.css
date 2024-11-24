@@ -501,7 +501,7 @@ label.fa.nav_icon
     height: 100vh;
     padding: 16px 16px 0;
     background: var(--body-color);
-    box-shadow: 0 0 0.3rem #2364f0;
+    box-shadow: 0 0 0.3rem var(--body-color);
     z-index: 10000;
     transition: 0.5s;
 }
@@ -692,6 +692,7 @@ label.fa.nav_icon
     #nabbar:hover 
     {
         width: 320px;
+        box-shadow: 0 0.2px 3px #2364f0;
     }
 
     .nab_list
@@ -988,7 +989,7 @@ label.fa.nav_icon
     div#header-toggle
     {
         position: fixed;
-        left: 83%;
+        left: 88%;
     }
 
     .Signe-logo
@@ -1006,6 +1007,11 @@ label.fa.nav_icon
         border-radius: 50%;
         left: 52%;
         margin-top: -15px;
+    }
+
+    .nab
+    {
+        box-shadow: 0 0.2px 3px #2364f0;
     }
 
 }
@@ -1118,6 +1124,7 @@ label.fa.nav_icon
     #nabbar:hover 
     {
         width: 340px;
+        box-shadow: 0 0 0.3rem #2364f0;
     }
 
     .nab_list
@@ -1138,8 +1145,8 @@ label.fa.nav_icon
 
     img.nab_icon
     {
-        width: 80px;
-        height: 80px;
+        width: 40px;
+        height: 40px;
     }
 
     .nab_name
@@ -1208,6 +1215,7 @@ label.fa.nav_icon
   
     .nab:hover {
       width: 265px;
+      box-shadow: 0 0 0.3rem #2364f0;
     }
   
     .nab .nab_subititle,
