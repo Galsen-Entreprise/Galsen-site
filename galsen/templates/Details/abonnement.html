@@ -15,45 +15,45 @@
 <body>
     <div class="table-container">
         <div class="header-table-bar">
-            <div class="table-header bg-primary">Liste de vos Postulants</div>
+            <div class="table-header bg-primary">Liste de vos Abonnements</div>
             <div class="search-bar-container">
-                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un utilisateur..." onkeyup="searchTable()">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un de vos abonnements..." onkeyup="searchTable()">
                 <div class="result-count" id="resultCount">0 résultat(s) trouvé(s)</div>
             </div>
         </div>
-        {% if postulants_data %}
+        {% if following_users %}
             <table id="userTable">
                 <thead>
                     <tr>
                         <th class="bg-primary">Utilisateur</th>
                         <th class="disparait bg-primary">Type</th>
-                        <th class="bg-primary">Offre postulée</th>
+                        <th class="bg-primary">Téléphone</th>
                         <th class="disparait bg-primary">Email</th>
-                        <th class="disparait bg-primary">Date de candidature</th>
+                        <th class="disparait bg-primary">Date d'inscription</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for data in postulants_data %}
+                    {% for user in following_users %}
                         <tr>
                             <td>
-                                <a href="{% url 'user_detail' user_id=data.user.id %}" class="user-link">
-                                    {% if data.user.rôle == "personnel" %}
-                                        {{ data.user.first_name }} {{ data.user.last_name }}
+                                <a href="{% url 'user_detail' user_id=user.id %}" class="user-link">
+                                    {% if user.rôle == "personnel" %}
+                                        {{ user.first_name }} {{ user.last_name }}
                                     {% else %}
-                                        {{ data.user.etablissement }}
+                                        {{ user.etablissement }}
                                     {% endif %}
                                 </a>
                             </td>
-                            <td class="disparait">{{ data.user.rôle }}</td>
-                            <td>{{ data.job.title }}</td>
-                            <td class="disparait">{{ data.user.email }}</td>
-                            <td class="disparait">{{ data.job.date_creation_post|date:"d F Y à H:i" }}</td>
+                            <td class="disparait">{{ user.rôle }}</td>
+                            <td> {% if user.number_phone %} {{ user.number_phone }}  {% endif %} </td>
+                            <td class="disparait">{{ user.email }}</td>
+                            <td class="disparait">le, {{ user.date_joined|date:"d F Y à H:i" }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <p class="sinon">Vous n'avez aucun postulant.</p>
+            <p class="sinon">Vous n'avez aucun abonnement.</p>
         {% endif %}
     </div>
 

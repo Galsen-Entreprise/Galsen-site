@@ -22,7 +22,7 @@ from galsen.views import update, update_profile, update_banner, a_propos, update
 from galsen.views import update_logo_boutique, update_banner_boutique, update_description_boutique, update_post, update_annonce, update_job, update_product
 
 # ========== Les Followers: Les Likes, Les Postules, Les Commandes, postulants ===================
-from galsen.views import AddLikes
+from galsen.views import AddLikes, following_view, abonner
 
 # ========== Details ===================
 from galsen.views import detail_profile, annonce_detail, job_detail, En_Gestion_Boutique, postulant, mon_job, mon_job_detail, mon_annonce, mon_annonce_detail, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande, admin_user
@@ -120,6 +120,11 @@ urlpatterns = [
     # ========== Les Followers: Les Likes, Les Shares, Suivre ===================
     path('post/<int:pk>/like', AddLikes.as_view(), name='likes'),
     path('suivre-utilisateur/<int:user_id>/', views.suivre_utilisateur, name='suivre_utilisateur'),
+    path('following/', following_view, name='following_view'),
+    path('abonner/', abonner, name='abonner'),
+    
+    path('abonnement/<int:abonnementId>/', views.abonnementId, name='abonnementId'),
+    path('abonner/<int:abonnerId>/', views.abonnerId, name='abonnerId'),
     
     # ========== Les Détails(Mon Profil, Profil Public, Post, Emplois, Boutique, Postulant) ==================
     path('detail_profile', detail_profile, name= 'detail_profile'),

@@ -60,8 +60,8 @@
         <!-- Navigation Links -->
         <div class="profile-nav">
           <ul>
-            <li><a href="#"><span class="tempo">{{ profile_user.following_users.count }}</span>Abonnements</a></li>
-            <li><a href="#"><span class="tempo">{{ profile_user.followers.count }}</span>Abonnés</a></li>
+            <li><a href="{% url 'abonnementId' abonnementId=profile_user.id %}"><span class="tempo">{{ profile_user.following_users.count }}</span>Abonnements</a></li>
+            <li><a href="{% url 'abonnerId' abonnerId=profile_user.id %}"><span class="tempo">{{ profile_user.followers.count }}</span>Abonnés</a></li>
             <li><a href="#"><span class="tempo">{{ profile_user.total_likes_received }}</span>Aimes</a></li>
           </ul>
         </div>

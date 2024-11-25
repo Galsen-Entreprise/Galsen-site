@@ -13,166 +13,123 @@
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/members.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/amis.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
 </head>
 <body>
-
-    <div class="members">
-
-        <div class="tab-navigation">
-            <ul class="tab-menu">
-                <li class="tab-btn moi active">Mes Abonnements</li>
-                <li class="tab-btn eux">Mes Abonnés</li>
-            </ul>
-        </div>
-    
-        <!-- Premier tableau : Mes Abonnements -->
-        <div class="table-container active">
-            <div class="table-header bg-danger">Mes Abonnements</div>
-            <div class="search-bar-container">
-                <input type="text" class="search-bar" id="searchInput1" placeholder="Rechercher un abonnement..." onkeyup="searchTable('userTable1', 'resultCount1', 'searchInput1')">
-                <div class="result-count" id="resultCount1">0 résultat(s) trouvé(s)</div>
-            </div>
-            {% if following %}
-                <table id="userTable1">
-                    <thead>
-                        <tr>
-                            <th class="bg-danger">Utilisateur(s)</th>
-                            <th class="disparait bg-danger">Pseudo</th>
-                            <th class="bg-danger">Type</th>
-                            <th class="disparait bg-danger">Email</th>
-                            <th class="disparait bg-danger">Membre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in following %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'user_detail' user_id=user.id %}" class="user-link">
-                                        {% if user.rôle == "personnel" %}
-                                            {{ user.first_name }} {{ user.last_name }}
-                                        {% else %}
-                                            {% if user.etablissement %} {{ user.etablissement }} {% endif %}
-                                        {% endif %}
-                                    </a>
-                                </td>
-                                <td class="disparait">{{ user.username }}</td>
-                                <td>{{ user.rôle }}</td>
-                                <td class="disparait">{{ user.email }}</td>
-                                <td class="disparait">{{ user.date_joined|date:"d F Y à H:i" }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p class="sinon">Vous ne suivez personne pour le moment.</p>
-            {% endif %}
-        </div>
-    
         <!-- Deuxième tableau : Mes Abonnés -->
-        <div class="table-container">
-            <div class="table-header bg-primary">Mes Abonnés</div>
+    <div class="table-container">
+        <div class="header-table-bar">
+            <div class="table-header bg-primary">Liste de vos amis (<span class="danger">{{ request.user.get_amis|length }}</span>)</div>
             <div class="search-bar-container">
-                <input type="text" class="search-bar" id="searchInput2" placeholder="Rechercher un abonné..." onkeyup="searchTable('userTable2', 'resultCount2', 'searchInput2')">
-                <div class="result-count" id="resultCount2">0 résultat(s) trouvé(s)</div>
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un amis..." onkeyup="filterUsers()">
+                <div class="result-count" id="resultCount">5 résultats trouvés</div>
             </div>
-            {% if followers %}
-                <table id="userTable2">
-                    <thead>
-                        <tr>
-                            <th class="bg-primary">Utilisateur(s)</th>
-                            <th class="disparait bg-primary">Pseudo</th>
-                            <th class="bg-primary">Type</th>
-                            <th class="disparait bg-primary">Email</th>
-                            <th class="disparait bg-primary">Membre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in followers %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'user_detail' user_id=user.id %}" class="user-link">
-                                        {% if user.rôle == "personnel" %}
-                                            {{ user.first_name }} {{ user.last_name }}
-                                        {% else %}
-                                            {% if user.etablissement %} {{ user.etablissement }} {% endif %}
-                                        {% endif %}
-                                    </a>
-                                </td>
-                                <td class="disparait">{{ user.username }}</td>
-                                <td>{{ user.rôle }}</td>
-                                <td class="disparait">{{ user.email }}</td>
-                                <td class="disparait">{{ user.date_joined|date:"d F Y à H:i" }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p class="sinon">Vous n'avez aucun abonné pour le moment.</p>
-            {% endif %}
+            <div class="row">
+                <div class="form-group">
+                    <label for="countryInput" class="success"><i class="fa fa-flag-checkered"></i> Le Pays </label>
+                    <input type="text" id="countryInput" name="pays" onchange="updateIndicatif()" oninput="filterUsers()" placeholder="Le pays" autocomplete="off" required>
+                    <ul class="list"></ul>
+                </div>
+                <div class="form-group disparait">
+                    <label for="indicatif" class="gray"><i class="fa fa-flag"></i> Indicatif pays </label>
+                    <input type="number" id="indicatif" readonly placeholder="indicatif pays">
+                </div>
+                <div class="form-group">
+                    <label for="id_rôle" class="primary"><i class="fa fa-briefcase"></i> Type </label>
+                    <select  autocomplete="off" id="id_rôle" onchange="filterUsers()">
+                        <option value="tout" selected="">Tout</option>
+                        <option value="personnel">Personnel(le)</option>
+                    
+                        <option value="ecole">Ecole</option>
+                    
+                        <option value="entreprise">Entreprise</option>
+                    
+                    </select>
+                </div>
+            </div>
         </div>
-    
     </div>
+
+    
+
+    <main>
+        <div class="content-amis" id="userTable">
+            {% for ami in request.user.get_amis %}
+                <a href="{% url 'user_detail' user_id=ami.id %}" class="amis">
+                    {% if ami.profile_image and ami.profile_image.url %}
+                        <img src="{{ ami.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                    {% endif %}
+                    <div class="content">
+                        <div class="name td">
+                            {% if ami.rôle == "personnel" %}
+                                {{ ami.first_name }} {{ ami.last_name }}
+                            {% else %}
+                                {% if ami.etablissement %}
+                                    {{ ami.etablissement }}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <b>Membre depuis le {{ ami.date_joined|date:"d M Y" }}</b>
+                        <br><b class="success td">{{ ami.pays }}</b>
+                    </div>
+                    <i class="primary td">{{ ami.rôle }}</i>
+                </a>
+            
+                {% empty %}
+                <p>Vous n'avez aucun ami pour le moment.</p>
+            {% endfor %}
+        </div>
+    </main>
     
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/formulaires/scripts/edit.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
 
     <script>
-        function searchTable(tableId, resultCountId, searchInputId) {
-            const input = document.getElementById(searchInputId);
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById(tableId);
-            const tr = table.getElementsByTagName("tr");
-            let count = 0;
-    
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName("td");
-                let rowContainsFilter = false;
-    
-                for (let j = 0; j < td.length; j++) {
-                    if (td[j]) {
-                        const cellValue = td[j].textContent || td[j].innerText;
-                        if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                            rowContainsFilter = true;
-                            break;
-                        }
-                    }
-                }
-    
-                if (rowContainsFilter) {
-                    tr[i].style.display = "";
-                    count++;
+        function filterUsers() {
+            // Récupérer les valeurs des champs de filtrage
+            const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+            const countryValue = document.getElementById("countryInput").value.trim().toLowerCase();
+            const roleValue = document.getElementById("id_rôle").value.toLowerCase();
+        
+            const userTable = document.getElementById("userTable");
+            const userCards = userTable.getElementsByTagName("a");
+        
+            let visibleCount = 0;
+        
+            for (let user of userCards) {
+                // Récupérer les données de chaque utilisateur
+                const userName = user.querySelector(".name").textContent.toLowerCase();
+                const userCountry = user.querySelector(".success").textContent.toLowerCase();
+                const userRole = user.querySelector(".primary").textContent.toLowerCase();
+        
+                // Vérifier les correspondances pour chaque filtre (indépendants)
+                const matchesSearch = !searchValue || userName.includes(searchValue) || 
+                                      userName.split(' ').reverse().join(' ').includes(searchValue);
+                const matchesCountry = !countryValue || userCountry.includes(countryValue);
+                const matchesRole = roleValue === "tout" || userRole === roleValue;
+        
+                // Afficher uniquement si l'utilisateur correspond à tous les filtres actifs
+                if (matchesSearch && matchesCountry && matchesRole) {
+                    user.style.display = "";
+                    visibleCount++;
                 } else {
-                    tr[i].style.display = "none";
+                    user.style.display = "none";
                 }
             }
-    
-            // Update the result count
-            document.getElementById(resultCountId).textContent = count + " résultat(s) trouvé(s)";
+        
+            // Mettre à jour le compteur de résultats
+            document.getElementById("resultCount").textContent = `${visibleCount} résultat(s) trouvé(s)`;
+        
+            // Affichage si aucun résultat
+            if (visibleCount === 0) {
+                document.getElementById("resultCount").textContent = "Aucun résultat trouvé.";
+            }
         }
-
-        const tabs = document.querySelectorAll(".table-container");
-        const tabBtns = document.querySelectorAll(".tab-btn");
-
-        const tab_nav = function(tabBtnClick) {
-            tabBtns.forEach((tabBtn) => {
-                tabBtn.classList.remove("active");
-            });
-
-            tabs.forEach((tab) => {
-                tab.classList.remove("active")
-            });
-
-            tabBtns[tabBtnClick].classList.add("active");
-            tabs[tabBtnClick].classList.add("active");
-        };
-
-        tabBtns.forEach((tabBtn, i) => {
-            tabBtn.addEventListener("click", () => {
-                tab_nav(i);
-            });
-        });
+        
     </script>
 </body>
 </html>

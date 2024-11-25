@@ -62,7 +62,6 @@ html
 
 body
 {
-    background: var(--body-color);
     min-height: 100vh;
     color: var(--title-color);
 }

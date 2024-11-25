@@ -20,11 +20,13 @@
 <body>
 
     <div class="table-container">
-        <div class="table-header">Commandes pour vos produits</div>
-        <div class="search-bar-container">
-            <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un client..." onkeyup="searchTable()">
-            <div class="result-count" id="resultCount">5 résultats trouvés</div>
-        </div>
+      <div class="header-table-bar">
+          <div class="table-header">Commandes pour vos produits</div>
+          <div class="search-bar-container">
+              <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un client..." onkeyup="searchTable()">
+              <div class="result-count" id="resultCount">5 résultats trouvés</div>
+          </div>
+      </div>
         {% if commandes %}
             <table id="userTable">
             <thead>

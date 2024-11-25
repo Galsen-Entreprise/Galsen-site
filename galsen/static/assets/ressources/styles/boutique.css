@@ -406,7 +406,6 @@ small
     color: #fff;
     font-weight: 600;
     transition: all 0.1s;
-    display: none;
 }
 
 .link-product:hover
@@ -473,10 +472,5 @@ small
     .action
     {
         display: none;
-    }
-
-    .link-product
-    {
-        display: block;
     }
 }

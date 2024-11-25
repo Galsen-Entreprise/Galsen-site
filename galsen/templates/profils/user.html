@@ -64,8 +64,8 @@
         <!-- Navigation Links -->
         <div class="profile-nav">
           <ul>
-            <li><a href="#"><span class="tempo">{{ user.following_users.count }}</span>Abonnements</a></li>
-            <li><a href="#"><span class="tempo">{{ user.followers.count }}</span>Abonnés</a></li>
+            <li><a href="{% url 'following_view' %}"><span class="tempo">{{ user.following_users.count }}</span>Abonnements</a></li>
+            <li><a href="{% url 'abonner' %}"><span class="tempo">{{ user.followers.count }}</span>Abonnés</a></li>
             <li><a href="#"><span class="tempo">{{ user.total_likes_received }}</span>Aimes</a></li>
           </ul>
         </div>

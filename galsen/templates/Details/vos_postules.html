@@ -19,11 +19,13 @@
 <body>
         <!-- Deuxième tableau : Mes Abonnés -->
     <div class="table-container">
-        <div class="table-header bg-primary">Liste de vos Postules</div>
+        <div class="header-table-bar">
+            <div class="table-header bg-primary">Liste de vos Postules</div>
             <div class="search-bar-container">
                 <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un postule..." onkeyup="searchTable()">
                 <div class="result-count" id="resultCount">5 résultats trouvés</div>
             </div>
+        </div>
         {% if postulations %}
             <table id="userTable">
                 <thead>
@@ -56,7 +58,7 @@
         {% endif %}
     </div>
     
-    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
 
     <script>

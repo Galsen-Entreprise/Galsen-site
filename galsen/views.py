@@ -1344,6 +1344,46 @@ class AddLikes(LoginRequiredMixin, View):
         }
         return JsonResponse(response_data)
     
+def following_view(request):
+    user = request.user
+    following_users = user.get_following()
+    return render(request, 'Details/abonnement.html', {'following_users': following_users})
+
+def abonner(request):
+    # Récupérer l'utilisateur actuel
+    user = request.user
+    # Récupérer la liste des abonnés de l'utilisateur actuel
+    abonnes = user.get_followers()
+    return render(request, 'Details/abonner.html', {'abonnes': abonnes})
+
+def abonnementId(request, abonnementId):
+    # Récupérez l'utilisateur par son ID d'abonnement
+    utilisateur = get_object_or_404(CustomUser, id=abonnementId)
+    
+    # Récupérez la liste des utilisateurs suivis par l'utilisateur spécifique
+    following_users = utilisateur.following_users.all()  # Assurez-vous que following_users est correctement défini dans votre modèle
+    
+    context = {
+        'utilisateur': utilisateur,
+        'following_users': following_users,
+    }
+    
+    return render(request, 'Details/abonnementid.html', context)
+
+def abonnerId(request, abonnerId):
+    # Récupérez l'utilisateur par son ID d'abonnement
+    utilisateur = get_object_or_404(CustomUser, id=abonnerId)
+    
+    # Récupérez la liste des abonnés de l'utilisateur spécifique
+    abonnes = utilisateur.followers.all()  # Assurez-vous que abonnes est correctement défini dans votre modèle
+    
+    context = {
+        'utilisateur': utilisateur,
+        'abonnes': abonnes,
+    }
+    
+    return render(request, 'Details/abonnerid.html', context)
+
 def suivre_utilisateur(request, user_id):
     if request.method == 'POST':
         # Récupérer l'utilisateur cible
@@ -1538,24 +1578,8 @@ def les_commandes(request):
         return redirect('create_boutique')
 
 def amis(request):
-    # Récupérer l'utilisateur connecté
-    current_user = request.user
 
-    # Récupérer ceux que l'utilisateur suit et ceux qui le suivent
-    following = current_user.get_following()
-    followers = current_user.get_followers()
-
-    # Trouver les amis mutuels (ceux que l'utilisateur suit et qui le suivent)
-    mutual_friends = set(following).intersection(set(followers))
-
-    
-    context = {
-        'following': following,
-        'followers': followers,
-        'mutual_friends': mutual_friends,
-    }
-
-    return render(request, 'Details/amis.html', context)
+    return render(request, 'Details/amis.html')
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
