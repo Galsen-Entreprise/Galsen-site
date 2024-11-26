@@ -1,0 +1,156 @@
+{% extends 'auth/layouts/profils.html' %}
+
+{% load static %}
+
+{% block inscript %}
+<form class="enterprise-form" id="enterpriseForm" method="POST" enctype="multipart/form-data" action="{% url 'change_user' user_id=change_user.id %}">
+    {% csrf_token %}
+    <h2>Modification de l'utilisateur {{ change_user.username }}
+        <div class="buttons">
+            <a href="{% url 'user_detail' user_id=change_user.id %}" class="back" style="text-decoration: none;">Visiter son Profil</a>
+        </div>
+    </h2>
+
+    <!-- Photo Section -->
+    <h4 class="success"><i class="fa fa-image white"></i> &nbsp; Photos</h4>
+    <div class="row">
+        <div class="form-group">
+            <label for="profile_image"><i class="fa fa-image"></i> Photo de Profil</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*">
+            <div class="image-preview">
+                {% if change_user.profile_image and change_user.profile_image.url %}
+                    <a href="{{ change_user.profile_image.url }}" data-lightbox="mygallery">
+                        <img src="{{ change_user.profile_image.url }}" alt="Photo de profil">
+                    </a>
+                {% else %}
+                    <img src="{% static 'assets/default/user.png' %}" alt="Photo par défaut">
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="banner_image"><i class="fa fa-image"></i> Photo Bannière</label>
+            <input type="file" id="banner_image" name="banner_image" accept="image/*">
+            <div class="image-preview">
+                {% if change_user.banner_image and change_user.banner_image.url %}
+                    <a href="{{ change_user.banner_image.url }}" data-lightbox="mygallery">
+                        <img src="{{ change_user.banner_image.url }}" alt="Photo bannière">
+                    </a>
+                {% else %}
+                    <img src="{% static 'assets/default/banner.png' %}" alt="Bannière par défaut">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Informations Utilisateur -->
+    <h4 class="success"><i class="fa fa-user white"></i> &nbsp; Informations Utilisateur</h4>
+    <div class="row">
+        <div class="form-group">
+            <label for="first_name"><i class="fa fa-address-card"></i> Prénom</label>
+            <input type="text" id="first_name" name="first_name" value="{{ change_user.first_name|default:'' }}" placeholder="Prénom">
+        </div>
+        <div class="form-group">
+            <label for="last_name"><i class="fa fa-address-card"></i> Nom</label>
+            <input type="text" id="last_name" name="last_name" value="{{ change_user.last_name|default:'' }}" placeholder="Nom">
+        </div>
+        <div class="form-group">
+            <label for="username"><i class="fa fa-user-secret"></i> Pseudo</label>
+            <input type="text" id="username" name="username" value="{{ change_user.username }}" readonly>
+        </div>
+    </div>
+
+    <!-- Sélection de Rôles -->
+    <div class="row">
+        <div class="form-group">
+            <label for="id_langue"><i class="fa fa-flag"></i> Langue</label>
+            <select name="langue" id="id_langue">
+                <option value="{{ change_user.langue|default:'' }}">{{ change_user.langue|upper|default:'Choisir une langue' }}</option>
+                <option value="français">Français</option>
+                <option value="anglais">Anglais</option>
+                <option value="espagnol">Espagnol</option>
+                <option value="italien">Italien</option>
+                <option value="arabe">Arabe</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_rôle"><i class="fa fa-briefcase"></i> Rôle</label>
+            <select name="rôle" id="id_rôle">
+                <option value="{{ change_user.rôle|default:'' }}">{{ change_user.rôle|upper|default:'Choisir un rôle' }}</option>
+                <option value="personnel">Personnel</option>
+                <option value="ecole">École</option>
+                <option value="entreprise">Entreprise</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_genre"><i class="fa fa-transgender"></i> Genre</label>
+            <select name="genre" id="id_genre">
+                <option value="{{ change_user.genre|default:'' }}">{{ change_user.genre|upper|default:'Choisir un genre' }}</option>
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <h4 class="success"><i class="fa fa-map white"></i> &nbsp; Adresse</h4>
+    <div class="row">
+        <div class="form-group">
+            <label for="countryInput"><i class="fa fa-flag-checkered"></i> Pays</label>
+            <input type="text" id="countryInput" name="pays" value="{{ change_user.pays|default:'' }}" placeholder="Pays">
+        </div>
+        <div class="form-group">
+            <label for="ville"><i class="fa fa-map"></i> Ville</label>
+            <input type="text" id="ville" name="ville" value="{{ change_user.ville|default:'' }}" placeholder="Ville">
+        </div>
+        <div class="form-group">
+            <label for="quartier"><i class="fa fa-home"></i> Quartier</label>
+            <input type="text" id="quartier" name="quartier" value="{{ change_user.quartier|default:'' }}" placeholder="Quartier">
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <h4 class="success"><i class="fa fa-phone white"></i> &nbsp; Contacts</h4>
+    <div class="row">
+        <div class="form-group">
+            <label for="number_phone"><i class="fa fa-phone"></i> Téléphone</label>
+            <input type="tel" id="number_phone" name="number_phone" value="{{ change_user.number_phone|default:'' }}" placeholder="Téléphone">
+        </div>
+        <div class="form-group">
+            <label for="number_whatsapp"><i class="fa fa-whatsapp"></i> WhatsApp</label>
+            <input type="tel" id="number_whatsapp" name="number_whatsapp" value="{{ change_user.number_whatsapp|default:'' }}" placeholder="WhatsApp">
+        </div>
+        <div class="form-group">
+            <label for="number_telegram"><i class="fa fa-telegram"></i> Telegram</label>
+            <input type="tel" id="number_telegram" name="number_telegram" value="{{ change_user.number_telegram|default:'' }}" placeholder="Telegram">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+        <input type="email" id="email" name="email" value="{{ change_user.email|default:'' }}" placeholder="Email">
+    </div>
+
+    <!-- Social Links -->
+    <h4 class="success"><i class="fa fa-link white"></i> &nbsp; Réseaux Sociaux</h4>
+    <div class="row">
+        <div class="form-group">
+            <label for="instagram_link"><i class="fa fa-instagram"></i> Instagram</label>
+            <input type="url" id="instagram_link" name="instagram_link" value="{{ change_user.instagram_link|default:'' }}" placeholder="Lien Instagram">
+        </div>
+        <div class="form-group">
+            <label for="twitter_link"><i class="fa fa-twitter"></i> Twitter</label>
+            <input type="url" id="twitter_link" name="twitter_link" value="{{ change_user.twitter_link|default:'' }}" placeholder="Lien Twitter">
+        </div>
+        <div class="form-group">
+            <label for="youtube_link"><i class="fa fa-youtube"></i> YouTube</label>
+            <input type="url" id="youtube_link" name="youtube_link" value="{{ change_user.youtube_link|default:'' }}" placeholder="Lien YouTube">
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button type="submit" class="update">Enregistrer</button>
+        <a href="{% url 'delete_user' change_user.id %}" class="delete">Supprimer</a>
+        <a class="back" id="boutonRetour">Annuller</a>
+    </div>
+</form>
+{% endblock %}

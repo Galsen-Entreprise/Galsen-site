@@ -20,9 +20,9 @@
         <!-- Deuxième tableau : Mes Abonnés -->
     <div class="table-container">
         <div class="header-table-bar">
-            <div class="table-header bg-primary">Liste de vos abonné (<span class="danger">{{ user.followers.count }}</span>)</div>
+            <div class="table-header bg-primary">Les Ecoles (<span class="danger">{{ ecole_count }} </span>)</div>
             <div class="search-bar-container">
-                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un abonné..." onkeyup="filterUsers()">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher une école..." onkeyup="filterUsers()">
                 <div class="result-count" id="resultCount">0 résultats trouvés</div>
             </div>
             <div class="row">
@@ -55,31 +55,31 @@
 
     <main>
         <div class="content-amis" id="userTable">
-            {% for abonne in abonnes %}
-                <a href="{% url 'user_detail' user_id=abonne.id %}" class="amis">
-                    {% if abonne.profile_image and abonne.profile_image.url %}
-                        <img src="{{ abonne.profile_image.url }}">
+            {% for CustomUser in CustomUsers %}
+                <a href="{% url 'change_user' user_id=CustomUser.id %}" class="amis">
+                    {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                        <img src="{{ CustomUser.profile_image.url }}">
                     {% else %}
                         <img src="{% static 'assets/default/user.png' %}">
                     {% endif %}
                     <div class="content">
                         <div class="name td">
-                            {% if abonne.rôle == "personnel" %}
-                                {{ abonne.first_name }} {{ abonne.last_name }}
+                            {% if CustomUser.rôle == "personnel" %}
+                                {{ CustomUser.first_name }} {{ CustomUser.last_name }}
                             {% else %}
-                                {% if abonne.etablissement %}
-                                    {{ abonne.etablissement }}
+                                {% if CustomUser.etablissement %}
+                                    {{ CustomUser.etablissement }}
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <b>Membre depuis le {{ abonne.date_joined|date:"d M Y" }}</b>
-                        <br><b class="success td">{{ abonne.pays }}</b>
+                        <b>Membre depuis le {{ CustomUser.date_joined|date:"d M Y" }}</b>
+                        <br><b class="success td">{{ CustomUser.pays }}</b>
                     </div>
-                    <i class="primary td">{{ abonne.rôle }}</i>
+                    <i class="primary td">{{ CustomUser.rôle }}</i>
                 </a>
             
                 {% empty %}
-                <p>Vous n'avez aucun abonné pour le moment.</p>
+                <p>Vous n'avez aucun ami pour le moment.</p>
             {% endfor %}
         </div>
     </main>

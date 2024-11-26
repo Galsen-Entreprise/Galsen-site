@@ -10,7 +10,7 @@ from galsen.views import log_in, register, log_out, profile, login_admin
 from galsen.views import home, personnel, entreprise, ecole, annonce, emplois, boutique
 
 # ========== Section Admin ==================
-from galsen.views import SuperAdmin
+from galsen.views import SuperAdmin, adminpersonnel, adminentreprise, adminecole, adminusers, change_user, delete_user
 
 # ========== Formulaires ===================
 from galsen.views import create_post, create_job, create_annonce, AddPostule, create_boutique, create_product, facture
@@ -25,7 +25,7 @@ from galsen.views import update_logo_boutique, update_banner_boutique, update_de
 from galsen.views import AddLikes, following_view, abonner
 
 # ========== Details ===================
-from galsen.views import detail_profile, annonce_detail, job_detail, En_Gestion_Boutique, postulant, mon_job, mon_job_detail, mon_annonce, mon_annonce_detail, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande, admin_user
+from galsen.views import detail_profile, annonce_detail, job_detail, En_Gestion_Boutique, postulant, mon_job, mon_job_detail, mon_annonce, mon_annonce_detail, vos_postule, vos_commande, les_commandes, amis, post_detail, post_comments, comment_responses, produit_commande
 
 # ========== Les Paramétres ==================
 from galsen.views import Settings_profil, settingEmail, settingNames, settingRole, settingPassWord, settingDelete
@@ -79,6 +79,12 @@ urlpatterns = [
     
     # ========== Section Admin ==================
     path('SuperAdmin', SuperAdmin, name= 'SuperAdmin'),
+    path('adminpersonnel', adminpersonnel, name='adminpersonnel'),
+    path('adminentreprise', adminentreprise, name='adminentreprise'),
+    path('adminecole', adminecole, name='adminecole'),
+    path('adminusers', adminusers, name='adminusers'),
+    path('change_user/<int:user_id>/', views.change_user, name='change_user'),
+    path('delete_user/<int:user_id>/', delete_user, name='delete_user'),
     
     # ========== Les Formulaires ==================
     path('post', create_post, name = 'post'),
@@ -149,9 +155,6 @@ urlpatterns = [
     path('categorie/<str:category>/', views.categorie_view, name='categorie'),
     path('commande/<int:produit_id>/commander', produit_commande, name='produit_commande'),
     path('boutique/<int:boutique_id>/', views.boutique_detail, name='boutique_detail'),
-    path('users/role/<str:role>/', views.users_by_role, name='users_by_role'),
-    path('admin_user', admin_user, name = 'admin_user'),
-    
     
     # ========== Les Paramétres ==================
     path('settings_profil', Settings_profil, name = 'settings_profil'),

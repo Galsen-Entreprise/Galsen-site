@@ -94,17 +94,17 @@
                     <h4>{{ admin_count }} <br><br> Admins </h4>
                 </a>
             
-                <a href="{% url 'users_by_role' 'personnel' %}" class="circle data-users-card" data-degree="{{ personnel_percentage|floatformat:1 }}" data-color="#fee800">
+                <a href="adminpersonnel" class="circle data-users-card" data-degree="{{ personnel_percentage|floatformat:1 }}" data-color="#fee800">
                     <h2 class="number">{{ personnel_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ personnel_count }} <br><br> Personnels </h4>
                 </a>
             
-                <a href="{% url 'users_by_role' 'ecole' %}" class="circle data-users-card" data-degree="{{ ecole_percentage|floatformat:1 }}" data-color="#ff2972">
+                <a href="adminecole" class="circle data-users-card" data-degree="{{ ecole_percentage|floatformat:1 }}" data-color="#ff2972">
                     <h2 class="number">{{ ecole_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ ecole_count }} <br><br> Ecoles </h4>
                 </a>
             
-                <a href="{% url 'users_by_role' 'entreprise' %}" class="circle data-users-card" data-degree="{{ entreprise_percentage|floatformat:1 }}" data-color="#045FFCFF">
+                <a href="adminentreprise" class="circle data-users-card" data-degree="{{ entreprise_percentage|floatformat:1 }}" data-color="#045FFCFF">
                     <h2 class="number">{{ entreprise_percentage|floatformat:1 }}<span>%</span></h2>
                     <h4>{{ entreprise_count }} <br><br> Entreprises </h4>
                 </a>
@@ -114,7 +114,7 @@
                     <h4> {{ boutique_count }} <br> <br> Boutiques </h4>
                 </a>
             
-                <a href="#" class="circle data-users-card" data-degree="100" data-color="#299bd5">
+                <a href="adminusers" class="circle data-users-card" data-degree="100" data-color="#299bd5">
                     <h2 class="number"><span>%</span></h2>
                     <h4>{{ total_users_count }} <br><br> Utilisateurs </h4>
                 </a>

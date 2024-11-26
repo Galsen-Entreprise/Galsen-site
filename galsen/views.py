@@ -476,7 +476,104 @@ def SuperAdmin(request):
     
     return render(request, 'admins/dashboard.html', context)
 
+def adminpersonnel(request):
+    CustomUsers = CustomUser.objects.filter(rôle='personnel')
+    personnel_count = CustomUser.objects.filter(rôle='personnel').count()
+    user = request.user
 
+    context = {
+        'CustomUsers': CustomUsers,
+        'personnel_count': personnel_count,
+        'user': user
+    }
+    return render(request, 'admins/details/personnel.html', context)
+
+def adminentreprise(request):
+    CustomUsers = CustomUser.objects.filter(rôle='entreprise')
+    entreprise_count = CustomUser.objects.filter(rôle='entreprise').count()
+    user = request.user
+
+    context = {
+        'CustomUsers': CustomUsers,
+        'entreprise_count': entreprise_count,
+        'user': user
+    }
+    return render(request, 'admins/details/entreprise.html', context)
+
+def adminecole(request):
+    CustomUsers = CustomUser.objects.filter(rôle='ecole')
+    ecole_count = CustomUser.objects.filter(rôle='ecole').count()
+    user = request.user
+
+    context = {
+        'CustomUsers': CustomUsers,
+        'ecole_count': ecole_count,
+        'user': user
+    }
+    return render(request, 'admins/details/ecole.html', context)
+
+def adminusers(request):
+    CustomUsers = CustomUser.objects.order_by('-date_joined').all()
+    user_count = CustomUser.objects.count()
+    user = request.user
+
+    context = {
+        'CustomUsers': CustomUsers,
+        'user_count': user_count,
+        'user': user
+    }
+    return render(request, 'admins/details/users.html', context)
+
+def change_user(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        user.first_name = request.POST.get('first_name', user.first_name)
+        user.last_name = request.POST.get('last_name', user.last_name)
+        user.langue = request.POST.get('langue', user.langue)
+        user.rôle = request.POST.get('rôle', user.rôle)
+        user.genre = request.POST.get('genre', user.genre)
+        user.situation_matrimoniale = request.POST.get('situation_matrimoniale', user.situation_matrimoniale)
+        user.pays = request.POST.get('pays', user.pays)
+        user.ville = request.POST.get('ville', user.ville)
+        user.quartier = request.POST.get('quartier', user.quartier)
+        user.number_phone = request.POST.get('number_phone', user.number_phone)
+        user.number_whatsapp = request.POST.get('number_whatsapp', user.number_whatsapp)
+        user.number_telegram = request.POST.get('number_telegram', user.number_telegram)
+        user.metier = request.POST.get('metier', user.metier)
+        user.etablissement = request.POST.get('etablissement', user.etablissement)
+        user.birthday = request.POST.get('birthday', user.birthday)
+        user.instagram_link = request.POST.get('instagram_link', user.instagram_link)
+        user.twitter_link = request.POST.get('twitter_link', user.twitter_link)
+        user.youtube_link = request.POST.get('youtube_link', user.youtube_link)
+        user.website_link = request.POST.get('website_link', user.website_link)
+
+        # Gérer les fichiers téléchargés (photo de profil et bannière)
+        if 'profile_image' in request.FILES:
+            user.profile_image = request.FILES['profile_image']
+        if 'banner_image' in request.FILES:
+            user.banner_image = request.FILES['banner_image']
+        
+        # Sauvegarder les modifications
+        user.save()
+        messages.success(request, "Les informations de l'utilisateur ont été mises à jour avec succès.")
+        return redirect('SuperAdmin')
+    
+    return render(request, 'admins/formulaires/change_user.html', {'change_user': user})
+
+def delete_user(request, user_id):
+    user_to_delete = get_object_or_404(CustomUser, id=user_id)
+
+    # Vérifier si l'utilisateur actuel est admin ou est l'utilisateur qu'il souhaite supprimer
+    if request.user.is_staff or user_to_delete == request.user:
+        user_to_delete.delete()
+        messages.success(request, 'Utilisateur supprimé avec succès.')
+    else:
+        messages.error(request, 'Vous n\'avez pas l\'autorisation de supprimer ce compte.')
+
+    # Rediriger vers une page de confirmation ou la page d'accueil après suppression
+    return redirect('SuperAdmin') 
 ''' =========== Formulaires ========= '''
 @role_required(['admin','personnel', 'ecole', 'entreprise'])
 def create_post(request):
@@ -1681,15 +1778,7 @@ def categorie_view(request, category):
         'category': category,
     }
     return render(request, 'Details/categories/categorie.html', context)
-
-def users_by_role(request, role):
-    users = CustomUser.objects.filter(rôle=role)
-    user_count = users.count()  # Compte le nombre d'utilisateurs pour le rôle donné
-    return render(request, 'admins/details/users.html', {'users': users, 'role': role, 'user_count': user_count})
-
-def admin_user(request):
-    return render(request, 'admins/details/user.html')
-    
+   
 
 def get_or_none(model, **kwargs):
     try:

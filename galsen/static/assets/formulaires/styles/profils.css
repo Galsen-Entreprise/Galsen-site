@@ -16,12 +16,12 @@
 
 .danger
 {
-    color: hsl(0, 95%, 65%);
+    color: #fb5151;
 }
 
 .success
 {
-    color: rgb(3, 255, 66);
+    color: #03ff42;
 }
 
 .purple
@@ -169,6 +169,73 @@ body {
 label::placeholder
 {
     color: #2364f0;
+}
+
+.buttons
+{
+    display: flex;
+    gap: 20px;
+}
+
+.buttons .update
+{
+    background: #03ff42;
+    color: #fff;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.buttons .update:hover {
+    background: #03ff42c1;
+}
+
+.buttons .delete
+{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fb5151;
+    color: #fff;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.buttons .delete:hover {
+    background: #fb5151c7;
+}
+
+.buttons .back
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2364f0;
+    color: #fff;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.buttons .back:hover {
+    background: #2575fc;
 }
 
 button {

@@ -35,6 +35,7 @@ let countryIndicatifs = {
   "Bulgaria": 359,
   "Burkina Faso": 226,
   "Burundi": 257,
+  "California": 1,
   "Cambodia": 855,
   "Cameroon": 237,
   "Canada": 1,

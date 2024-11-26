@@ -1,5 +1,6 @@
 from django.db import models
 from itertools import chain
+import os
 
 from django.contrib.auth.models import AbstractUser as BaseAbstractUser, BaseUserManager, Permission, Group
 from django.conf import settings
@@ -51,6 +52,7 @@ class CustomUser(AbstractUser):
         ('marie', 'Marié(e)'),
         ('fiance', 'Fiancé(e)'),
         ('divorce', 'Divorcé(e)'),
+        ('couple', 'En couple'),
     ]
     marque_dispositif = models.CharField(max_length=255, null=True, blank=True)
     metier = models.CharField(max_length=150, null=True, blank=True)

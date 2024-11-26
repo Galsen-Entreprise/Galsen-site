@@ -707,7 +707,7 @@
   content: "\f0c1";
 }
 .fa-cloud:before {
-  content: "\f0c2";
+  content: "\f0c2";-
 }
 .fa-flask:before {
   content: "\f0c3";

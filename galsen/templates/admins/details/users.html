@@ -1,107 +1,135 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table</title>
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
+
+    <!-- Box Icone -->
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/amis.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
 </head>
-
-<style>
-    body {
-        padding: 0px;
-        margin: 0;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background: #222;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    table {
-        position: relative;
-        
-        border-collapse: collapse;
-        width: 800px;
-        height: 200px;
-        border: 1px solid #bdc3c7;
-        background: #303030;
-        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    tr {
-        transition: all .2s ease-in;
-        cursor: pointer;
-    }
-    
-    th,
-    td, td a {
-        text-decoration: none;
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        color: #fff;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-        transform: scale(1.02);
-        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    tr:hover td, tr:hover td a {
-        color: #222;
-    }
-    
-    #header {
-        background-color: #042aeb;
-        color: #fff;
-    }
-    
-    @media only screen and (max-width: 768px) {
-        table {
-            width: 424px;
-        }
-
-        .gender {
-            display: none;
-        }
-
-        .col-1 {
-            border-right: 1px solid #fb5151;
-        }
-    }
-</style>
-
 <body>
+        <!-- Deuxième tableau : Mes Abonnés -->
+    <div class="table-container">
+        <div class="header-table-bar">
+            <div class="table-header bg-primary">Les Utilisateurs (<span class="danger">{{ user_count }} </span>)</div>
+            <div class="search-bar-container">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un utilisateur..." onkeyup="filterUsers()">
+                <div class="result-count" id="resultCount">0 résultats trouvés</div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="countryInput" class="success"><i class="fa fa-flag-checkered"></i> Le Pays </label>
+                    <input type="text" id="countryInput" name="pays" onchange="updateIndicatif()" oninput="filterUsers()" placeholder="Le pays" autocomplete="off" required>
+                    <ul class="list"></ul>
+                </div>
+                <div class="form-group disparait">
+                    <label for="indicatif" class="gray"><i class="fa fa-flag"></i> Indicatif pays </label>
+                    <input type="number" id="indicatif" readonly placeholder="indicatif pays">
+                </div>
+                <div class="form-group">
+                    <label for="id_rôle" class="primary"><i class="fa fa-briefcase"></i> Type </label>
+                    <select  autocomplete="off" id="id_rôle" onchange="filterUsers()">
+                        <option value="tout" selected="">Tout</option>
+                        <option value="personnel">Personnel(le)</option>
+                    
+                        <option value="ecole">Ecole</option>
+                    
+                        <option value="entreprise">Entreprise</option>
+                    
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <tr id="header">
-            <th class="col-1">{{ role|title }}s({{ user_count }})</th>
-            <th>Email</th>
-            <th class="member">Membre depuis</th>
-        </tr>
-        
-        <!-- Boucle Django pour afficher les utilisateurs -->
-        {% for user in users %}
-        <tr>
-            {% if user.first_name and user.last_name %}
-                <td class="col-1"><a href="admin_user">{{ user.first_name }} {{ user.last_name }}</a></td>
-                {% else %}
-                <td class="col-1"><a href="admin_user">{{ user.username }}</a></td>
-            {% endif %}
-            <td>{{ user.email }}</td>
-            <td class="member">le, {{ user.date_joined|date:"d F Y à H:i" }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">Aucun utilisateur trouvé pour ce rôle.</td>
-        </tr>
-        {% endfor %}
-        
-    </table>
+    
 
+    <main>
+        <div class="content-amis" id="userTable">
+            {% for CustomUser in CustomUsers %}
+                <a href="{% url 'user_detail' user_id=CustomUser.id %}" class="amis">
+                    {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                        <img src="{{ CustomUser.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                    {% endif %}
+                    <div class="content">
+                        <div class="name td">
+                            {% if CustomUser.rôle == "personnel" %}
+                                {{ CustomUser.first_name }} {{ CustomUser.last_name }}
+                            {% else %}
+                                {% if CustomUser.etablissement %}
+                                    {{ CustomUser.etablissement }}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <b>Membre depuis le {{ CustomUser.date_joined|date:"d M Y" }}</b>
+                        <br><b class="success td">{{ CustomUser.pays }}</b>
+                    </div>
+                    <i class="primary td">{{ CustomUser.rôle }}</i>
+                </a>
+            
+                {% empty %}
+                <p>Vous n'avez aucun ami pour le moment.</p>
+            {% endfor %}
+        </div>
+    </main>
+    
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <script src="{% static 'assets/formulaires/scripts/edit.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
+
+    <script>
+        function filterUsers() {
+            // Récupérer les valeurs des champs de filtrage
+            const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+            const countryValue = document.getElementById("countryInput").value.trim().toLowerCase();
+            const roleValue = document.getElementById("id_rôle").value.toLowerCase();
+        
+            const userTable = document.getElementById("userTable");
+            const userCards = userTable.getElementsByTagName("a");
+        
+            let visibleCount = 0;
+        
+            for (let user of userCards) {
+                // Récupérer les données de chaque utilisateur
+                const userName = user.querySelector(".name").textContent.toLowerCase();
+                const userCountry = user.querySelector(".success").textContent.toLowerCase();
+                const userRole = user.querySelector(".primary").textContent.toLowerCase();
+        
+                // Vérifier les correspondances pour chaque filtre (indépendants)
+                const matchesSearch = !searchValue || userName.includes(searchValue) || 
+                                      userName.split(' ').reverse().join(' ').includes(searchValue);
+                const matchesCountry = !countryValue || userCountry.includes(countryValue);
+                const matchesRole = roleValue === "tout" || userRole === roleValue;
+        
+                // Afficher uniquement si l'utilisateur correspond à tous les filtres actifs
+                if (matchesSearch && matchesCountry && matchesRole) {
+                    user.style.display = "";
+                    visibleCount++;
+                } else {
+                    user.style.display = "none";
+                }
+            }
+        
+            // Mettre à jour le compteur de résultats
+            document.getElementById("resultCount").textContent = `${visibleCount} résultat(s) trouvé(s)`;
+        
+            // Affichage si aucun résultat
+            if (visibleCount === 0) {
+                document.getElementById("resultCount").textContent = "Aucun résultat trouvé.";
+            }
+        }
+        
+    </script>
 </body>
-
 </html>
