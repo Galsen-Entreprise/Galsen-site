@@ -476,6 +476,18 @@ def SuperAdmin(request):
     
     return render(request, 'admins/dashboard.html', context)
 
+def adminadmin(request):
+    CustomUsers = CustomUser.objects.filter(access='autorised')
+    access_count = CustomUser.objects.filter(access='autorised').count()
+    user = request.user
+
+    context = {
+        'CustomUsers': CustomUsers,
+        'access_count': access_count,
+        'user': user
+    }
+    return render(request, 'admins/details/admin.html', context)
+
 def adminpersonnel(request):
     CustomUsers = CustomUser.objects.filter(rôle='personnel')
     personnel_count = CustomUser.objects.filter(rôle='personnel').count()

@@ -10,7 +10,7 @@ from galsen.views import log_in, register, log_out, profile, login_admin
 from galsen.views import home, personnel, entreprise, ecole, annonce, emplois, boutique
 
 # ========== Section Admin ==================
-from galsen.views import SuperAdmin, adminpersonnel, adminentreprise, adminecole, adminusers, change_user, delete_user
+from galsen.views import SuperAdmin, adminadmin, adminpersonnel, adminentreprise, adminecole, adminusers, change_user, delete_user
 
 # ========== Formulaires ===================
 from galsen.views import create_post, create_job, create_annonce, AddPostule, create_boutique, create_product, facture
@@ -79,6 +79,7 @@ urlpatterns = [
     
     # ========== Section Admin ==================
     path('SuperAdmin', SuperAdmin, name= 'SuperAdmin'),
+    path('adminadmin', adminadmin, name='adminadmin'),
     path('adminpersonnel', adminpersonnel, name='adminpersonnel'),
     path('adminentreprise', adminentreprise, name='adminentreprise'),
     path('adminecole', adminecole, name='adminecole'),
