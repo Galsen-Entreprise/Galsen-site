@@ -37,7 +37,7 @@
                         <tr>
                             <td>
                                 <a href="{% url 'user_detail' user_id=data.user.id %}" class="user-link">
-                                    {% if data.user.rôle == "personnel" %}
+                                    {% if data.user.rôle == "professionnel" %}
                                         {{ data.user.first_name }} {{ data.user.last_name }}
                                     {% else %}
                                         {{ data.user.etablissement }}

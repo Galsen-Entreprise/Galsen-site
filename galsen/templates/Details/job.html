@@ -48,7 +48,7 @@
 
             <div class="profile-info">
                 <h1>
-                    {% if job.user.rôle == "personnel" %}
+                    {% if job.user.rôle == "professionnel" %}
                         {{ job.user.first_name }} {{ job.user.last_name }}
                     {% else %}
                         {{ job.user.etablissement }}
@@ -119,7 +119,7 @@
                 </li>
 
                 
-                {% if job.user.rôle == "personnel" %}
+                {% if job.user.rôle == "professionnel" %}
                         <li>
                             <i class="fa fa-briefcase primary"></i>
                             <p>J'ai comme métier:

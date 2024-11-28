@@ -22,7 +22,7 @@
 
     <header>
         <div class="header-content">
-            {% if user.rôle == "personnel" %}
+            {% if user.rôle == "professionnel" %}
                     <h1>{{ user.username }}</h1>
                     <p>{{ user.metier }}</p> 
                 {% else %}
@@ -45,7 +45,7 @@
 
     <section class="experience">
         <div class="section-header">
-            {% if user.rôle == "personnel" %}
+            {% if user.rôle == "professionnel" %}
                     <h2>Expérience Professionnelle</h2>
                 {% else %}
                 <h2>Expérience</h2>

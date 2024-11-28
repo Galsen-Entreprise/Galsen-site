@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 
 class CustomUserCreationForm(UserCreationForm):
     langue = forms.ChoiceField(choices=get_user_model().LANGUE, initial='français', widget=forms.Select(attrs={'autocomplete': 'off'}))
-    rôle = forms.ChoiceField(choices=get_user_model().ROLES, initial='personnel', widget=forms.Select(attrs={'autocomplete': 'off'}))
+    rôle = forms.ChoiceField(choices=get_user_model().ROLES, initial='professionnel', widget=forms.Select(attrs={'autocomplete': 'off'}))
     genre = forms.ChoiceField(choices=get_user_model().GENRE, widget=forms.Select(attrs={'autocomplete': 'off'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}))
     etablissement = forms.CharField(widget=forms.TextInput(attrs={'autocomplete': 'off'}), required=False)

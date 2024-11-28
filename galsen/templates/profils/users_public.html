@@ -47,7 +47,7 @@
 
           <div class="profile-info">
             <h1>
-                {% if profile_user.rôle == "personnel" %}
+                {% if profile_user.rôle == "professionnel" %}
                     {{ profile_user.first_name }} {{ profile_user.last_name }}
                 {% else %}
                     {% if profile_user.etablissement %}  {{ profile_user.etablissement }} {% endif %}
@@ -118,7 +118,7 @@
                 </li>
 
                 {% if profile_user.metier %}
-                    {% if profile_user.rôle == "personnel" %}
+                    {% if profile_user.rôle == "professionnel" %}
                             <li>
                                 <i class="fa fa-briefcase primary"></i>
                                 <p>J'ai comme métier:
@@ -177,7 +177,7 @@
                                     </div>
                                     <div class="details">
                                         <div class="name">
-                                            {% if post.user.rôle == "personnel" %}
+                                            {% if post.user.rôle == "professionnel" %}
                                                 <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
                                             {% else %}
                                                 <h3> <i class="fa fa-briefcase primary"></i> {% if post.user.etablissement %} {{ post.user.etablissement }} {% endif %}

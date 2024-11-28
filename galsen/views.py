@@ -116,7 +116,7 @@ def log_in(request):
             traffic.visits += 1  # Incrémente le nombre de visites
             traffic.save()
 
-            roles_valides = ['admin', 'personnel', 'ecole', 'entreprise']
+            roles_valides = ['admin', 'professionnel', 'ecole', 'entreprise']
 
             if user.rôle == 'admin':
                 return redirect('SuperAdmin')
@@ -156,8 +156,8 @@ def register(request):
 
             if user_role == 'admin':
                 return render(request, '')
-            elif user_role == 'personnel':
-                return render(request, 'auth/personnel.html')
+            elif user_role == 'professionnel':
+                return render(request, 'auth/professionnel.html')
             elif user_role == 'ecole':
                 return render(request, 'auth/ecole.html')
             elif user_role == 'entreprise':
@@ -210,8 +210,8 @@ def profile(request):
 
         return redirect('login')
 
-''' =========== Les Pages (home, personnel, entreprise, ecole, emplois, boutique) ========= '''
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+''' =========== Les Pages (home, professionnel, entreprise, ecole, emplois, boutique) ========= '''
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def home(request):
     # Récupérer tous les posts avec les médias associés, les utilisateurs, et la date de création
     posts = Post.objects.select_related('user').prefetch_related('mediaspost_set').order_by('-date_creation_post').all()
@@ -233,11 +233,11 @@ def home(request):
     }
     return render(request, 'pages/home.html', context)
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
-def personnel(request):
-    CustomUsers = CustomUser.objects.filter(rôle='personnel')
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
+def professionnel(request):
+    CustomUsers = CustomUser.objects.filter(rôle='professionnel')
     user = request.user
-    query = request.GET.get('personnel')
+    query = request.GET.get('professionnel')
 
     if query:
         # Séparer le query en mots individuels pour rechercher dans first_name, last_name et rôle
@@ -252,7 +252,7 @@ def personnel(request):
                 Q(metier__icontains=word)
             )
 
-        CustomUsers = CustomUser.objects.filter(rôle='personnel').filter(filter_query)
+        CustomUsers = CustomUser.objects.filter(rôle='professionnel').filter(filter_query)
 
     context = {
         'CustomUsers': CustomUsers,
@@ -260,9 +260,9 @@ def personnel(request):
         'query': query,  # Ajouter la requête pour la réafficher dans le formulaire
         'result_count': CustomUsers.count()
     }
-    return render(request, 'pages/personnel.html', context)
+    return render(request, 'pages/professionnel.html', context)
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def entreprise(request):
     CustomUsers = CustomUser.objects.filter(rôle='entreprise')
     user = request.user
@@ -290,7 +290,7 @@ def entreprise(request):
     }
     return render(request, 'pages/entreprise.html', context)
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def ecole(request):
     CustomUsers = CustomUser.objects.filter(rôle='ecole')
     user = request.user
@@ -334,7 +334,7 @@ def annonce(request):
     }
     return render(request, 'pages/annonces.html', context)
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def emplois(request):
      # Récupérer l'utilisateur connecté
     user = request.user
@@ -353,7 +353,7 @@ def emplois(request):
     }
     return render(request, 'pages/emplois.html', context)
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def boutique(request):
     # Récupérer l'utilisateur connecté
     user = request.user
@@ -419,7 +419,7 @@ def SuperAdmin(request):
 
     # Compter le nombre d'utilisateurs selon leur rôle
     admin_count = CustomUser.objects.filter(access='autorised').count()
-    personnel_count = CustomUser.objects.filter(rôle='personnel').count()
+    professionnel_count = CustomUser.objects.filter(rôle='professionnel').count()
     ecole_count = CustomUser.objects.filter(rôle='ecole').count()
     entreprise_count = CustomUser.objects.filter(rôle='entreprise').count()
     
@@ -434,7 +434,7 @@ def SuperAdmin(request):
         return (count / total_users_count * 100) if total_users_count > 0 else 0
 
     admin_percentage = calculate_percentage(admin_count)
-    personnel_percentage = calculate_percentage(personnel_count)
+    professionnel_percentage = calculate_percentage(professionnel_count)
     ecole_percentage = calculate_percentage(ecole_count)
     entreprise_percentage = calculate_percentage(entreprise_count)
 
@@ -461,8 +461,8 @@ def SuperAdmin(request):
         'traffic_count': traffic_count,
         'admin_count': admin_count,
         'admin_percentage': admin_percentage,
-        'personnel_count': personnel_count,
-        'personnel_percentage': personnel_percentage,
+        'professionnel_count': professionnel_count,
+        'professionnel_percentage': professionnel_percentage,
         'ecole_count': ecole_count,
         'ecole_percentage': ecole_percentage,
         'entreprise_count': entreprise_count,
@@ -488,17 +488,17 @@ def adminadmin(request):
     }
     return render(request, 'admins/details/admin.html', context)
 
-def adminpersonnel(request):
-    CustomUsers = CustomUser.objects.filter(rôle='personnel')
-    personnel_count = CustomUser.objects.filter(rôle='personnel').count()
+def adminprofessionnel(request):
+    CustomUsers = CustomUser.objects.filter(rôle='professionnel')
+    professionnel_count = CustomUser.objects.filter(rôle='professionnel').count()
     user = request.user
 
     context = {
         'CustomUsers': CustomUsers,
-        'personnel_count': personnel_count,
+        'professionnel_count': professionnel_count,
         'user': user
     }
-    return render(request, 'admins/details/personnel.html', context)
+    return render(request, 'admins/details/professionnel.html', context)
 
 def adminentreprise(request):
     CustomUsers = CustomUser.objects.filter(rôle='entreprise')
@@ -587,7 +587,7 @@ def delete_user(request, user_id):
     # Rediriger vers une page de confirmation ou la page d'accueil après suppression
     return redirect('SuperAdmin') 
 ''' =========== Formulaires ========= '''
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def create_post(request):
     if request.method == 'POST':
         contenu_post = request.POST.get('contenu_post')
@@ -626,7 +626,7 @@ def create_post(request):
     
     return render(request, 'formulaires/post.html')
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def create_job(request):
     if request.method == 'POST':
         contenu_job = request.POST.get('contenu_job')
@@ -795,7 +795,7 @@ def facture(request):
     return render(request, 'formulaires/facture.html', {'factures': factures, 'all_shared': all_shared})
 
 ''' =========== CV: Update profile, Create experience, Update experience, Create Formation, Update Formation ========= '''
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def a_propos(request):
     # Récupérer l'utilisateur actuel
     user = request.user
@@ -920,7 +920,7 @@ def update_cv_formation(request, formation_id):
     return render(request, 'formulaires/update/cv/update_formation.html', context)
 
 ''' =========== Les Updates ========= '''
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def update(request):
     user_role = request.user.rôle
 
@@ -967,8 +967,8 @@ def update(request):
         # Charger le modèle de mise à jour pour l'entreprise
         return render(request, 'formulaires/update/entreprise_statut.html')
     
-    elif user_role == 'personnel':
-        # Charger le modèle de mise à jour pour le personnel
+    elif user_role == 'professionnel':
+        # Charger le modèle de mise à jour pour le professionnel
         if request.method == 'POST':
             # Récupérer les données du formulaire POST
             pays = request.POST.get('pays')
@@ -1074,7 +1074,7 @@ def update(request):
     # Si aucun rôle correspondant n'est trouvé ou si la méthode de requête n'est pas POST
     return render(request, 'path_vers_votre_template_d_erreur.html')
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def update_profile(request):
     CustomUser = request.user
     if request.method == 'POST':
@@ -1100,7 +1100,7 @@ def update_profile(request):
     else:
         return render(request, 'formulaires/update/update_profile.html', {'CustomUser': CustomUser})
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def update_banner(request):
     CustomUser = request.user
     if request.method == 'POST':
@@ -1694,7 +1694,7 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(request, 'Details/post.html', {'post': post})
 
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def post_comments(request, post_id):
     
     if request.method == 'POST':
@@ -1713,7 +1713,7 @@ def post_comments(request, post_id):
     return render(request, 'Commentaire/comment_post.html', {'post': post, 'comments': comments})
 
 # ========== Les Réponses: Commentaires ===================
-@role_required(['admin','personnel', 'ecole', 'entreprise'])
+@role_required(['admin','professionnel', 'ecole', 'entreprise'])
 def comment_responses(request, comment_id):
     
     if request.method == 'POST':
@@ -1801,7 +1801,7 @@ def a_propos_detail(request, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)
     context = {'user': user}
     
-    if user.rôle == 'personnel':
+    if user.rôle == 'professionnel':
         template_name = 'profils/a_propos_public.html'
         context['profil'] = get_or_none(Profil, user=user)
         context['experience'] = get_or_none(Experience, user=user)
@@ -1848,7 +1848,7 @@ def settingNames(request):
             user_role = request.user.rôle
             if user_role == 'admin':
                 return redirect('Ad_profile')
-            elif user_role == 'personnel':
+            elif user_role == 'professionnel':
                 return redirect('Per_profile')
             elif user_role == 'ecole':
                 return redirect('Ec_profile')

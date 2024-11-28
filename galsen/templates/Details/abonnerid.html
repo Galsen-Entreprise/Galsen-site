@@ -39,7 +39,7 @@
                     <label for="id_rôle" class="primary"><i class="fa fa-briefcase"></i> Type </label>
                     <select  autocomplete="off" id="id_rôle" onchange="filterUsers()">
                         <option value="tout" selected="">Tout</option>
-                        <option value="personnel">Personnel(le)</option>
+                        <option value="professionnel">professionnel(le)</option>
                     
                         <option value="ecole">Ecole</option>
                     
@@ -64,7 +64,7 @@
                     {% endif %}
                     <div class="content">
                         <div class="name td">
-                            {% if abonne.rôle == "personnel" %}
+                            {% if abonne.rôle == "professionnel" %}
                                 {{ abonne.first_name }} {{ abonne.last_name }}
                             {% else %}
                                 {% if abonne.etablissement %}

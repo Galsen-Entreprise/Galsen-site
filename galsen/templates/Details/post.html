@@ -57,7 +57,7 @@
                     {% if post.user.profile_image and post.user.profile_image.url %}
                         <a href="{{ post.user.profile_image.url}}"  data-lightbox="mygallery" class="photo">
                             <img src="{{ post.user.profile_image.url}}" alt="">
-                            {% if post.user.rôle == "personnel" %}
+                            {% if post.user.rôle == "professionnel" %}
                                 <h2> {{ post.user.first_name }} {{ post.user.last_name }} 
                                     <p class="normal"> Posté le <i class="primary"> {{ post.date_creation_post|date:"d F Y à H:i" }} </i> </p>
                                 </h2>
@@ -70,7 +70,7 @@
                     {% else %}
                     <a href="{% static 'assets/default/user.png' %}"  data-lightbox="mygallery" class="photo">
                         <img src="{% static 'assets/default/user.png' %}">
-                        {% if post.user.rôle == "personnel" %}
+                        {% if post.user.rôle == "professionnel" %}
                             <h2> {{ post.user.first_name }} {{ post.user.last_name }} </h2>
                         {% else %}
                             <h2> <i class="fa fa-briefcase primary"></i> {{ post.user.etablissement }} <span>( {{ post.user.rôle|upper }} )</span> 

@@ -22,7 +22,7 @@
 
     <header>
         <div class="header-content">
-            {% if user.rôle == "personnel" %}
+            {% if user.rôle == "professionnel" %}
                     <h1>{{ user.username }}</h1>
                     <p>{{ user.metier }}</p> 
                 {% else %}
@@ -40,7 +40,7 @@
 
     <section class="experience">
         <div class="section-header">
-            {% if .user.rôle == "personnel" %}
+            {% if .user.rôle == "professionnel" %}
                     <h2>Expérience Professionnelle <a href="create_cv_experience" class="fa fa-plus">Ajouter</a></h2>
                 {% else %}
                 <h2>Expérience <a href="create_cv_experience" class="fa fa-plus">Ajouter</a></h2>
@@ -82,7 +82,7 @@
 
     {% endif %}
 
-    {% if user.rôle == "personnel" %}
+    {% if user.rôle == "professionnel" %}
         <section class="education">
             <div class="section-header">
                 <h2>Formation <a href="create_cv_formation" class="fa fa-plus">Ajouter</a></h2>

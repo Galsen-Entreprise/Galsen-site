@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
         ('no_autorised', 'Non autorisé(e)'),
     ]
     ROLES = [
-        ('personnel', 'Personnel(le)'),
+        ('professionnel', 'Professionnel(le)'),
         ('ecole', 'Ecole'),
         ('entreprise', 'Entreprise'),
     ]
@@ -71,7 +71,7 @@ class CustomUser(AbstractUser):
     youtube_link = models.URLField(null=True, blank=True)
     website_link = models.URLField(null=True, blank=True)
     langue = models.CharField(max_length=255, choices=LANGUE, default='français')
-    rôle = models.CharField(max_length=255, choices=ROLES, default='personnel')
+    rôle = models.CharField(max_length=255, choices=ROLES, default='professionnel')
     access = models.CharField(max_length=255, choices=ACCESS, default='no_autorised')
     genre = models.CharField(max_length=255, choices=GENRE, default='homme')
     situation_matrimoniale = models.CharField(max_length=20, choices=SITUATION_MATRIMONIALE, default='celibataire')

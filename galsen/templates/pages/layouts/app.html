@@ -60,10 +60,10 @@
                         </li>
 
                         <li class="nav_item">
-                            <a href="personnel" class="nav_link {% if url_name == 'personnel' %} active-link {% endif %}">
+                            <a href="professionnel" class="nav_link {% if url_name == 'professionnel' %} active-link {% endif %}">
                                 <label for="#" class="fa fa-users nav_icon"></label>
                                 <span class="nav_name"> 
-                                    <label for="#"> Personnels </label></span>
+                                    <label for="#"> Professionnel(le)s </label></span>
                             </a>
                         </li>
 
@@ -169,7 +169,7 @@
 
                         {% endif %}
 
-                        {% if request.user.rôle != 'personnel' %}
+                        {% if request.user.rôle != 'professionnel' %}
                             <a href="job" class="nab_link nabtop active">
                                 <img src="{% static 'assets/categories/emplois.png' %}" class="nab_icon">
                                 <span class="nab_name"> Poster un Offre </span>
@@ -198,7 +198,7 @@
                         </a>
 
 
-                        {% if request.user.rôle != 'personnel' and request.user.rôle != 'ecole' %}
+                        {% if request.user.rôle != 'professionnel' and request.user.rôle != 'ecole' %}
                             <a href="en_Gestion_Boutique" class="nab_link nabtop">
                                 <img src="{% static 'assets/categories/marketplace.png' %}" class="nab_icon">
                                 <span class="nab_name"> Votre Boutique </span>

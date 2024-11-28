@@ -20,9 +20,9 @@
         <!-- Deuxième tableau : Mes Abonnés -->
     <div class="table-container">
         <div class="header-table-bar">
-            <div class="table-header bg-primary">Les Personnels (<span class="danger">{{ personnel_count }} </span>)</div>
+            <div class="table-header bg-primary">Les Professionels (<span class="danger">{{ professionel_count }} </span>)</div>
             <div class="search-bar-container">
-                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un personnel..." onkeyup="filterUsers()">
+                <input type="text" class="search-bar" id="searchInput" placeholder="Rechercher un professionnel..." onkeyup="filterUsers()">
                 <div class="result-count" id="resultCount">0 résultats trouvés</div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
                     <label for="id_rôle" class="primary"><i class="fa fa-briefcase"></i> Type </label>
                     <select  autocomplete="off" id="id_rôle" onchange="filterUsers()">
                         <option value="tout" selected="">Tout</option>
-                        <option value="personnel">Personnel(le)</option>
+                        <option value="professionnel">professionnel(le)</option>
                     
                         <option value="ecole">Ecole</option>
                     
@@ -64,7 +64,7 @@
                     {% endif %}
                     <div class="content">
                         <div class="name td">
-                            {% if CustomUser.rôle == "personnel" %}
+                            {% if CustomUser.rôle == "professionnel" %}
                                 {{ CustomUser.first_name }} {{ CustomUser.last_name }}
                             {% else %}
                                 {% if CustomUser.etablissement %}
