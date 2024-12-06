@@ -3,94 +3,92 @@
 {% block app %}
 {% load static %}
 
-    <section class="center perturbateur">
-        
-        <section>
-            <form action="" class="search except">
-                <div class="form-group">
-                    <input type="search" name="professionnel" id="search-input" placeholder="Rechercher un professionel"/>
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            
-        </section>
-        
-        <section class="slider">
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner.png' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner3.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner4.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner5.jpg' %}">
-                </a>
-            </div>
-        
-            <div class="lines PageLines">
-                <div class="line_P" onclick="currentSlideP(1)"></div>
-        
-                <div class="line_P" onclick="currentSlideP(2)"></div>
-        
-                <div class="line_P" onclick="currentSlide(3)"></div>
-        
-                <div class="line_P" onclick="currentSlide(4)"></div>
-            </div>
-        </section>
-        
-        {% if query %}
-            <section class="posts">
-                <center><p>{{ result_count }} résultat(s) trouvé(s) pour "{{ query }}"</p></center> 
-            </section>
-        {% endif %}
+<!-- Search -->
+<header class="hero">
+    <form class="hero-content">
+        <h2>Découvrez les meilleurs dans leur domaine près de chez vous!</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher un professionnel...">
+            <button class="search-btn-search" type="submit">Rechercher</button>
+        </div>
+    </form>
+</header>
 
+<!-- Slider Section -->
+<section class="slider-section">
+    <div class="slider">
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+            <div class="slide-content">
+                <h3>Découvrez nos offres</h3>
+                <p>Les meilleurs prix près de chez vous</p>
+            </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+            <div class="slide-content">
+                <h3>Produits locaux</h3>
+                <p>Soutenez vos commerces de proximité</p>
+            </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+            <div class="slide-content">
+                <h3>Prix compétitifs</h3>
+                <p>Comparez et économisez</p>
+            </div>
+        </a>
+    </div>
+    <button class="slider-btn prev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="slider-btn next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+</section>
 
-        <div class="profil-grid">
+<!-- Main le contenu des données -->
+<main class="main-content">
+    <!-- Utilisateur(Professionnels, Ecoles, Entreprises...) -->
+    <section class="vendors-section">
+        <h2 class="section-title">Les Professionel(le)s</h2>
+        <div class="vendors-grid">
             {% for CustomUser in CustomUsers %}
-                <a href="{% url 'user_detail' user_id=CustomUser.id %}" class="profil-card">
-                    <div class="profil-image">
-                        {% if CustomUser.profile_image and CustomUser.profile_image.url %}
-                            <img src="{{ CustomUser.profile_image.url }}">
+                <a href="{% url 'user_detail' user_id=CustomUser.id %}" class="vendor-card">
+                    <div class="vendor-banner">
+                        {% if CustomUser.banner_image and CustomUser.banner_image.url %}
+                            <img src="{{ CustomUser.banner_image.url }}" class="banner-image">
                         {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
+                            <img src="{% static 'assets/default/user.png' %}" class="banner-image">
                         {% endif %}
                     </div>
-
-                    <div class="profil-detail">
-                        <h3 class="profil-name"> {{ CustomUser.first_name }} {{ CustomUser.last_name }} </h3>
-                        <h4 class="profil-address">
-                            <i class="fa fa-map-marker primary"></i>
-                            {{ CustomUser.pays }}, {{ CustomUser.ville }}, {{ CustomUser.quartier }}
-                            <br>
-                            <span>
-                                <i class="fa fa-clock-o primary"></i>
-                                Inscrit(e) le {{ CustomUser.date_joined|date:"d F Y à H:i" }}
-                            </span>
-                        </h4>
-      
-                        {% if CustomUser.metier %}
-                            <h2 class="type"> {{ CustomUser.metier }} </h2>
+                    <div class="vendor-profile">
+                        {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                            <img src="{{ CustomUser.profile_image.url }}" class="profile-image">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}" class="profile-image">
                         {% endif %}
+                        <div class="vendor-info">
+                            <h3 class="vendor-name">{{ CustomUser.first_name }} {{ CustomUser.last_name }}</h3>
+                            {% if CustomUser.metier %}
+                                <span class="vendor-badge vendor-badge-supermarket">{{ CustomUser.metier }}</span> 
+                            {% endif %}
+                            <br>
+                            <i>{{ CustomUser.pays }}, {{ CustomUser.ville }}, {{ CustomUser.quartier }}</i>
+                        </div>
+                    </div>
+                    <div class="vendor-time">
+                        <p>Inscrit(e) le {{ CustomUser.date_joined|date:"d F Y à H:i" }}</p>
                     </div>
                 </a>
             {% endfor %}
         </div>
-
-        {% include 'pages/common/sidebar.html' %}
     </section>
+
+</main>
+
 {% endblock %}

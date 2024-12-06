@@ -1,0 +1,250 @@
+:root {
+    --color-blue-light: #4952f2;
+    --color-blue: #4b7df2;
+    --color-blue-dark: #141c8c;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray: #666666;
+    --color-gray-light: #F5F5F5;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-black);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar Top */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    text-decoration: none;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo-sun {
+    color: var(--color-blue-dark);
+}
+
+.logo-price {
+    color: var(--color-blue);
+}
+
+.nav-link {
+    color: var(--color-gray);
+    text-decoration: none;
+    padding: 0.1rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-blue);
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--color-gray);
+    transition: color 0.3s ease;
+}
+
+.icon-btn:hover {
+    color: var(--color-blue);
+}
+
+/*===== Change background header (Changement du Background) =====*/
+.scroll-header
+{
+    box-shadow: 0 1px 1px var(--color-blue);
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.mobile-nav-links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0;
+}
+
+.mobile-nav-link {
+    display: grid;
+    color: var(--color-gray);
+    text-decoration: none;
+    font-size: 0.875rem;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    color: var(--color-blue);
+}
+
+.mobile-nav-links a:active:not(.plus) {
+    transform: scale(1.2);
+}
+
+.plus {
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    color: var(--color-gray);
+    background: var(--color-white);
+    border-radius: 25px;
+    margin-top: -42px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.plus .icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7px;
+    color: var(--color-blue);
+    font-size: 1.5rem;
+    pointer-events: none;
+}
+
+i.icone
+{
+    font-size: 15px;
+}
+
+span.menus
+{
+    font-size: 10px;
+}
+
+.active-link
+{
+    position: relative;
+    border-bottom: 4px solid var(--color-blue);
+    /* box-shadow: 0 0.2px 1px var(--color-blue); */
+    /* padding: .2rem; */
+    font-weight: bold;
+    /* width: 100%; */
+    color: var(--color-blue);
+    transition: .3s;
+}
+
+.active-link::before
+{
+    content: '';
+    position: absolute;
+    bottom: -.4rem;
+    left: 45%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-blue);
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .nav-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .menu-btn, .mobile-nav {
+        display: none;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 60px;
+        /* width: 110%; */
+    }
+
+    .nav-links, .nav-actions {
+        display: none;
+    }
+
+    .navbar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--color-white);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .menu-btn {
+        display: block;
+        background: transparent;
+        border-color: 1px solid #8C6E14;
+        border-radius: 5px;
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+    
+    .menu-btn {
+        display: block;
+        background: transparent;
+        border-color: 1px solid #8C6E14;
+        border-radius: 5px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 197px) {
+    .navbar
+    {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+}

@@ -3,93 +3,95 @@
 {% block app %}
 {% load static %}
 
-    <section class="center perturbateur">
-
-        <section>
-            <form class="search except">
-                <div class="form-group">
-                    <input type="search" name="ecole" id="search-input" placeholder="Rechercher une école"/>
-                    <button type="submit" class="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            
-        </section>
-        
-        <section class="slider">
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner.png' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner3.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner4.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner5.jpg' %}">
-                </a>
-            </div>
-        
-        
-            <div class="lines PageLines">
-                <div class="line_P" onclick="currentSlideP(1)"></div>
-        
-                <div class="line_P" onclick="currentSlideP(2)"></div>
-        
-                <div class="line_P" onclick="currentSlide(3)"></div>
-        
-                <div class="line_P" onclick="currentSlide(4)"></div>
-            </div>
-        </section>
-
-        <div class="puble">
-            {% include 'PUB/partenaire.html' %}
+<!-- Search -->
+<header class="hero">
+    <form class="hero-content">
+        <h2>Découvrez les meilleurs écoles près de chez vous!</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher une écoles...">
+            <button class="search-btn-search" type="submit">Rechercher</button>
         </div>
-        
-        {% if query %}
-                <section class="posts">
-                    <center><p>{{ result_count }} résultat(s) trouvé(s) pour "{{ query }}"</p></center> 
-                </section>
-        {% endif %}
+    </form>
+</header>
 
-            <div class="user-grid">
-                {% for CustomUsers in CustomUsers %}
-                    <a href="{% url 'user_detail' user_id=CustomUsers.id %}" class="user-card">
-                        {% if CustomUsers.profile_image and CustomUsers.profile_image.url %}
-                            <img src="{{ CustomUsers.profile_image.url }}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                        {% endif %}
-                        <p><i class="fa fa-map-marker primary"></i> {{ CustomUsers.pays }}, {{ CustomUsers.ville }}, {{ CustomUsers.quartier }}</p>
-                        
-                        {% if CustomUsers.etablissement %}
-                            <h4>
-                                <span><i class="fa fa-graduation-cap primary"></i></span>
-                                {{ CustomUsers.etablissement }} 
-                            </h4>
-                        {% endif %}
-                        <div>
-                            <div class="rating">
-                                <span><i class="fa fa-clock-o primary"></i></span>
-                                Inscrit(e) le {{ CustomUsers.date_joined|date:"d F Y à H:i" }}
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
+<!-- Slider Section -->
+<section class="slider-section">
+    <div class="slider">
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+            <div class="slide-content">
+                <h3>Découvrez nos offres</h3>
+                <p>Les meilleurs prix près de chez vous</p>
             </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+            <div class="slide-content">
+                <h3>Produits locaux</h3>
+                <p>Soutenez vos commerces de proximité</p>
+            </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+            <div class="slide-content">
+                <h3>Prix compétitifs</h3>
+                <p>Comparez et économisez</p>
+            </div>
+        </a>
+    </div>
+    <button class="slider-btn prev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="slider-btn next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+</section>
 
-        {% include 'pages/common/sidebar.html' %}
+<!-- Main le contenu des données -->
+<main class="main-content">
+    <!-- Utilisateur(Professionnels, Ecoles, Entreprises...) -->
+    <section class="vendors-section">
+        <h2 class="section-title">Les Ecoles</h2>
+        <div class="vendors-grid">
+            {% for CustomUser in CustomUsers %}
+                <a href="{% url 'user_detail' user_id=CustomUser.id %}" class="vendor-card">
+                    <div class="vendor-banner">
+                        {% if CustomUser.banner_image and CustomUser.banner_image.url %}
+                            <img src="{{ CustomUser.banner_image.url }}" class="banner-image">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                        {% endif %}
+                    </div>
+                    <div class="vendor-profile">
+                        {% if CustomUser.profile_image and CustomUser.profile_image.url %}
+                            <img src="{{ CustomUser.profile_image.url }}" class="profile-image">
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}" class="profile-image">
+                        {% endif %}
+                        <div class="vendor-info">
+                            {% if CustomUsers.etablissement %}
+                                <h3 class="vendor-name">{{ CustomUsers.etablissement }}</h3>
+                            {% endif %}
+
+                            {% if CustomUser.metier %}
+                                <span class="vendor-badge vendor-badge-boutique">{{ CustomUser.metier }}</span> 
+                            {% endif %}
+                            <br>
+                            <i>{{ CustomUser.pays }}, {{ CustomUser.ville }}, {{ CustomUser.quartier }}</i>
+                        </div>
+                    </div>
+                    <div class="vendor-time">
+                        <p>Inscrit(e) le {{ CustomUser.date_joined|date:"d F Y à H:i" }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
     </section>
+
+</main>
+
 {% endblock %}
