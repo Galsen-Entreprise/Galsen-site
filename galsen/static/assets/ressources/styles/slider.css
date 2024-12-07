@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     bottom: 2rem;
     left: 2rem;
-    color: var(--color-white);
+    color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 

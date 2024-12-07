@@ -107,12 +107,37 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
+        <h2> {{ user.first_name }} {{ user.last_name }} </h2>
+        {% if user.rôle != "professionnel" %}
+            <i>{{ user.etablissement }}</i>
+            {% else %}
+            <i>{{ user.metier }}</i>
+        {% endif %}
         <div class="sidebar-content">
-            <a href="/" class="sidebar-link">Accueil</a>
-            <a href="/supermarches" class="sidebar-link">Supermarchés</a>
-            <a href="/boutiques" class="sidebar-link">Boutiques</a>
-            <a href="/particuliers" class="sidebar-link">Particuliers</a>
-            <a href="/superettes" class="sidebar-link">Superettes</a>
+            {% if request.user.access != 'no_autorised' %}
+                <a href="login_admin" class="sidebar-link"> <i class="fa fa-user-secret"></i> <span> Admin </span> </a>
+            {% endif %}
+            <a href="post" class="sidebar-link"> <i class="fa fa-clipboard"></i> <span> Faire un Poste </span> </a>
+            {% if request.user.rôle != 'ecole' %}
+                <a href="create_annonce" class="sidebar-link"> <i class="fa fa-bullhorn"></i> <span> Faire une Annonce </span> </a>
+            {% endif %}
+            {% if request.user.rôle != 'professionnel' %}
+                <a href="job" class="sidebar-link"> <i class="fa fa-briefcase"></i> <span> Poster un Offre </span> </a>
+                <a href="postulant" class="sidebar-link"> <i class="fa fa-vcard"></i> <span> Les Postulants </span> </a>
+            {% endif %}
+            <a href="vos_postule" class="sidebar-link"> <i class="fa fa-vcard-o"></i> <span> Vos Postules </span> </a>
+            <a href="vos_commande" class="sidebar-link"> <i class="fa fa-shopping-basket"></i> <span> Vos Commandes </span> </a>
+            <a href="amis" class="sidebar-link"> <i class="fa fa-users"></i> <span> Vos Amis </span> </a>
+            {% if request.user.rôle != 'professionnel' and request.user.rôle != 'ecole' %}
+                <a href="en_Gestion_Boutique" class="sidebar-link"> <i class="fa fa-shopping-cart"></i> <span> Votre Boutique </span> </a>
+            {% endif %}
+            <a href="facture" class="sidebar-link"> <i class="fa fa-file-text"></i> <span> Votre Facture </span> </a>
+            <a href="{% url 'logout' %}" class="sidebar-link"> <i class="fa fa-sign-out"></i> <span> Déconnecter </span> </a>
+
+            <div class="theme-btn" id="theme-button">
+                <span class="fa fa-sun-o"></span>
+                <span class="fa fa-moon-o active"></span>
+            </div>
         </div>
     </div>
 

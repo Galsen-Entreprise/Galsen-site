@@ -3,139 +3,93 @@
 {% block app %}
 {% load static %}
 
-    <section class="center perturbateur">
+<!-- Slider Section -->
+<section class="slider-section">
+    <div class="slider">
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+            <div class="slide-content">
+                <h3>Découvrez nos offres</h3>
+                <p>Les meilleurs prix près de chez vous</p>
+            </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+            <div class="slide-content">
+                <h3>Produits locaux</h3>
+                <p>Soutenez vos commerces de proximité</p>
+            </div>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+            <div class="slide-content">
+                <h3>Prix compétitifs</h3>
+                <p>Comparez et économisez</p>
+            </div>
+        </a>
+    </div>
+    <button class="slider-btn prev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="slider-btn next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+</section>
 
-        <section>
-            <form action="" class="search except">
-                <div class="form-group">
-                    <input type="search" name="job" id="search-input" placeholder="Rechercher une offre"/>
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            
-        </section>
-        
-        <section class="slider pubPolitique">
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner.png' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner3.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner4.jpeg' %}">
-                </a>
-            </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner5.jpg' %}">
-                </a>
-            </div>
-        
-            <div class="lines PageLines">
-                <div class="line_P" onclick="currentSlideP(1)"></div>
-        
-                <div class="line_P" onclick="currentSlideP(2)"></div>
-        
-                <div class="line_P" onclick="currentSlide(3)"></div>
-        
-                <div class="line_P" onclick="currentSlide(4)"></div>
-            </div>
-        </section>
-
-        <div class="puble">
-            {% include 'PUB/partenaire.html' %}
+<!-- Search -->
+<header class="hero">
+    <form class="hero-content">
+        <h2>Découvrez les meilleurs offres près de chez vous!</h2>
+        <div class="search-bar">
+            <input type="search" name="job" id="search-input" placeholder="Rechercher une offre...">
+            <button class="search-btn-search" type="submit">Rechercher</button>
         </div>
+    </form>
+</header>
 
-        <section class="emplois">
+<!-- Main le contenu des données -->
+<main class="main-content">
+
+    <!-- Annonces -->
+    <section class="vendors-section">
+        <h2 class="section-title">Les Offres</h2>
+        <div class="vendors-grid">
             {% for job in jobs %}
-                <div class="card-job">
-                    <div  class="job-profil">
-                        {% if job.user.banner_image and job.user.banner_image.url %}
-                                <img src="{{ job.user.banner_image.url }}">
+                <a href="{% url 'job_detail' job_id=job.id %}" class="vendor-card">
+                    <div class="vendor-banner">
+                        {% if job.image and job.image.url %}
+                            <img src="{{ job.image.url }}" class="banner-image">
                             {% else %}
-                                <img src="{% static 'assets/default/user.png' %}">
+                                <img src="{% static 'assets/default/user.png' %}" class="banner-image">
                         {% endif %}
                     </div>
-
-                    <div class="job-content">
-                        <div class="job-infos-date">
-                            <h4>
-                                <span> <i class="fa fa-calendar primary"></i> {{ job.date_creation_post|date:"d F Y à H:i" }} </span>
-                                <span> <i class="fa fa-user primary"></i>  ({{ job.user.rôle|upper }}), 
-                                    {% if job.user.etablissement %} {{ job.user.etablissement }} {% endif %} </span>
-                                <span> <i class="fa fa-envelope primary"></i> {{ job.user.email }} </span>
-                                <span> <i class="fa fa-phone primary"></i> +{{ job.user.indicatif_pays }} {{ job.user.number_phone }} </span>
-                            </h4>
-                        </div>
-                        <div class="job-title">
-                            <h1>
-                                {{ job.title|safe }}
-                            </h1>
-                        </div>
-                        <div class="job-description">
-                            <p>
-                                {{ job.contenu_job|safe|truncatewords_html:10 }}
-
-                            </p>
-                        </div>
-                        <div class="job-buttons">
-                            <a href="{% url 'job_detail' job_id=job.id %}"> Plus de détails </a>
-                            <form id="postule-form-{{ job.pk }}" method="job" action="{% url 'postule' job.pk %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="next" value="{{ request.path }}">
-                                <button class="postuler" type="submit">
-                                    {% if request.user in job.postule_job.all %}
-                                        Ne plus postuler
-                                    {% else %}
-                                        Postuler
-                                    {% endif %}
-                                    <b class="number-like danger">{{ job.postule_job.count }}</b>
-                                </button>
-                            </form>
-                            <button onclick="openPopup('{{ job.id }}')"> <i class="fa fa-share-alt"></i> </button>
-                        </div>
+                    <div class="vendor-auteur">
+                        {% if job.user.profil_immage and job.user.profil_immage.url %}
+                            <img src="{{ job.user.profil_immage.url }}">
+                            {% else %}
+                                <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                        {% endif %}
+                        <h3>
+                            {% if job.user.etablissement %} {{ job.user.etablissement }} {% endif %}
+                        </h3>
                     </div>
-                </div>
-
-                {% for job in jobs %}
-                        <section class="popup popup-{{ job.id }}">
-                            <div class="content-popup">
-                                <span class="close" onclick="closePopup('{{ job.id }}')">&times;</span>
-                        
-                                <h2>Partager sur:</h2>
-
-                                <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
-                        
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
-                        
-                                <a href="https://t.me/share/url={% url 'job_detail' job_id=job.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
-
-                                <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'job_detail' job_id=job.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
-
-                                <a href="https://www.pinterest.com/pin/create/button/?url={% url 'job_detail' job_id=job.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
-
-                        
-                                <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
-                        
-                            </div>
-                        
-                        </section>
-                    {% endfor %}
-
+                    <div class="vendor-contenu">
+                        <p>
+                            {{ job.contenu_job|safe|truncatewords_html:10 }}
+                        </p>
+                    </div>
+                    <div class="search-btn service-btn">
+                        <p>{{ job.title|safe }}</p>
+                    </div>
+                </a>
             {% endfor %}
-        </section>
-
-        {% include 'pages/common/sidebar.html' %}
+        </div>
     </section>
+
+</main>
+
 {% endblock %}

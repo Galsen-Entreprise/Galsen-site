@@ -3,103 +3,93 @@
 {% block app %}
 {% load static %}
 
-    <section class="center perturbateur">
-        <section>
-            <form action="" class="search except">
-                <div class="form-group">
-                    <input type="search" name="job" id="search-input" placeholder="Rechercher une annonce"/>
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            
-        </section>
-        
-        <section class="slider pubPolitique">
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner.png' %}">
-                </a>
+<!-- Slider Section -->
+<section class="slider-section">
+    <div class="slider">
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+            <div class="slide-content">
+                <h3>Découvrez nos offres</h3>
+                <p>Les meilleurs prix près de chez vous</p>
             </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner3.jpeg' %}">
-                </a>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+            <div class="slide-content">
+                <h3>Produits locaux</h3>
+                <p>Soutenez vos commerces de proximité</p>
             </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner4.jpeg' %}">
-                </a>
+        </a>
+        <a href="#" class="slide">
+            <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+            <div class="slide-content">
+                <h3>Prix compétitifs</h3>
+                <p>Comparez et économisez</p>
             </div>
-        
-            <div class="sliderP">
-                <a href="#">
-                    <img src="{% static 'assets/default/banner5.jpg' %}">
-                </a>
-            </div>
-        
-            <div class="lines PageLines">
-                <div class="line_P" onclick="currentSlideP(1)"></div>
-        
-                <div class="line_P" onclick="currentSlideP(2)"></div>
-        
-                <div class="line_P" onclick="currentSlide(3)"></div>
-        
-                <div class="line_P" onclick="currentSlide(4)"></div>
-            </div>
-        </section>
+        </a>
+    </div>
+    <button class="slider-btn prev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+    <button class="slider-btn next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+</section>
 
-        <div class="puble">
-            {% include 'PUB/partenaire.html' %}
+<!-- Search -->
+<header class="hero">
+    <form class="hero-content">
+        <h2>Découvrez les meilleurs annonces près de chez vous!</h2>
+        <div class="search-bar">
+            <input type="search" name="job" id="search-input" placeholder="Rechercher un produit...">
+            <button class="search-btn-search" type="submit">Rechercher</button>
         </div>
+    </form>
+</header>
 
-        <section class="annonces">
+<!-- Main le contenu des données -->
+<main class="main-content">
+
+    <!-- Annonces -->
+    <section class="vendors-section">
+        <h2 class="section-title">Les Annonces</h2>
+        <div class="vendors-grid">
             {% for annonce in annonces %}
-                <a href="{% url 'annonce_detail' annonce_id=annonce.id %}" class="annonce-card">
-                    {% if annonce.image and annonce.image.url %}
-                            <img src="{{ annonce.image.url }}">
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                    {% endif %}
-
-                    <div class="content">
-                        <div class="profil">
-                            {% if annonce.user.profile_image and annonce.user.profile_image.url %}
-                                <img src="{{ annonce.user.profile_image.url }}">
-                                {% else %}
-                                    <img src="{% static 'assets/default/user.png' %}">
-                            {% endif %}
-                            <h2>{{ annonce.user.first_name }} {{ annonce.user.last_name }}</h2>
-                            <span>{{ annonce.user.rôle|upper }}</span>
-                        </div>
-
-                        <div class="description">
-                            <p>
-                                {{ annonce.contenu_text|safe|truncatewords_html:10 }}
-                            </p>
-                        </div>
-
-                        <div class="impression">
-                            <h2> <i class="fa fa-star primary"></i> 90.5% <span>(236)</span></h2>
-                        </div>
-
-                        <div class="from">
-                            <h1>Du {{ annonce.user.pays }}, <span>{{ annonce.prix }} FCFA </span></h1>
-                        </div>
-
-                        <div class="service">
-                            <i class="fa fa-briefcase"></i>
-                            <h4>{{ annonce.service }}</h4>
-                        </div>
+                <a href="{% url 'annonce_detail' annonce_id=annonce.id %}" class="vendor-card">
+                    <div class="vendor-banner">
+                        {% if annonce.image and annonce.image.url %}
+                            <img src="{{ annonce.image.url }}" class="banner-image">
+                            {% else %}
+                                <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                        {% endif %}
+                    </div>
+                    <div class="vendor-auteur">
+                        {% if annonce.user.profil_immage and annonce.user.profil_immage.url %}
+                            <img src="{{ annonce.user.profil_immage.url }}">
+                            {% else %}
+                                <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                        {% endif %}
+                        <h3>
+                            {{ annonce.user.first_name }} {{ annonce.user.last_name }}
+                        </h3>
+                    </div>
+                    <div class="vendor-contenu">
+                        <p>
+                            {{ annonce.contenu_text|safe|truncatewords_html:10 }}
+                        </p>
+                    </div>
+                    <div class="search-btn service-btn">
+                        <p>{{ annonce.service }}</p>
                     </div>
                 </a>
             {% endfor %}
-        </section>
-
-
-        {% include 'pages/common/sidebar.html' %}
+        </div>
     </section>
+
+</main>
+
 {% endblock %}

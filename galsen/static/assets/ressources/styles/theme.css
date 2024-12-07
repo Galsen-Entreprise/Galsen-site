@@ -2,9 +2,10 @@
 
 body.dark-theme 
 {
-    --title-color: #edeffd;
-    --text-color: #b8b8c7;
-    --body-color: rgb(24, 26, 30);
-    --container-color: #171726;
-    --clr-light: rgba(0, 0, 0, 0.4);
+    /* Couleurs principales ultra douces - proche du clair */
+    --color-white:  #1e1e1e;
+    --color-black: #FFFFFF;
+    --color-gray-light: #616161;
+    --background-color: #050505d4;
 }
+

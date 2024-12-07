@@ -358,55 +358,33 @@ def boutique(request):
     # Récupérer l'utilisateur connecté
     user = request.user
 
-    # Récupérer les IDs des produits déjà commandés
-    produits_commandes = Commande.objects.filter(user=user).exclude(product__isnull=True).values_list('product', flat=True)
-
-    # Filtrer les produits disponibles (non commandés)
-    produits_disponibles = Product.objects.exclude(id__in=produits_commandes)
+    # Récupérer tous les produits disponibles
+    produits_disponibles = Product.objects.all()
 
     # Gestion de la recherche
-    nom_produit = request.GET.get('boutique')
-    if nom_produit:
-        produits_recherches = produits_disponibles.filter(
-            nom_produit__icontains=nom_produit
+    recherche = request.GET.get('boutique')
+    if recherche:
+        # Nettoyage de la recherche (sans majuscules, sans accents)
+        recherche = recherche.lower()
+
+        # Construire une requête insensible aux accents et majuscules
+        produits = produits_disponibles.filter(
+            Q(nom_produit__icontains=recherche) |
+            Q(category__icontains=recherche)
         )
-        context = {
-            'user': user,
-            'produits_recherches': produits_recherches,
-            'recherche_active': True,
-        }
-        return render(request, 'pages/boutique.html', context)
+    else:
+        # Si aucune recherche n'est active, afficher tous les produits
+        produits = produits_disponibles
 
-    # Limiter les produits à 4 par catégorie
-    categories = [
-        ('electronics', 'electronics'),
-        ('fashion', 'fashion'),
-        ('home_garden', 'produits_maison_jardin'),
-        ('beauty_health', 'beauty_health'),
-        ('food_drink', 'food_drink'),
-        ('sports_leisure', 'sports_leisure'),
-        ('books_media', 'books_media'),
-        ('toys_kids', 'toys_kids'),
-        ('automotive_tools', 'automotive_tools'),
-        ('pets', 'pets'),
-        ('services', 'services'),
-        ('special_offers', 'special_offers'),
-    ]
-
-    # Générer les produits par catégorie
-    context_categories = {
-        category_context: produits_disponibles.filter(category=category_key)[:4]
-        for category_key, category_context in categories
-    }
-
-    # Ajouter les informations au contexte global
+    # Contexte pour le template
     context = {
         'user': user,
-        'recherche_active': False,
+        'produits': produits,
+        'recherche_active': bool(recherche),
     }
-    context.update(context_categories)
 
     return render(request, 'pages/boutique.html', context)
+
 
 
 ''' =========== Section Admin ========= '''

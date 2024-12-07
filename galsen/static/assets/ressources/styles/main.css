@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 .subscribe-user .button-follow
 {
     background: var(--color-blue);
-    color: var(--color-white);
+    color: #fff;
     border: none;
     padding: 0.55rem 1.5rem;
     border-radius: 0.5rem;
@@ -260,17 +260,17 @@ h1, h2, h3, h4, h5, h6 {
     width: 30%;
     height: 30px;
     border-radius: 10px;
-    color: var(--color-gray);
-    box-shadow: 0 0 0.01rem var(--color-gray);
+    color: var(--color-black);
     cursor: pointer;
 }
 
 button.button-like
 {
-    height: 40px;
+    width: 100%;
+    height: 35px;
     background: var(--color-blue-light);
     box-shadow: var(--shadow-md);
-    color: var(--color-white);
+    color: #fff;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -703,6 +703,18 @@ button.button-like
     margin-top: -2rem;
 }
 
+.vendor-contenu
+{
+    text-align: center;
+    margin-top: 60px;
+    margin-left: 5px;
+}
+
+.vendor-contenu p
+{
+    color: var(--color-black);
+}
+
 .profile-image {
     margin-top: -38px;
     width: 80px;
@@ -722,6 +734,32 @@ button.button-like
     font-weight: 600;
     color: var(--color-black);
     margin-bottom: 0.5rem;
+}
+
+.vendor-auteur
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vendor-auteur h3
+{
+    position: absolute;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-top: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.vendor-auteur img
+{
+    position: absolute;
+    margin-top: -15px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 
 .vendor-info i
@@ -802,7 +840,7 @@ button.button-like
     text-decoration: none;
     width: 100%;
     background: var(--color-blue);
-    color: var(--color-white);
+    color: #fff;
     border: none;
     padding: 0.55rem 1.5rem;
     border-radius: 0.5rem;
