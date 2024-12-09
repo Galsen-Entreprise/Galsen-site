@@ -102,11 +102,11 @@ class CustomUser(AbstractUser):
         return total_likes
     
     def get_amis(self):
-        """Retourne une liste fusionnée des abonnements et abonnés."""
+        """Retourne une liste fusionnée des abonnements et abonnés sans doublons."""
         following = self.get_following()  # Les utilisateurs que je suis
         followers = self.get_followers()  # Les utilisateurs qui me suivent
         amis = chain(following, followers)  # Fusionne les deux listes
-        return set(amis)  # Élimine les doublons
+        return list(set(amis))  # Élimine les doublons et convertit en liste
     
     def amis_en_commun(self, autre_utilisateur):
         """

@@ -1,0 +1,263 @@
+:root {
+    --color-blue-light: #4952f2;
+    --color-blue: #4b7df2;
+    --color-blue-dark: #141c8c;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray: #666666;
+    --color-gray-light: #F5F5F5;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-black);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.img-banner
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 5rem;
+}
+
+.profil-btn
+{
+    top: 46px;
+    position: absolute;
+    right: -132px;
+}
+
+.banner-profil, .banner-profil a img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-profil
+{
+    position: absolute;
+    top: 349px;
+    margin-left: 90px;
+}
+
+.photo-profil
+{
+    display: flex;
+}
+
+.photo-profil a img
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid var(--color-white);
+}
+
+.photo-profil .name
+{
+    margin-top: 46px;
+}
+
+.photo-profil .name .email
+{
+    color: var(--color-blue);
+}
+
+.status
+{
+    width: 100%;
+    display: flex;
+}
+
+.status-content
+{
+    width: 60%;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+
+.status-link
+{
+    display: block;
+    padding: 0.75rem 0;
+    color: var(--color-black);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid var(--color-gray-light);
+}
+
+.status-link i
+{
+    color: var(--color-blue);
+    width: 50px;
+    font-size: 20px;
+}
+
+
+
+.side-content
+{
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.side-content h5
+{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.side-edit .status-link:hover i
+{
+    color: #fff;
+}
+
+.side-edit .status-link:hover
+{
+    background-color: var(--color-blue);
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.side-edit-btn
+{
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.sidebar .side-content
+{
+    box-shadow: none;
+}
+
+.common-freind
+{
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .img-profils 
+    {
+        height: 300px;
+    }
+
+    .img-profil
+    {
+        top: 355px;
+        margin-left: 0;
+    }
+
+    .photo-profil .name
+    {
+        margin-top: 43px;
+    }
+
+    .photo-profil .name .email
+    {
+        display: none;
+    }
+
+    .status-content
+    {
+        width: 93%;
+        margin-left: 10px;
+    }
+
+    .common-freind
+    {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 10px;
+        overflow: hidden;
+    }
+
+    .title-freind h2
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .title-freind h2 span a
+    {
+        text-decoration: none;
+        color: var(--color-blue);
+        font-size: 15px;
+    }
+
+    .title-freind i
+    {
+        color: var(--color-gray);
+    }
+
+    .title-freind .number-followers
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    .title-freind .number-followers a
+    {
+        color: var(--color-gray);
+        text-decoration: none;
+    }
+
+    .freind-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 3fr));
+        gap: 1rem;
+    }
+
+    .freind-grid a
+    {
+        text-decoration: none;
+        color: var(--color-black);
+    }
+
+    .freind-grid a img
+    {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+    }
+
+    .freind-grid a h3
+    {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .freind-grid
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
+        gap: 1rem;
+    }
+}

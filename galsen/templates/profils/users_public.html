@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Galsen </title>
+    <title>GALSEN</title>
 
     <link type="images/jpg" rel="icon" href="{% static 'assets/logo/sunprice.png' %}">
 
@@ -13,210 +13,185 @@
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profil.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profils.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
 
 </head>
 <body>
 
-    <div class="profile-container">
-        <!-- Profile Banner -->
-        <div class="banner">
+
+    <section class="img-banner">
+        <div class="banner-profil">
             {% if profile_user.banner_image and profile_user.banner_image.url %}
                 <a href="{{ profile_user.banner_image.url }}" data-lightbox="mygallery">
                     <img src="{{ profile_user.banner_image.url }}">
                 </a>
                 {% else %}
-                    <img src="{% static 'assets/default/user.png' %}">
+                    <a>
+                        <img src="{% static 'assets/default/user.png' %}">
+                    </a>
             {% endif %}
         </div>
-    
-        <!-- Profile Section -->
-        <div class="profile-section">
-          <div class="profile-pic">
-                {% if profile_user.profile_image and profile_user.profile_image.url %}
-                    <a href="{{ profile_user.profile_image.url }}" data-lightbox="mygallery">
-                        <img src="{{ profile_user.profile_image.url }}">
-                    </a>
-                    {% else %}
-                        <img src="{% static 'assets/default/user.png' %}">
-                {% endif %}
-          </div>
+    </section>
 
-          <div class="profile-info">
-            <h1>
-                {% if profile_user.rôle == "professionnel" %}
-                    {{ profile_user.first_name }} {{ profile_user.last_name }}
+    <section class="img-profil">
+        <div class="photo-profil">
+            {% if profile_user.profile_image and profile_user.profile_image.url %}
+                <a href="{{ profile_user.profile_image.url }}" data-lightbox="mygallery">
+                    <img src="{{ profile_user.profile_image.url }}">
+                </a>
                 {% else %}
-                    {% if profile_user.etablissement %}  {{ profile_user.etablissement }} {% endif %}
-                {% endif %}
-            </h1>
-            <p>{{ profile_user.email }}</p>
-          </div>
-        </div>
-    
-        <!-- Navigation Links -->
-        <div class="profile-nav">
-          <ul>
-            <li><a href="{% url 'abonnementId' abonnementId=profile_user.id %}"><span class="tempo">{{ profile_user.following_users.count }}</span>Abonnements</a></li>
-            <li><a href="{% url 'abonnerId' abonnerId=profile_user.id %}"><span class="tempo">{{ profile_user.followers.count }}</span>Abonnés</a></li>
-            <li><a href="#"><span class="tempo">{{ profile_user.total_likes_received }}</span>Aimes</a></li>
-          </ul>
-        </div>
-    
-        <!-- Profile Content -->
-        <div class="profile-content">
-            <div class="buttons-1">
-                <form id="subscribe-form-{{ profile_user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=profile_user.id %}" method="post">
-                    {% csrf_token %}
-                    {% if user.is_authenticated and user != profile_user %}
-                        <button type="submit" class="button" data-user-id="{{ profile_user.id }}">
-                            {% if request.user in profile_user.followers.all %}
-                            <i class="fa fa-check"></i> Suivi
-                            {% else %}
-                            <i class="fa fa-user-plus"></i> Suivre
-                            {% endif %}
-                        </button>
-                    {% endif %}
-                </form>
-                <a href="{% url 'a_propos_detail' user_id=profile_user.id %}" class="button"> <i class="fa fa-list-alt"></i> A Propos </a>
-            </div>
-
-            <ul class="status">
-                <li>
-                    {% if profile_user.genre == "homme" %}
-                        <i class="fa fa-male primary"></i>
-                        <p>Je suis un
-                            <span>{{ profile_user.genre }}</span> 
-                        </p>
-                    {% elif profile_user.genre == "femme" %}
-                        <i class="fa fa-female primary"></i>
-                        <p>Je suis une
-                            <span>{{ profile_user.genre }}</span> 
-                        </p>
-                    {% else %}
-                        <p>Genre non spécifié</p>
-                    {% endif %}
-                </li>
-
-                <li>
-                    <i class="fa fa-home primary"></i>
-                    <p>J'habites au(x) 
-                        <span>{{ profile_user.pays }}</span> dans la ville de 
-                        <span>{{ profile_user.ville }}</span> au quartier 
-                        <span>{{ profile_user.quartier }}</span> 
-                     </p>
-                </li>
-
-                <li>
-                    <i class="fa fa-transgender primary"></i>
-                    <p>Je suis 
-                        <span>{{ profile_user.situation_matrimoniale }}</span> 
-                     </p>
-                </li>
-
-                {% if profile_user.metier %}
-                    {% if profile_user.rôle == "professionnel" %}
-                            <li>
-                                <i class="fa fa-briefcase primary"></i>
-                                <p>J'ai comme métier:
-                                    <span>{{ profile_user.metier }}</span> 
-                                </p>
-                            </li>
-                        {% else %}
-
-                    {% endif %}
-                {% endif %}
-
-                {% if profile_user.number_phone %}
-                    <li>
-                        <a href="tel:+{{ profile_user.indicatif_pays }}{{ profile_user.number_phone }}">
-                            <i class="fa fa-phone primary"></i>
-                            <p>Mon numéro de téléphone est: 
-                                <span>+{{ profile_user.indicatif_pays }} {{ profile_user.number_phone }}</span> 
-                            </p>
-                        </a>
-                    </li>
-                {% endif %}
-
-                {% if profile_user.number_whatsapp %}
-                    <li>
-                        <a href="https://wa.me/+{{ profile_user.indicatif_pays }}{{ profile_user.number_whatsapp }}">
-                            <i class="fa fa-whatsapp primary"></i>
-                            <p>Mon numéro whatsapp est: 
-                                <span>+{{ profile_user.indicatif_pays }} {{ profile_user.number_whatsapp }}</span> 
-                            </p>
-                        </a>
-                    </li>
-                {% endif %}
-
-                <li>
-                    <a href="mailto:{{ profile_user.email }}">
-                        <i class="fa fa-envelope primary"></i>
-                        <p>Et mon email est: 
-                            <span>{{ profile_user.email }}</span> 
-                        </p>
+                    <a>
+                        <img src="{% static 'assets/default/user.png' %}">
                     </a>
-                </li>
-            </ul>
+            {% endif %}
+            <div class="name">
+                <h3>
+                    {% if profile_user.rôle == "professionnel" %}
+                        {{ profile_user.first_name }} {{ profile_user.last_name }}
+                    {% else %}
+                        {% if profile_user.etablissement %}  {{ profile_user.etablissement }} {% endif %}({{ profile_user.rôle }})
+                    {% endif %}
+                </h3>
+                <i>PDG {{ profile_user.first_name }} {{ profile_user.last_name }},</i>
+                <i class="email">{{ profile_user.email }}</i>
+            </div>
+        </div>
+    </section>
 
+    <!-- Status -->
+    <section class="status">
+        <div class="status-content">
+            <h2>Votre statuts</h2>
+            <a class="status-link"> 
+                {% if profile_user.genre == "homme" %}
+                    <i class="fa fa-male"></i>
+                    <span> Je suis un {{ profile_user.genre }}, </span>
+                    {% elif profile_user.genre == "femme" %}
+                        <i class="fa fa-female"></i> 
+                        <span> Je suis un {{ profile_user.genre }}, </span>
+                    {% else %}
+                    <p>Genre non spécifié</p>
+                {% endif %}
+            </a>
+            <a class="status-link"> <i class="fa fa-home"></i><span> je réside à {{ profile_user.quartier }}, {{ profile_user.pays }}, {{ profile_user.ville }}. </span> </a>
+            <a class="status-link"> <i class="fa fa-heartbeat"></i><span> Je suis {{ profile_user.situation_matrimoniale }} </span> </a>
+            {% if profile_user.rôle == "professionnel" %}
+                <a class="status-link"> <i class="fa fa-briefcase"></i><span> et j'ai comme métier {{ profile_user.metier }}. </span> </a>
+            {% endif %}
+            <a href="tel:+{{ profile_user.indicatif_pays }}{{ profile_user.number_phone }}" class="status-link"> <i class="fa fa-phone"></i><span> Téléphone: +{{ profile_user.indicatif_pays }} {{ profile_user.number_phone }}, </span> </a>
+            <a href="https://wa.me/+{{ profile_user.indicatif_pays }}{{ profile_user.number_whatsapp }}" class="status-link"> <i class="fa fa-whatsapp"></i><span> et whatsapp: +{{ profile_user.indicatif_pays }} {{ profile_user.number_whatsapp }}. </span> </a>
+            <a href="mailto:{{ profile_user.email }}" class="status-link"> <i class="fa fa-envelope"></i><span> Email: {{ profile_user.email }} </span> </a>
+
+            <a href="a_propos" class="search-btn">A propos de vous</a>
+        </div>
+
+        <div class="side-section">
+            <div class="side-wrapper">
+                <div class="side-content">
+                    <div class="event">
+                        <h3 class="heading">Annonces <a href="#">Tout voire</a></h3>
+                        <img src="{% static 'assets/default/image1.jpeg' %}" alt="event-img">
+                        <div class="event-date">
+                            <h3>21 <b>july</b> 2024</h3>
+                            <h4>United state of America <span>New York City</span> <span>Entreprise</span> </h4>
+                        </div>
+                        <button><i class="fa fa-star"></i> Suis Interssé(e) </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Freinds -->
+    <section class="common-freind">
+        <div class="title-freind">
+            <h2> {{ total_amis }} ami{% if total_amis > 1 %}s{% endif %}  <span><a href="#"> Voir Tout </a></span></h2>
+            {% if amis_en_commun > 0 %}
+                <i>{{ amis_en_commun }} ami{% if amis_en_commun > 1 %}s{% endif %} en commun</i>
+            {% else %}
+                <p>Pas d'amis en commun.</p>
+            {% endif %}
+
+            <div class="list-friend">
+                <div class="freind-grid">
+                    {% for ami in amis %}
+                            <a href="{% url 'user_detail' user_id=ami.id %}">
+                                {% if ami.profile_image and ami.profile_image.url %}
+                                    <img src="{{ ami.profile_image.url }}">
+                                {% else %}
+                                    <img src="{% static 'assets/default/user.png' %}">
+                                {% endif %}
+
+                                {% if ami.rôle == "personnel" %}
+                                    <h3>{{ ami.first_name }} {{ ami.last_name }}</h3>
+                                {% else %}
+                                    {% if ami.etablissement %}
+                                        <h3>{{ ami.etablissement }}</h3>
+                                    {% endif %}
+                                {% endif %}
+                            </a>
+                            {% empty %}
+                        <p>Cet utilisateur n'a pas encore d'amis.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Main le contenu des données -->
+    <main class="main-content section-post">
+        <!-- Section Post -->
+        <section class="post-section">
             {% if posts %}
                 {% for post in posts %}
-                    <div class="post-card post-card-user">
-                        <div class="top-post">
-                            <div class="infos-users">
+                    <article class="post-card">
+                        <div class="auteur-post">
+                            <div class="infos-user">
                                 <a href="#">
-                                    <div class="image">
+                                    <div class="photo-profil">
                                         {% if post.user.profile_image and post.user.profile_image.url %}
-                                            <img src="{{ post.user.profile_image.url}}" class="enligne">
-                                        {% else %}
-                                            <img src="{% static 'assets/default/user.png' %}" class="enligne">
-                                        {% endif %}
-                                    </div>
-                                    <div class="details">
-                                        <div class="name">
-                                            {% if post.user.rôle == "professionnel" %}
-                                                <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
+                                                <img src="{{ post.user.profile_image.url}}">
                                             {% else %}
-                                                <h3> <i class="fa fa-briefcase primary"></i> {% if post.user.etablissement %} {{ post.user.etablissement }} {% endif %}
-                                                    <span class="danger">
-                                                        ({{ post.user.rôle|upper }})
-                                                    </span> 
-                                                </h3>
-                                            {% endif %}
-                                        </div>
-                                        <div class="user_localhome">
-                                            <span>
-                                                {% if post.user.quartier and post.user.ville and post.user.pays %} 
-                                                    <b><i class="fa fa-map-marker primary"></i> {{ post.user.quartier }}  - {{ post.user.ville }}  - {{ post.user.pays }} </b>
-                                                {% endif %}
-                                            </span>
-                                        </div>
-                                        <div class="time_post">
-                                            <span class="fa fa-clock-o"><i class="primary">Posté le {{ post.date_creation_post|date:"d F Y à H:i" }}
-                                                </i></span>
-                                            &nbsp;
-                                        </div>
-                                    </div>
-                                </a> 
-                            </div>
-                            <form id="subscribe-form-{{ post.user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=post.user.id %}" method="post">
-                                {% csrf_token %}
-                                {% if user.is_authenticated and user != post.user %}
-                                    <button type="submit" class="button-follow" data-user-id="{{ post.user.id }}">
-                                        {% if request.user in post.user.followers.all %}
-                                            Suivi
-                                        {% else %}
-                                            Suivre
+                                            <img src="{% static 'assets/default/user.png' %}">
                                         {% endif %}
-                                    </button>
-                                {% endif %}
+                                    </div>
+                                    <div class="details-user">
+                                        {% if post.user.rôle == "professionnel" %}
+                                            <h3> {{ post.user.first_name }} {{ post.user.last_name }} </h3>
+                                            {% else %}
+                                            <h3> <i class="fa fa-briefcase primary"></i> {% if post.user.etablissement %} {{ post.user.etablissement }} {% endif %}
+                                                <span class="danger">
+                                                    ({{ post.user.rôle|upper }})
+                                                </span> 
+                                            </h3>
+                                        {% endif %}
+                                        <span>Posté le {{ post.date_creation_post|date:"d F Y à H:i" }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <form class="subscribe-user" id="subscribe-form-{{ post.user.id }}" action="{% url 'suivre_utilisateur' user_id=post.user.id %}" method="post">
+                                {% csrf_token %}
+                            {% if user.is_authenticated and user != post.user %}
+                                <button type="submit" class="button-follow" data-user-id="{{ post.user.id }}">
+                                    {% if request.user in post.user.followers.all %}
+                                        <i class="fa fa-check"></i> Suivi
+                                    {% else %}
+                                        <i class="fa fa-user-plus"></i> Suivre
+                                    {% endif %}
+                                </button>
+                            {% endif %}
                             </form>
                         </div>
-                        
-                        <div class="center-post">
+                        <div class="content-post">
                             <div class="description">
                                 <p>
                                     {{ post.contenu_post|safe }}
@@ -233,113 +208,264 @@
                                                 <img src="{{ media.image.url }}" alt="Media 1" class="affiche"> 
                                             {% endif %}
                                         {% endfor %}
-                                        
+
                                         {% if post.video %}
                                             <video autoplay muted controls loop disablepictureinpicture controlslist="nodownload noplaybackrate" class="affiche" alt="Media 1">
                                                 <source src="{{ post.video.url }}" type="video/mp4">
                                             </video>
+                                        
                                         {% endif %}
                                     </div>
                                     <button class="next-btn">&#10095;</button>
                                     <div class="media-indicator"></div>
+
+                                    <!-- Modal pour afficher les images en grand -->
+                                    <div id="modal" class="modal" onclick="closeModal()">
+                                        <span class="close_views">&times;</span>
+                                        <img class="modal-content" id="modal-img">
+                                    </div>
                                 </div>
                             {% endif %}
 
-            
-                            
-                            <!-- Modal pour afficher les images en grand -->
-                            <div id="modal" class="modal" onclick="closeModal()">
-                                <span class="close_views">&times;</span>
-                                <img class="modal-content" id="modal-img">
-                            </div>
-                        </div>
-
-                        {% comment %} <div class="bottom-post"></div> {% endcomment %}
-                        <section class="followers">
-                            <a class="like-btn" data-like-url="{% url 'likes' post.pk %}">
-                                <form id="like-form-{{ post.pk }}" method="POST" action="{% url 'likes' post.pk %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="next" value="{{ request.path }}">
-                                    <button type="submit" class="button-like" data-post-id="{{ post.pk }}">
-                                        <span class="like-icon" id="likeIcon{{ post.pk }}">
-                                            {% if user.is_authenticated %}
-                                                {% if request.user in post.like_post.all %}
-                                                    <i class="fa fa-thumbs-up primary"></i>
+                            <div class="followers">
+                                <a class="like-btn" data-like-url="{% url 'likes' post.pk %}">
+                                    <form id="like-form-{{ post.pk }}" method="POST" action="{% url 'likes' post.pk %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                                        <button type="submit" class="button-like" data-post-id="{{ post.pk }}">
+                                            <span class="like-icon" id="likeIcon{{ post.pk }}">
+                                                {% if user.is_authenticated %}
+                                                    {% if request.user in post.like_post.all %}
+                                                        <i class="fa fa-thumbs-up"></i>
+                                                    {% else %}
+                                                        <i class="fa fa-thumbs-down"></i>
+                                                    {% endif %}
                                                 {% else %}
                                                     <i class="fa fa-thumbs-down"></i>
                                                 {% endif %}
+                                            </span>
+                                            <b class="number-like primary">{{ post.like_post.count }}</b>
+                                        </button>
+                                    </form>
+                                </a>
+
+                                <a href="{% url 'post_comments' post.id %}">
+                                    <i class="fa fa-comments">
+                                        <span class="primary" style="font-weight: bold;">
+                                            {% if post.nombre_commentaire > 1000 %}
+                                                {{ post.nombre_commentaire|divisibleby:1000|floatformat:"0.1" }}k
                                             {% else %}
-                                                <i class="fa fa-thumbs-down"></i>
+                                                {{ post.nombre_commentaire }}
                                             {% endif %}
                                         </span>
-                                        <b class="number-like primary">{{ post.like_post.count }}</b>
-                                    </button>
-                                </form>
-                        
-                            </a>
-                            
-                
-                            <a href="{% url 'post_comments' post.id %}">
-                                <i class="fa fa-comments">
-                                    <span class="primary" style="font-weight: bold;">
-                                        {% if post.nombre_commentaire > 1000 %}
-                                            {{ post.nombre_commentaire|divisibleby:1000|floatformat:"0.1" }}k
-                                        {% else %}
-                                            {{ post.nombre_commentaire }}
-                                        {% endif %}
-                                    </span>
-                                </i>
-                            </a>
-                
-                            <a onclick="openPopup('{{ post.id }}')">
-                                <i class="fa fa-share-alt"></i>
-                            </a>
-        
-                        </section>
-                        {% for post in posts %}
-                            <section class="popup popup-{{ post.id }}">
-                                <div class="content-popup">
-                                    <span class="close" onclick="closePopup('{{ post.id }}')">&times;</span>
-                            
-                                    <h2>Partager sur:</h2>
+                                    </i>
+                                </a>
 
-                                    <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
-                            
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
-                            
-                                    <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+                                <a onclick="openPopup('{{ post.id }}')">
+                                    <i class="fa fa-share-alt"></i>
+                                </a>
 
-                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+                                {% for post in posts %}
+                                    <section class="popup popup-{{ post.id }}">
+                                        <div class="content-popup">
+                                            <span class="close" onclick="closePopup('{{ post.id }}')">&times;</span>
+                                    
+                                            <h2>Partager sur:</h2>
 
-                                    <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+                                            <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                                    
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                                    
+                                            <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
 
-                            
-                                    <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
-                            
-                                </div>
-                            
-                            </section>
-                        {% endfor %}
-                    </div>
+                                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+
+                                            <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+
+                                    
+                                            <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                                    
+                                        </div>
+                                    
+                                    </section>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </article>
                 {% endfor %}
-            
+        
                     {% else %}
                     <center>
-                        <p class="success">Aucune poste disponible pour le moment.</p>
+                        <p>Aucun poste disponible pour le moment.</p>
                     </center>
             {% endif %}
-        </div>
-          
-      </div>
+        </section>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Section Side Infos -->
+        <section class="side-section">
+            <div class="side-wrapper">
+                <div class="event-freind">
+                    <div class="event">
+                        <h3 class="heading">Annonces <a href="#">Tout voire</a></h3>
+                        <img src="{% static 'assets/default/image1.jpeg' %}" alt="event-img">
+                        <div class="event-date">
+                            <h3>21 <b>july</b> 2024</h3>
+                            <h4>United state of America <span>New York City</span> <span>Entreprise</span> </h4>
+                        </div>
+                        <button><i class="fa fa-star"></i> Suis Interssé(e) </button>
+                    </div>
+
+                    <hr>
+                
+                    <div class="friend">
+                        <h3 class="heading">Amis Interressés <a href="#">Tout Voire</a></h3>
+                        <ul>
+                            <li><img src="images/image3.jpeg" alt="user"></li>
+                            <li>
+                                <b>armanul islam</b>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-freind">
+                    <div class="event">
+                        <h3 class="heading">Offres <a href="#">Tout voire</a></h3>
+                        <img src="{% static 'assets/default/image2.jpeg' %}" alt="event-img">
+                        <div class="event-date">
+                            <h3>21 <b>july</b> 2024</h3>
+                            <h4>United state of America <span>New York City</span> <span>Ecoles</span> </h4>
+                        </div>
+                        <button><i class="fa fa-star"></i> Suis Interssé(e) </button>
+                    </div>
+
+                    <hr>
+                
+                    <div class="friend">
+                        <h3 class="heading">Amis Interressés <a href="#">Tout Voire</a></h3>
+                        <ul>
+                            <li><img src="images/image3.jpeg" alt="user"></li>
+                            <li>
+                                <b>armanul islam</b>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="messenger">
+                    <div class="messenger-search">
+                        <i class="fa fa-users icon"></i>
+                        <h4>Messenger</h4>
+                        <input type="search" placeholder="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <img src="{% static 'assets/default/image1.jpeg' %}" alt="user">
+                            <b>Zunayed Hossain <span>Online</span></b>
+                            <i class="fa-brands fa-facebook-messenger"></i>
+                        </li>
+
+                        <li>
+                            <img src="{% static 'assets/default/image2.jpeg' %}" alt="user">
+                            <b>Armanul Islam <span>Offline</span></b>
+                            <i class="fa-brands fa-facebook-messenger"></i>
+                        </li>
+
+                        <li>
+                            <img src="{% static 'assets/default/image1.jpeg' %}" alt="user">
+                            <b>Mohammad Amir <span>Online</span></b>
+                            <i class="fa fa-facebook-messenger"></i>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="event-freind">
+                    <div class="event">
+                        <h3 class="heading">Evénement <a href="#">Tout voire</a></h3>
+                        <img src="{% static 'assets/default/image2.jpeg' %}" alt="event-img">
+                        <div class="event-date">
+                            <h3>21 <b>july</b> 2024</h3>
+                            <h4>United state of America <span>New York City</span> <span>Ecoles</span> </h4>
+                        </div>
+                        <button><i class="fa fa-star"></i> Suis Interssé(e) </button>
+                    </div>
+
+                    <hr>
+                
+                    <div class="friend">
+                        <h3 class="heading">Amis Interressés <a href="#">Tout Voire</a></h3>
+                        <ul>
+                            <li><img src="{% static 'assets/default/image3.jpeg' %}" alt="user"></li>
+                            <li>
+                                <b>armanul islam</b>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Suivez-nous</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">© 2024 Galsen. Tous droits réservés.</p>
+            </div>
+            <div class="footer-section">
+                <p class="credits">Développé par <a href="#" class="credit-link">BourStudios</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stocke la position actuelle dans un cookie lors du chargement de la page
+            document.cookie = 'scrollPos=' + window.scrollY + ';path=/';
+        });
+
+
+
+        let more = document.querySelectorAll('.more');
+
+        for (let i = 0; i < more.length; i ++) {
+            more[i].addEventListener('click', function() {
+                more[i].parentNode.classList.toggle('active')
+            })
+        }
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/profil.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 
     <script>

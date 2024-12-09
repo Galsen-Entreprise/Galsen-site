@@ -1,3 +1,4 @@
+from itertools import islice
 from django.http import HttpResponse, HttpResponseNotFound
 from django.utils import timezone
 from django.db import models
@@ -1502,16 +1503,35 @@ def detail_profile(request):
     # Récupérer tous les posts de l'utilisateur
     posts = Post.objects.filter(user=user)
 
+    # Récupérer les amis de l'utilisateur (assurez-vous que `get_amis` fonctionne)
+    amis = user.get_amis()[:3]  # Limiter à 3 amis
+
     return render(request, 'profils/user.html', {
-        'user': user, 
+        'user': user,
         'total_likes_received': total_likes_received,
-        'posts': posts  # Passer les postes au template
+        'posts': posts,  # Passer les postes au template
+        'amis': amis,  # Passer les amis limités au template
     })
 
 def user_detail(request, user_id):
     profile_user = get_object_or_404(CustomUser, pk=user_id)
     posts = Post.objects.filter(user=profile_user)  # Récupère tous les posts de cet utilisateur
-    return render(request, 'profils/users_public.html', {'profile_user': profile_user, 'posts': posts})
+
+    # Récupérer les amis
+    amis = profile_user.get_amis()
+    total_amis = len(amis)  # Nombre total d'amis
+    trois_amis = list(islice(amis, 3))  # Limiter à 3 amis pour affichage
+
+    # Calculer les amis en commun
+    amis_en_commun = profile_user.amis_en_commun(request.user)
+
+    return render(request, 'profils/users_public.html', {
+        'profile_user': profile_user,
+        'posts': posts,
+        'amis': trois_amis,  # Les 3 premiers amis
+        'total_amis': total_amis,  # Nombre total d'amis
+        'amis_en_commun': amis_en_commun,  # Nombre d'amis en commun
+    })
 
 def annonce_detail(request, annonce_id):
     annonce = get_object_or_404(Annonce, pk=annonce_id)

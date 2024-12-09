@@ -32,8 +32,8 @@
 
     <!-- Nav bar Top PC -->
     <nav class="navbar" id="header">
-        <div class="navbar-container">
-            <a href="/" class="logo">
+        <div class="navbar-container" id="header">
+            <a href="#" class="logo">
                 <h1><span class="logo-sun">Gal</span><span class="logo-price">sen</span></h1>
             </a>
             
@@ -63,12 +63,14 @@
                         <path d="M16 10a4 4 0 0 1-8 0"></path>
                     </svg>
                 </button>
-                <button class="icon-btn" aria-label="Compte">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </button>
+
+                <a href="detail_profile" class="user-connecte">
+                    {% if user.profile_image and user.profile_image.url %}
+                        <img src="{{ user.profile_image.url }}">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}">
+                    {% endif %}
+                </a>
             </div>
 
             <button class="menu-btn" aria-label="Menu">
@@ -203,6 +205,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
-    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 </body>
 </html>
