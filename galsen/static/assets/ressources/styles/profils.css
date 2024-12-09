@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
 {
     top: 46px;
     position: absolute;
-    right: -54px;
+    right: -96px;
 }
 
 .banner-profil, .banner-profil a img
@@ -259,5 +259,10 @@ h1, h2, h3, h4, h5, h6 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
         gap: 1rem;
+    }
+
+    .profil-btn
+    {
+        right: -54px;
     }
 }
