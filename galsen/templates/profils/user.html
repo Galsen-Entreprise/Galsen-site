@@ -509,22 +509,5 @@
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Stocke la position actuelle dans un cookie lors du chargement de la page
-            document.cookie = 'scrollPos=' + window.scrollY + ';path=/';
-        });
-
-
-
-        let more = document.querySelectorAll('.more');
-
-        for (let i = 0; i < more.length; i ++) {
-            more[i].addEventListener('click', function() {
-                more[i].parentNode.classList.toggle('active')
-            })
-        }
-    </script>
-
 </body>
 </html>

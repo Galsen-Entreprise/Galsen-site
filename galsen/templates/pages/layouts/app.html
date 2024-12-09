@@ -109,12 +109,24 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-        <h2> {{ user.first_name }} {{ user.last_name }} </h2>
-        {% if user.rôle != "professionnel" %}
-            <i>{{ user.etablissement }}</i>
+        <a href="detail_profile">
+            {% if user.profile_image and user.profile_image.url %}
+                <img src="{{ user.profile_image.url }}">
             {% else %}
-            <i>{{ user.metier }}</i>
-        {% endif %}
+                <img src="{% static 'assets/default/user.png' %}">
+            {% endif %}
+            <h2 class="sidebar-name"> 
+                <span>
+                    {{ user.first_name }} {{ user.last_name }} 
+                </span>
+                {% if user.rôle != "professionnel" %}
+                    (<i>{{ user.etablissement }}</i>)
+                    {% else %}
+                    (<i>{{ user.metier }}</i>)
+                {% endif %}
+            </h2>
+        </a>
+        
         <div class="sidebar-content">
             {% if request.user.access != 'no_autorised' %}
                 <a href="login_admin" class="sidebar-link"> <i class="fa fa-user-secret"></i> <span> Admin </span> </a>
@@ -205,6 +217,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
-    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
+    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
 </body>
 </html>
