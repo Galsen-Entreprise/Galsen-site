@@ -155,7 +155,7 @@
     <!-- Freinds -->
     <section class="common-freind">
         <div class="title-freind">
-            <h2>{{ request.user.get_amis|length }} amis <span><a href="#"> Voir Tout </a></span></h2>
+            <h2>{{ request.user.get_amis|length }} amis <span><a href="amis"> Voir Tout </a></span></h2>
             <i class="number-followers">
                 <a href="{% url 'following_view' %}">{{ user.following_users.count }} abonnements</a>
                 <a href="{% url 'abonner' %}">{{ user.followers.count }} abonnés</a>
@@ -507,7 +507,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
-    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 
 </body>
 </html>

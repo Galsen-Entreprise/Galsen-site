@@ -1504,7 +1504,7 @@ def detail_profile(request):
     posts = Post.objects.filter(user=user)
 
     # Récupérer les amis de l'utilisateur (assurez-vous que `get_amis` fonctionne)
-    amis = user.get_amis()[:3]  # Limiter à 3 amis
+    amis = user.get_amis()[:6]  # Limiter à 3 amis
 
     return render(request, 'profils/user.html', {
         'user': user,
@@ -1520,7 +1520,7 @@ def user_detail(request, user_id):
     # Récupérer les amis
     amis = profile_user.get_amis()
     total_amis = len(amis)  # Nombre total d'amis
-    trois_amis = list(islice(amis, 3))  # Limiter à 3 amis pour affichage
+    trois_amis = list(islice(amis, 6))  # Limiter à 3 amis pour affichage
 
     # Calculer les amis en commun
     amis_en_commun = profile_user.amis_en_commun(request.user)

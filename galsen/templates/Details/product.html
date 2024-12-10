@@ -14,179 +14,266 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/product_details.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-right.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/main.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
 
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="infos-vendeur">
-                {% if produit.boutique.profile_image and produit.boutique.profile_image.url %}
-                    <img src="{{ produit.boutique.photo_profil.url }}">
-                {% else %}
-                    <img src="{% static 'assets/default/user.png' %}">
-                {% endif %}
-                <span> {{ produit.boutique.nom_boutique }} </span>
-            </div>
-
-            <div class="follow-boutique">
-                <i class="fa fa-list-alt"></i>
-            </div>
-        </nav>
+    <!-- Hero -->
+    <header class="hero">
+        <form class="hero-content">
+            <h2>
+                Bienvenue sur {{ produit.boutique.nom_boutique }}
+                <p>{{ produit.boutique.description|safe }}</p>
+            </h2>
+        </form>
     </header>
 
-    <section class="content">
-        <div class="content-products">
-            <div class="product-images">
-                <img src="{{ produit.mediasproduct_set.first.image.url }}">
-            </div>
-            <div class="product-infos">
-                <h1 class="title">
-                    {{ produit.nom_produit }}
-                </h1>
-                <h3 class="price">
-                    {{ produit.prix }} {{ produit.boutique.devise_money }}
-                </h3>
-                <b class="date text-muteds"> Mis en vente le, {{ produit.date_creation|date:"d F Y à H:i" }} </b>
-            </div>
 
-            <div class="description">
-                <h1>Description</h1>
-                <p>{{ produit.description|safe }}</p>
-            </div>
-
-            <h1>Autres Images du produit</h1>
-            <div class="product-grid autre-image">
-                {% for media in produit.mediasproduct_set.all %}
-                    {% if media.image %}
-                            {% if media.image and media.image.url %}
-                                <a href="{{ media.image.url }}"  data-lightbox="mygallery">
-                                    <img src="{{ media.image.url }}">
-                                </a>
-                            {% endif %}
-                        {% else %}
-                        <center>
-                            <p class="success">Aucun produits similaires</p>
-                        </center>
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="facture">
-                <center>
-                        {% if user.is_authenticated %}
-                            {% if is_in_facture %}
-                                <!-- Afficher le bouton pour enlever le produit de la facture -->
-                                <form method="POST" action="{% url 'product_detail' product_id=produit.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" name="remove"> <i class="fa fa-list-alt"></i> Enlever de la Facture</button>
-                                </form>
+    <main class="product-detail-container">
+        <div class="product-detail-grid">
+            <!-- Image Section -->
+            <div class="product-image-section">
+                <a href="{{ produit.mediasproduct_set.first.image.url }}" data-lightbox="mygallery">
+                    <img src="{{ produit.mediasproduct_set.first.image.url }}" alt="Panier de fruits frais" class="product-main-image">
+                </a>
+                <div class="product-thumbnails">
+                    {% for media in produit.mediasproduct_set.all %}
+                        {% if media.image %}
+                                {% if media.image and media.image.url %}
+                                    <a href="{{ media.image.url }}" data-lightbox="mygallery">
+                                        <img src="{{ media.image.url }}" alt="Thumbnail 1" class="thumbnail active">
+                                    </a>
+                                {% endif %}
                             {% else %}
-                                <!-- Afficher le bouton pour ajouter le produit à la facture -->
-                                <form method="POST" action="{% url 'product_detail' product_id=produit.id %}">
-                                    {% csrf_token %}
-                                    <label for="quantity">Quantité :</label>
-                                    <input type="number" id="quantity" name="quantity" value="1" min="1" required>
-                                    <button type="submit"> <i class="fa fa-list-alt"></i> Ajouter au Facture</button>
-                                </form>
-                            {% endif %}
+                                <p class="success">Aucun autres images du produit</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Product Info Section -->
+            <div class="product-info-section">
+                <span class="vendor-badge vendor-badge-supermarket">{{ produit.category }}</span>
+                <h1 class="product-title">{{ produit.nom_produit }}</h1>
+                <div class="product-price">{{ produit.prix }} {{ produit.boutique.devise_money }}</div>
+                <p class="product-description">
+                    {{ produit.description|safe }}
+
+                    <br>
+
+                    <i class="date"> Mis en vente le, {{ produit.date_creation|date:"d F Y à H:i" }} </i>
+                </p>
+                
+                {% if user.is_authenticated %}
+                    {% if is_in_facture %}
+                            <form class="product-actions" method="POST" action="{% url 'product_detail' product_id=produit.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="add-to-cart-btn">
+                                    Envlever de votre facture
+                                </button>
+                            </form>
+                        {% else %}
+                            <form class="product-actions" method="POST" action="{% url 'product_detail' product_id=produit.id %}">
+                                {% csrf_token %}
+                                <div class="quantity-selector">
+                                    <a class="quantity-btn minus">-</a>
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input">
+                                    <a class="quantity-btn max">+</a>
+                                </div>
+                                <button type="submit" class="add-to-cart-btn">
+                                    Ajouter au facture
+                                </button>
+                            </form>
+                    {% endif %}
                         {% else %}
                             <p>Veuillez vous connecter pour gérer votre facture.</p>
-                        {% endif %}
-                </center>
-            </div>
-                
-            <div class="buttons">
-                {% if In_commande %}
-                    <p>Produit déjà à votre commande</p>
-                {% else %}
-                    <a onclick="openPopup()"> 
-                        <i class="fa fa-shopping-bag"></i> Commander 
-                    </a>
                 {% endif %}
-                <a href="{% url 'boutique_detail' produit.boutique.id %}"> 
-                    <i class="fa fa-shopping-cart"></i> Visiter la boutique 
-                </a>
-            </div>
 
-            <div class="popup-commande">
-                <span class="close" onclick="closePopup()">&times;</span>
-
-                <header>
-                    <h3>
-                        Confirmer votre Commande!
-                    </h3>
-                </header>
-
-                <form class="precise" method="post" action="{% url 'produit_commande' produit_id=produit.pk %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="text" name="commande" value="a commander ce produit." readonly Style="display: none;">
-
-                    <textarea name="precision" id="" cols="30" rows="10"></textarea>
-
-                    <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
-                    <script>
-                        CKEDITOR.replace("precision");
-                    </script>
-
-                    <div>
-                        <button class="commander" type="submit"> Valider! </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="similaires">
-                <h1 class="title-categorie">Produits similaires dans la catégorie : {{ produit.get_category_display }}</h1>
-                <div class="products-grid">
-                    {% if produits_meme_categorie %}
-                            {% for produits_meme_categorie in produits_meme_categorie %}
-                                <div class="product-card">
-                                    <div class="img-product">
-                                        <img src="{{ produits_meme_categorie.mediasproduct_set.first.image.url }}">
-                                        <ul class="action">
-                                            <li> 
-                                                <a href="{% url 'product_detail' produit.id %}">
-                                                    <i class="fa fa-eye"></i>
-                                                    <span>Consulter le Produit</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <div class="product-name">
-                                            <h3>{{ produits_meme_categorie.nom_produit }}</h3>
-                                        </div>
-                                        <div class="product-price_rating">
-                                            <h2>{{ produits_meme_categorie.prix }} {{ produits_meme_categorie.boutique.devise_money }}</h2>
-                                            <div class="rating">
-                                                <h3>1 000 <i class="fa fa-star"></i></h3>
-                                            </div>
-                                        </div>
-                                        <a href="{% url 'product_detail' produit.id %}" class="link-product">
-                                            <b>
-                                                Consulter
-                                            </b>
-                                        </a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                        <center>
-                            <p class="success">Aucun produits similaires</p>
-                        </center>
+                <div class="product-actions">
+                    {% if In_commande %}
+                        <p>Produit déjà à votre commande</p>
+                    {% else %}
+                        <a class="add-to-cart-btn" onclick="openPopup()"> 
+                            Commander
+                        </a>
                     {% endif %}
+                </div>
+                <div class="popup-commande">
+                    <span class="close" onclick="closePopup()">&times;</span>
+    
+                    <header>
+                        <h3>
+                            Confirmer votre Commande!
+                        </h3>
+                    </header>
+    
+                    <form class="precise" method="post" action="{% url 'produit_commande' produit_id=produit.pk %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" name="commande" value="a commander ce produit." readonly Style="display: none;">
+    
+                        <textarea name="precision" id="" cols="30" rows="10"></textarea>
+    
+                        <script src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+                        <script>
+                            CKEDITOR.replace("precision");
+                        </script>
+    
+                        <div>
+                            <button class="commander" type="submit"> Valider! </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        {% include 'pages/common/sidebar.html' %}
-    </section>
+        <!-- Slider Section -->
+        <section class="slider-section">
+            <div class="slider">
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Découvrez nos offres</h3>
+                        <p>Les meilleurs prix près de chez vous</p>
+                    </div>
+                </a>
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Produits locaux</h3>
+                        <p>Soutenez vos commerces de proximité</p>
+                    </div>
+                </a>
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Prix compétitifs</h3>
+                        <p>Comparez et économisez</p>
+                    </div>
+                </a>
+            </div>
+            <button class="slider-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </section>
 
-    {% include 'pages/common/footer.html' %}
+        <!-- Vendor Section -->
+        <section class="vendor-section">
+            <h2 class="section-title">À propos du vendeur</h2>
+            <div class="vendor-card">
+                <div class="vendor-banner">
+                    {% if produit.boutique.banner_image and produit.boutique.banner_image.url %}
+                        <img src="{{ produit.boutique.banner_image.url }}" class="banner-image">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                    {% endif %}
+                </div>
+                <div class="vendor-profile">
+                    {% if produit.boutique.profile_image and produit.boutique.profile_image.url %}
+                        <img src="{{ produit.boutique.photo_profil.url }}" class="profile-image">
+                    {% else %}
+                        <img src="{% static 'assets/default/user.png' %}" class="profile-image">
+                    {% endif %}
+                    <div class="vendor-info">
+                        <h3 class="vendor-name">{{ produit.boutique.nom_boutique }}</h3>
+                        <div class="vendor-details">
+                            <p><i class="fa fa-map-marker"></i>{{ produit.boutique.user.quartier }}, {{ produit.boutique.user.ville }}, {{ produit.boutique.user.pays }}</p>
+                            <p><i class="fa fa-star"></i> 120 clients</p>
+                            <p><i class="fa fa-clock-o"></i> Ouvert aujourd'hui jusqu'à 20h</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-actions">
+                    
+                <a href="{% url 'boutique_detail' produit.boutique.id %}" class="add-to-cart-btn">
+                    Visiter le boutique
+                </a>
+            </div>
+            <form class="product-actions">
+                    
+                <button class="add-to-cart-btn">
+                    Devenir Client
+                </button>
+            </form>
+        </section>
+
+        
+        <h2 class="section-title">Produits Similaires</h2>
+        <!-- Boutiques -->
+        <section class="products-grid">
+            {% if produits_meme_categorie %}
+                {% for produits_meme_categorie in produits_meme_categorie %}
+                    <article class="product-card">
+                        <img src="{{ produits_meme_categorie.mediasproduct_set.first.image.url }}" alt="Panier de fruits frais" class="product-image">
+                        <div class="product-info">
+                            <span class="vendor-badge vendor-badge-supermarket">{{ produits_meme_categorie.category }}</span>
+                            <h3 class="product-title">{{ produits_meme_categorie.nom_produit }}</h3>
+                            <p class="product-price">{{ produits_meme_categorie.prix }} {{ produits_meme_categorie.boutique.devise_money }}</p>
+                            <a href="{% url 'product_detail' produit.id %}" class="search-btn">
+                                Consulter le produit
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <p class="success">Aucun produits similaires</p>
+            {% endif %}
+        </section>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Suivez-nous</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">© 2024 Galsen. Tous droits réservés.</p>
+            </div>
+            <div class="footer-section">
+                <p class="credits">Développé par <a href="#" class="credit-link">BourStudios</a></p>
+            </div>
+        </div>
+    </footer>
     
+    
+    <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/details.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
     <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>

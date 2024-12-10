@@ -97,12 +97,12 @@
                             </form>
                         </div>
                         <div class="content-post">
-                            <div class="description">
+                            <div class="description more">
                                 <p>
                                     {{ post.contenu_post|safe }}
                                 </p>
                             </div>
-                            <a class="more"></a>
+                            <a class="more more-btn"></a>
 
                             {% if post.mediaspost_set.all or post.video %}
                                 <div class="media-carousel" data-post-id="{{ post.id }}">
@@ -177,18 +177,20 @@
                                     
                                             <h2>Partager sur:</h2>
 
-                                            <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
-                                    
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
-                                    
-                                            <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
+                                            <div class="link-share">
+                                                <a href="whatsapp://send?text=Consultez%20ce%20lien%20pour%20plus%20d'informations%3A%20{% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-whatsapp whatsapp"><br><span>Whatsapp</span></a>
+                                        
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-facebook facebook"><br><span>Facebook</span></a>
+                                        
+                                                <a href="https://t.me/share/url={% url 'post_detail' post_id=post.id %}&text=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-telegram telegram"><br><span>Telegram</span></a>
 
-                                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
+                                                <a href="https://www.linkedin.com/sharing/share-offsite/?url={% url 'post_detail' post_id=post.id %}" target="_blank" class="fa fa-linkedin linkedin"><br><span>LinkedIn</span></a>
 
-                                            <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
+                                                <a href="https://www.pinterest.com/pin/create/button/?url={% url 'post_detail' post_id=post.id %}&description=Consultez ce lien pour plus d'information" target="_blank" class="fa fa-pinterest pinterest"><br><span>Pinterest</span></a>
 
-                                    
-                                            <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                                        
+                                                <!-- <label for="#" class="fa fa-link link"><br><span>Copy Link</span></label> -->
+                                            </div>
                                     
                                         </div>
                                     

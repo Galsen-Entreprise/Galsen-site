@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
 }
 
-.content-post .more
+.content-post .more-btn
 {
     position: relative;
     padding: 5px;
@@ -127,21 +127,16 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     letter-spacing: 2px;
     font-size: 14px;
-    color: var(--color-blue-dark);
+    color: var(--color-blue);
     cursor: pointer;
 }
 
-.content-post.active .more
-{
-    color: var(--color-blue);
-}
-
-.content-post .more::before
+.content-post .more-btn::before
 {
     content: 'Voire Plus';
 }
 
-.content-post.active .more::before
+.content-post.active .more-btn::before
 {
     content: 'Voire Moins';
 }
@@ -288,7 +283,7 @@ button.button-like
     color: var(--color-blue);
 }
 
-.popup 
+.popup
 {
     display: none;
     position: fixed;
@@ -313,13 +308,13 @@ button.button-like
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    color: var(--color-white);
+    color: var(--color-black);
     cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: var(--color-blue-dark);
+    color: var(--color-blue);
     text-decoration: none;
     cursor: pointer;
 }
@@ -331,6 +326,13 @@ button.button-like
     justify-content: center;
     padding-bottom: 5px;
     border-bottom: 2px solid var(--color-blue);
+}
+
+.content-popup .link-share
+{
+    display: flex;
+    padding-top: 39px;
+    margin-right: 30px;
 }
 
 .content-popup a, .content-popup label
@@ -350,32 +352,32 @@ button.button-like
     margin-top: 10px;
 }
 
-.whatsapp
+.content-popup .whatsapp
 {
     color: #25D366;
 }
 
-.facebook
+.content-popup .facebook
 {
     color: #2364f0;
 }
 
-.telegram
+.content-popup .telegram
 {
     color: #0088cc;
 }
 
-.linkedin
+.content-popup .linkedin
 {
     color: #0077b5;
 }
 
-.pinterest
+.content-popup .pinterest
 {
     color: #C8232C;
 }
 
-.link
+.content-popup .link
 {
     color: grey;
 }
