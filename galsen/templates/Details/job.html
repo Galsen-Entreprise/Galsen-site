@@ -4,209 +4,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALSEN</title>
-
-    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/sunprice.png' %}">
+    <link type="images/jpg" rel="icon" href="{% static 'assets/logo/galsen.jpg' %}">
+    
+    <title> GALSEN </title>
 
     <!-- Box Icone -->
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/icones/font-awesome/css/font-awesome.min.css' %}">
 
     <!-- Style -->
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/profil.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/contenu.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/boutique-slide.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/product_details.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/sidebar-menus.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/main.css' %}">
     <link rel="stylesheet" href="{% static 'assets/ressources/styles/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/ressources/styles/theme.css' %}">
+
 
 </head>
 <body>
 
-    <div class="profile-container">
-        <!-- Profile Banner -->
-        <div class="banner-job">
-            {% if job.user.banner_image and job.user.banner_image.url %}
-                    <a href="{{ job.user.banner_image.url }}" data-lightbox="mygallery">
-                        <img src="{{ job.user.banner_image.url }}">
-                    </a>
-                {% else %}
-                    <img src="{% static 'assets/default/user.png' %}">
-            {% endif %}
-        </div>
-    
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-pic">
-                    {% if job.user.profil_image and job.user.profil_image.url %}
-                        <a href="{{ job.user.profile_image.url }}" data-lightbox="mygallery">
-                            <img src="{{ job.user.profile_image.url }}">
-                        </a>
-                        {% else %}
-                            <img src="{% static 'assets/default/user.png' %}">
-                    {% endif %}
-            </div>
-
-            <div class="profile-info">
-                <h1>
-                    {% if job.user.rôle == "professionnel" %}
-                        {{ job.user.first_name }} {{ job.user.last_name }}
-                    {% else %}
-                        {{ job.user.etablissement }}
-                    {% endif %}
-                </h1>
-                <p>{{ job.user.email }}</p>
-            </div>
-        </div>
-    
-        <!-- Navigation Links -->
-        <div class="profile-nav">
-          <ul>
-            <li><a href="#"><span>{{ job.user.following_users.count }}</span>Abonnements</a></li>
-            <li><a href="#"><span>{{ job.user.followers.count }}</span>Abonnés</a></li>
-            <li><a href="#"><span>{{ job.user.total_likes_received }}</span>Aimes</a></li>
-          </ul>
-        </div>
-    
-        <!-- Profile Content -->
-        <div class="profile-content">
-            <div class="buttons-1">
-                <form id="subscribe-form-{{ profile_user.id }}" class="subscribe-form" action="{% url 'suivre_utilisateur' user_id=job.user.id %}" method="post">
-                    {% csrf_token %}
-                    {% if user.is_authenticated and user != profile_user %}
-                        <button type="submit" class="button" data-user-id="{{ job.user.id }}">
-                            {% if request.user in job.user.followers.all %}
-                            <i class="fa fa-check"></i> Suivi
+    <!-- Hero -->
+    <header class="hero">
+        <form class="hero-content">
+            <h2>
+                Bienvenue sur {% if job.user.rôle == "professionnel" %}
+                                {{ job.user.first_name }} {{ job.user.last_name }}
                             {% else %}
-                            <i class="fa fa-user-plus"></i> Suivre
+                                {{ job.user.etablissement }}
                             {% endif %}
-                        </button>
-                    {% endif %}
-                </form>
-                <a href="{% url 'a_propos_detail' user_id=job.user.id %}" class="button"> <i class="fa fa-list-alt"></i> A Propos </a>
-            </div>
+                <a href="{% url 'user_detail' user_id=job.id %}" class="search-btn">
+                    Consulter son profil
+                </a>
+            </h2>
+        </form>
+    </header>
 
-            <ul class="status">
-                <li>
-                    {% if job.user.genre == "homme" %}
-                        <i class="fa fa-male primary"></i>
-                        <p>Je suis un
-                            <span>{{ job.user.genre }}</span> 
-                        </p>
-                    {% elif user.genre == "femme" %}
-                        <i class="fa fa-female primary"></i>
-                        <p>Je suis une
-                            <span>{{ job.user.genre }}</span> 
-                        </p>
+
+    <main class="product-detail-container">
+        <div class="product-detail-grid">
+            <!-- Image Section -->
+            <div class="product-image-section">
+                {% if job.user.banner_image and job.user.banner_image.url %}
+                    <a href="{{ job.user.banner_image.url }}" data-lightbox="mygallery">
+                        <img src="{{ job.user.banner_image.url }}" alt="Panier de fruits frais" class="product-main-image">
+                    </a>
                     {% else %}
-                        <p>Genre non spécifié</p>
-                    {% endif %}
-                </li>
-
-                <li>
-                    <i class="fa fa-home primary"></i>
-                    <p>J'habites au(x) 
-                        <span>{{ user.pays }}</span> dans la ville de 
-                        <span>{{ user.ville }}</span> au quartier 
-                        <span>{{ user.quartier }}</span> 
-                     </p>
-                </li>
-
-                <li>
-                    <i class="fa fa-transgender primary"></i>
-                    <p>Je suis 
-                        <span>{{ job.user.situation_matrimoniale }}</span> 
-                     </p>
-                </li>
-
-                
-                {% if job.user.rôle == "professionnel" %}
-                        <li>
-                            <i class="fa fa-briefcase primary"></i>
-                            <p>J'ai comme métier:
-                                <span>{{ job.user.metier }}</span> 
-                            </p>
-                        </li>
-                    {% else %}
-
+                        <img src="{% static 'assets/default/user.png' %}" class="product-main-image">
                 {% endif %}
+            </div>
+            <!-- Product Info Section -->
+            <div class="product-info-section">
+                <span class="vendor-badge vendor-badge-supermarket">{{ job.user.rôle|upper }}</span>
+                <h1 class="product-title">{{ job.title|safe }}</h1>
+                <div class="product-price">{{ produit.prix }} {{ produit.boutique.devise_money }}</div>
+                <p class="product-description">
+                    {{ job.contenu_job|safe }}
 
-                <li>
-                    <a href="tel:+{{ job.user.indicatif_pays }}{{ job.user.number_phone }}">
-                        <i class="fa fa-phone primary"></i>
-                        <p>Mon numéro de téléphone est: 
-                            <span>+{{ job.user.indicatif_pays }} {{ job.user.number_phone }}</span> 
-                        </p>
-                    </a>
-                </li>
+                    <br>
 
-                <li>
-                    <a href="https://wa.me/+{{ job.user.indicatif_pays }}{{ job.user.number_whatsapp }}">
-                        <i class="fa fa-whatsapp primary"></i>
-                        <p>Mon numéro whatsapp est: 
-                            <span>+{{ job.user.indicatif_pays }} {{ job.user.number_whatsapp }}</span> 
-                        </p>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="mailto:{{ job.user.email }}">
-                        <i class="fa fa-envelope primary"></i>
-                        <p>Et mon email est: 
-                            <span>{{ job.user.email }}</span> 
-                        </p>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="job-content">
-                <div class="job-infos-date">
-                    <h4>
-                        <span> 
-                            <i class="fa fa-calendar primary"></i> L'offre est postée le, {{ job.date_creation_post|date:"d F Y à H:i" }} 
-                        </span>
-                    </h4>
-                </div>
-                <div class="job-title">
-                    <h1>
-                        {{ job.title|safe }}
-                    </h1>
-                </div>
-                <div class="job-description">
-                    <p>
-                        {{ job.contenu_job|safe }}
-
-                    </p>
-                </div>
-                <div class="job-buttons">
-                    <form id="postule-form-{{ job.pk }}" method="POST" action="{% url 'postule' job.pk %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="next" value="{{ request.path }}">
-                        <button class="postuler" type="submit">
-                            {% if request.user in job.postule_job.all %}
+                    <i class="date">L'offre est postée le, {{ job.date_creation_post|date:"d F Y à H:i" }} </i>
+                </p>
+                
+                <form class="product-actions" id="postule-form-{{ job.pk }}" method="POST" action="{% url 'postule' job.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="add-to-cart-btn">
+                        {% if request.user in job.postule_job.all %}
                                 Ne plus postuler
                             {% else %}
-                                Postuler
+                                Postuler &nbsp;
+                        {% endif %}
+                    </button>
+                    
+                    <b class="number-like danger">&nbsp; {{ job.postule_job.count }} postulant(s) </b>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Slider Section -->
+        <section class="slider-section">
+            <div class="slider">
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image1.jpeg' %}" alt="Tech Image 1" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Découvrez nos offres</h3>
+                        <p>Les meilleurs prix près de chez vous</p>
+                    </div>
+                </a>
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image2.jpeg' %}" alt="Tech Image 2" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Produits locaux</h3>
+                        <p>Soutenez vos commerces de proximité</p>
+                    </div>
+                </a>
+                <a href="#" class="slide">
+                    <img src="{% static 'assets/default/image3.jpeg' %}" alt="Tech Image 3" class="slide-image">
+                    <div class="slide-content">
+                        <h3>Prix compétitifs</h3>
+                        <p>Comparez et économisez</p>
+                    </div>
+                </a>
+            </div>
+            <button class="slider-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="slider-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </section>
+
+        <!-- Vendor Section -->
+        <section class="vendor-section">
+            <h2 class="section-title">À propos de l'auteur</h2>
+            <div class="vendor-card">
+                <div class="vendor-banner">
+                    {% if job.user.banner_image and job.user.banner_image.url %}
+                            <a href="{{ job.user.banner_image.url }}" data-lightbox="mygallery">
+                                <img src="{{ job.user.banner_image.url }}" class="banner-image">
+                            </a>
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}" class="banner-image">
+                    {% endif %}
+                </div>
+                <div class="vendor-profile">
+                    {% if job.user.profil_image and job.user.profil_image.url %}
+                        <a href="{{ job.user.profile_image.url }}" data-lightbox="mygallery">
+                            <img src="{{ job.user.profile_image.url }}" class="profile-image">
+                        </a>
+                        {% else %}
+                            <img src="{% static 'assets/default/user.png' %}" class="profile-image">
+                    {% endif %}
+
+                    <div class="vendor-info">
+                        <h3 class="vendor-name">
+                            {% if job.user.rôle == "professionnel" %}
+                                {{ job.user.first_name }} {{ job.user.last_name }}
+                            {% else %}
+                                {{ job.user.etablissement }}
                             {% endif %}
-                            <b class="number-like danger">{{ job.postule_job.count }}</b>
-                        </button>
-                    </form>
-                    <button> <i class="fa fa-share-alt"></i> </button>
+                        </h3>
+                        <div class="vendor-details">
+                            <p><i class="fa fa-map-marker"></i>{{ user.quartier }}, {{ user.ville }}, {{ user.pays }}</p>
+                            <p><i class="fa fa-star"></i> 120 amis</p>
+                            <p><i class="fa fa-clock-o"></i> Ouvert aujourd'hui jusqu'à 20h</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="product-actions">
+                    
+                <a href="{% url 'user_detail' user_id=job.id %}" class="add-to-cart-btn">
+                    Visiter le compte
+                </a>
+            </div>
+        </section>
+    </main>
 
-            {% include 'PUB/partenaire.html' %}
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Suivez-nous</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">© 2024 Galsen. Tous droits réservés.</p>
+            </div>
+            <div class="footer-section">
+                <p class="credits">Développé par <a href="#" class="credit-link">BourStudios</a></p>
+            </div>
         </div>
-          
-    </div>
+    </footer>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'assets/ressources/scripts/sidebar-right.js' %}"></script>
+    
+    <script src="{% static 'assets/ressources/scripts/galsen.js' %}"></script>
+    <script src="{% static 'assets/ressources/scripts/details.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/theme.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/profil.js' %}"></script>
-    <script src="{% static 'assets/ressources/scripts/post.js' %}"></script>
     <script src="{% static 'assets/ressources/scripts/lightbox-plus-jquery.min.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script> -->
-
+    <script src="{% static 'assets/algos/scripts/secrete.js' %}"></script>
 </body>
 </html>

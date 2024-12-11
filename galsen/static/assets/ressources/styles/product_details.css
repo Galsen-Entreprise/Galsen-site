@@ -105,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-description {
-    color: #666;
+    color: var(--color-black);
     line-height: 1.6;
     margin-bottom: 2rem;
 }
